@@ -984,7 +984,7 @@ Descarga completada.
 <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">mticker</span><span class="o">.</span><span class="n">FuncFormatter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">_</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;$</span><span class="si">{</span><span class="n">x</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Año&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;USD corrientes&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Evolución del PIB per cápita en América Latina (2000–2022, loc=&#39;left&#39;)&quot;</span><span class="p">,</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Evolución del PIB per cápita en América Latina (2000–2022)&quot;</span><span class="p">,</span>
              <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;País&quot;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.02</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
@@ -1000,7 +1000,7 @@ Descarga completada.
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/028ac1b7d10d03965430204c0b81207ef01a6ae1b069e02ebc40a1bac3d8e82d.png" src="_images/028ac1b7d10d03965430204c0b81207ef01a6ae1b069e02ebc40a1bac3d8e82d.png" />
+<img alt="_images/cd93749a36a40d73fdb66ecfd37daf4614f36deeb60ca92ad879c6dcb7bfee0b.png" src="_images/cd93749a36a40d73fdb66ecfd37daf4614f36deeb60ca92ad879c6dcb7bfee0b.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Observación: Los valores en USD corrientes son sensibles a variaciones del tipo de cambio.
 En países con alta inflación (como Argentina), las caídas pronunciadas reflejan
 devaluaciones del tipo de cambio, no necesariamente contracciones reales de la economía.
@@ -1137,7 +1137,7 @@ devaluaciones del tipo de cambio, no necesariamente contracciones reales de la e
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Posición (1 = mejor)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Ranking de Argentina en América Latina por indicador</span><span class="se">\n</span><span class="s2">&quot;</span>
-             <span class="s2">&quot;(posición 1 = mejor desempeño en la región, loc=&#39;left&#39;)&quot;</span><span class="p">,</span>
+             <span class="s2">&quot;(posición 1 = mejor desempeño en la región)&quot;</span><span class="p">,</span>
              <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mf">5.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#e84040&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.2</span><span class="p">,</span>
            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Mitad de la tabla&quot;</span><span class="p">)</span>
@@ -1154,7 +1154,7 @@ devaluaciones del tipo de cambio, no necesariamente contracciones reales de la e
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/415428042fb053d3857b27c9232dd60fd7a5c68dfc9bdd81b35d45e8540c6780.png" src="_images/415428042fb053d3857b27c9232dd60fd7a5c68dfc9bdd81b35d45e8540c6780.png" />
+<img alt="_images/b905c03ee29eed380e856a6050d549ac24bf7b2d2457846894c0cb0bcd4bf56b.png" src="_images/b905c03ee29eed380e856a6050d549ac24bf7b2d2457846894c0cb0bcd4bf56b.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Nota: posición 1 indica el mejor desempeño relativo en la región.
 Para mortalidad infantil y desempleo, &#39;mejor&#39; significa valores más bajos.
 </pre></div>

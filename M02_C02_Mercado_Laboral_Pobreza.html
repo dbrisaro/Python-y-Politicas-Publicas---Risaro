@@ -737,7 +737,7 @@ fecha
            <span class="n">labels1</span> <span class="o">+</span> <span class="n">labels2</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;Recesión&quot;</span><span class="p">],</span>
            <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper right&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Desempleo y Pobreza en Argentina — EPH (INDEC, loc=&#39;left&#39;)&quot;</span><span class="p">,</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Desempleo y Pobreza en Argentina — EPH (INDEC)&quot;</span><span class="p">,</span>
               <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">mdates</span><span class="o">.</span><span class="n">DateFormatter</span><span class="p">(</span><span class="s2">&quot;%Y&quot;</span><span class="p">))</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">mdates</span><span class="o">.</span><span class="n">YearLocator</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
@@ -754,7 +754,7 @@ fecha
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/415295d9d05373b09357f01a29140e0532a06cfca83566c5c16d8f53348f0748.png" src="_images/415295d9d05373b09357f01a29140e0532a06cfca83566c5c16d8f53348f0748.png" />
+<img alt="_images/65a347ad742a280386bbca5e8fd5905e1f24f3306e7bccd8a1a99115ee31a8f8.png" src="_images/65a347ad742a280386bbca5e8fd5905e1f24f3306e7bccd8a1a99115ee31a8f8.png" />
 </div>
 </div>
 </section>
@@ -816,7 +816,7 @@ fecha
 
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Tasa de desempleo (%)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Tasa de pobreza (%)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Desempleo vs. Pobreza — Argentina (por año, loc=&#39;left&#39;)&quot;</span><span class="p">,</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Desempleo vs. Pobreza — Argentina (por año)&quot;</span><span class="p">,</span>
              <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
@@ -831,7 +831,7 @@ fecha
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/d48d74e06a06ee670c7d1f2ffb7fd522bbd2644501ea119702d207363cb7e993.png" src="_images/d48d74e06a06ee670c7d1f2ffb7fd522bbd2644501ea119702d207363cb7e993.png" />
+<img alt="_images/a66f003d9c752a9d98494ef0b66b5c1d013d954c5edb3af063d1c9999a2f9d88.png" src="_images/a66f003d9c752a9d98494ef0b66b5c1d013d954c5edb3af063d1c9999a2f9d88.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Correlación (Pearson) desempleo–pobreza: 0.181
 R² de la tendencia lineal: 0.033
 </pre></div>
@@ -877,7 +877,7 @@ R² de la tendencia lineal: 0.033
 <span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Rezago (períodos anuales)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Correlación de Pearson&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Correlación cruzada: desempleo → pobreza (con distintos rezagos, loc=&#39;left&#39;)&quot;</span><span class="p">,</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Correlación cruzada: desempleo → pobreza (con distintos rezagos)&quot;</span><span class="p">,</span>
              <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">lags</span><span class="p">))</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;t</span><span class="si">{</span><span class="s1">&#39;+&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="si">}{</span><span class="n">l</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">lags</span><span class="p">])</span>
@@ -897,7 +897,7 @@ R² de la tendencia lineal: 0.033
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/146c5c52e7e573b2b9139cd07d6ba14cb0ba47ce22a958ae02c3c40d572c666a.png" src="_images/146c5c52e7e573b2b9139cd07d6ba14cb0ba47ce22a958ae02c3c40d572c666a.png" />
+<img alt="_images/880975fbf143d33d3f7f40159c2a104d7bfc82661258aa6f9b58084070de7301.png" src="_images/880975fbf143d33d3f7f40159c2a104d7bfc82661258aa6f9b58084070de7301.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Correlación máxima: 0.181 en rezago t+0
 </pre></div>
 </div>

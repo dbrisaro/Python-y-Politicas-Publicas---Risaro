@@ -723,7 +723,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/8j/y_l8frxs2n19mq92k5pv4y100000gn/T/ipykernel_12712/1465349362.py:7: MatplotlibDeprecationWarning: The &#39;labels&#39; parameter of boxplot() has been renamed &#39;tick_labels&#39; since Matplotlib 3.9; support for the old name will be dropped in 3.11.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/8j/y_l8frxs2n19mq92k5pv4y100000gn/T/ipykernel_18286/1465349362.py:7: MatplotlibDeprecationWarning: The &#39;labels&#39; parameter of boxplot() has been renamed &#39;tick_labels&#39; since Matplotlib 3.9; support for the old name will be dropped in 3.11.
   bp = ax.boxplot(datos_por_region, labels=regiones_orden, patch_artist=True,
 </pre></div>
 </div>
@@ -750,7 +750,7 @@
 <span class="c1"># Panel 1: Pobreza promedio por región</span>
 <span class="n">resumen_reg</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;region&#39;</span><span class="p">)[</span><span class="s1">&#39;pobreza_2023&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
 <span class="n">resumen_reg</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;barh&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#e74c3c&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
-<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Pobreza media por región (%, loc=&#39;left&#39;)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Pobreza media por región (%)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">ax1</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s1">&#39;right&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
@@ -791,7 +791,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="_images/387bd70ddbc651518d2bbf42704ed447c0dc6fc6ffaa26e859f6dd3dd208189c.png" src="_images/387bd70ddbc651518d2bbf42704ed447c0dc6fc6ffaa26e859f6dd3dd208189c.png" />
+<img alt="_images/8ddd02f5b1e56bb8fa8a40daf19ed5ca851d40397130052de22e9e49b6bb995d.png" src="_images/8ddd02f5b1e56bb8fa8a40daf19ed5ca851d40397130052de22e9e49b6bb995d.png" />
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dashboard guardado como dashboard_provincial.png
 </pre></div>
 </div>
