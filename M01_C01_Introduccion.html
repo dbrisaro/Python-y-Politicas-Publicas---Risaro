@@ -1,0 +1,1061 @@
+
+<!DOCTYPE html>
+
+
+<html lang="es" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Clase 1 — Introducción a Python &#8212; Python y Políticas Públicas</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=78d55cf8"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Haz clic para mostrar';</script>
+    <script>let toggleHintHide = 'Haz clic para ocultar';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script src="_static/translations.js?v=d190bf04"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'M01_C01_Introduccion';</script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="Clase 2 — Listas, funciones y numpy" href="M01_C02_Listas_Funciones_Numpy.html" />
+    <link rel="prev" title="Python y políticas públicas" href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Saltar al contenido principal</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Volver arriba</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Advertencia de versión"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Python y Políticas Públicas</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Búsqueda</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Módulo 1 — Fundamentos de Python</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Clase 1 — Introducción a Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C02_Listas_Funciones_Numpy.html">Clase 2 — Listas, funciones y numpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C03_Matplotlib_Visualizacion.html">Clase 3 — Matplotlib y visualización</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C04_Pandas_I.html">Clase 4 — Pandas I: lectura y exploración de datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C05_Pandas_II.html">Clase 5 — Pandas II: operaciones sobre DataFrames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C06_Data_Cleansing.html">Clase 6 — Data Cleansing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C07_Pandas_Matplotlib.html">Clase 7 — Pandas + Matplotlib: integración</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C08_Estadistica_Aplicada.html">Clase 8 — Estadística aplicada con Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C09_Datos_Geoespaciales.html">Clase 9 — Datos geoespaciales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C10_APIs_Datos_Abiertos_Proyecto.html">Clase 10 — APIs, datos abiertos y proyecto final</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Módulo 2 — Datos reales para políticas públicas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="M02_C01_Inflacion_Precios.html">Módulo 2 — Clase 1: Análisis de inflación con datos reales del INDEC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M02_C02_Mercado_Laboral_Pobreza.html">Módulo 2 — Clase 2: Mercado de trabajo y pobreza — datos reales de la EPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M02_C03_Comparacion_LATAM_WorldBank.html">Módulo 2 — Clase 3: Comparación regional con la API del Banco Mundial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M02_C04_Scraping_Datos_Abiertos.html">Módulo 2 — Clase 4: Web scraping y procesamiento de datos no estructurados</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="M02_C05_ML_Targeting_Social.html">Módulo 2 — Clase 5: Machine Learning para targeting de programas sociales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M02_C06_Mapas_Interactivos_Folium.html">Módulo 2 — Clase 6: Mapas interactivos para política pública con Folium</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/dbrisaro/Python-y-Politicas-Publicas---Risaro" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Repositorio de origen"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/M01_C01_Introduccion.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Tema" data-bs-title="Tema"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Claro"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Oscuro"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="Sistema"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Clase 1 — Introducción a Python</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contenidos">Contenidos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#que-es-python-y-por-que-usarlo-en-politicas-publicas">1. ¿Qué es Python y por qué usarlo en políticas públicas?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entorno-de-trabajo">2. Entorno de trabajo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anaconda">Anaconda</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebooks">Jupyter Notebooks</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipos-de-datos-basicos">3. Tipos de datos básicos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#operaciones-y-expresiones">4. Operaciones y expresiones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estructuras-de-control">5. Estructuras de control</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#if-elif-else">5.1 <code class="docutils literal notranslate"><span class="pre">if</span></code> / <code class="docutils literal notranslate"><span class="pre">elif</span></code> / <code class="docutils literal notranslate"><span class="pre">else</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for">5.2 <code class="docutils literal notranslate"><span class="pre">for</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#while">5.3 <code class="docutils literal notranslate"><span class="pre">while</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-comprehensions-bonus">5.4 List comprehensions (bonus)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicios">6. Ejercicios</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-1">Ejercicio 1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-2">Ejercicio 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-3">Ejercicio 3</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soluciones">Soluciones</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="clase-1-introduccion-a-python">
+<h1>Clase 1 — Introducción a Python<a class="headerlink" href="#clase-1-introduccion-a-python" title="Link to this heading">#</a></h1>
+<p><strong>Python y Políticas Públicas</strong></p>
+<hr class="docutils" />
+<section id="contenidos">
+<h2>Contenidos<a class="headerlink" href="#contenidos" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>¿Qué es Python y por qué usarlo en políticas públicas?</p></li>
+<li><p>Entorno de trabajo: Anaconda y Jupyter Notebooks</p></li>
+<li><p>Tipos de datos básicos</p></li>
+<li><p>Operaciones y expresiones</p></li>
+<li><p>Estructuras de control: <code class="docutils literal notranslate"><span class="pre">if</span></code>, <code class="docutils literal notranslate"><span class="pre">for</span></code>, <code class="docutils literal notranslate"><span class="pre">while</span></code></p></li>
+<li><p>Ejercicios</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="que-es-python-y-por-que-usarlo-en-politicas-publicas">
+<h2>1. ¿Qué es Python y por qué usarlo en políticas públicas?<a class="headerlink" href="#que-es-python-y-por-que-usarlo-en-politicas-publicas" title="Link to this heading">#</a></h2>
+<p>Python es un lenguaje de programación de propósito general, de alto nivel y <em>open source</em>. Fue creado por Guido van Rossum y su primera versión pública data de 1991. Hoy es uno de los lenguajes más populares del mundo.</p>
+<p><strong>¿Por qué Python para políticas públicas?</strong></p>
+<ul class="simple">
+<li><p><strong>Acceso a datos abiertos</strong>: Python permite consumir APIs de portales de datos del gobierno (<a class="reference external" href="http://datos.gob.ar">datos.gob.ar</a>, World Bank, CEPAL) directamente desde el código.</p></li>
+<li><p><strong>Análisis reproducible</strong>: a diferencia de Excel, en Python cada paso del análisis queda documentado y es reproducible por cualquier persona.</p></li>
+<li><p><strong>Visualización</strong>: con unas pocas líneas se pueden generar gráficos de calidad para informes y presentaciones.</p></li>
+<li><p><strong>Escala</strong>: Python puede procesar millones de registros con facilidad — algo imposible en Excel.</p></li>
+<li><p><strong>Comunidad y gratuidad</strong>: es gratuito, tiene una comunidad enorme y miles de librerías especializadas.</p></li>
+</ul>
+<p><strong>Algunos ejemplos de uso en el sector público:</strong></p>
+<ul class="simple">
+<li><p>Análisis de ejecución presupuestaria</p></li>
+<li><p>Monitoreo de indicadores sociales</p></li>
+<li><p>Análisis de licitaciones y contrataciones</p></li>
+<li><p>Mapas de cobertura de servicios públicos</p></li>
+<li><p>Evaluación de impacto de programas sociales</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="entorno-de-trabajo">
+<h2>2. Entorno de trabajo<a class="headerlink" href="#entorno-de-trabajo" title="Link to this heading">#</a></h2>
+<section id="anaconda">
+<h3>Anaconda<a class="headerlink" href="#anaconda" title="Link to this heading">#</a></h3>
+<p>Recomendamos instalar <strong>Anaconda</strong>: una distribución de Python que incluye el intérprete, Jupyter Notebooks, y las principales librerías para análisis de datos (numpy, pandas, matplotlib, etc.).</p>
+<p>Descargar desde: <a class="reference external" href="https://www.anaconda.com/download">https://www.anaconda.com/download</a></p>
+</section>
+<section id="jupyter-notebooks">
+<h3>Jupyter Notebooks<a class="headerlink" href="#jupyter-notebooks" title="Link to this heading">#</a></h3>
+<p>Jupyter Notebooks es el entorno que usaremos durante el curso. Sus características principales:</p>
+<ul class="simple">
+<li><p><strong>Celdas de código</strong>: donde escribimos y ejecutamos Python.</p></li>
+<li><p><strong>Celdas de texto</strong> (Markdown): donde escribimos explicaciones, como esta celda.</p></li>
+<li><p><strong>Ejecución interactiva</strong>: podemos ejecutar una celda a la vez y ver el resultado inmediatamente.</p></li>
+</ul>
+<p><strong>Atajos de teclado útiles:</strong></p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Acción</p></th>
+<th class="head"><p>Atajo</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Ejecutar celda</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Shift</span> <span class="pre">+</span> <span class="pre">Enter</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Nueva celda abajo</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">B</span></code> (en modo comando)</p></td>
+</tr>
+<tr class="row-even"><td><p>Nueva celda arriba</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">A</span></code> (en modo comando)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cambiar a Markdown</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">M</span></code> (en modo comando)</p></td>
+</tr>
+<tr class="row-even"><td><p>Cambiar a código</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">Y</span></code> (en modo comando)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Borrar celda</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">DD</span></code> (en modo comando)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="tipos-de-datos-basicos">
+<h2>3. Tipos de datos básicos<a class="headerlink" href="#tipos-de-datos-basicos" title="Link to this heading">#</a></h2>
+<p>Python tiene cuatro tipos de datos primitivos que usaremos constantemente:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Enteros (int)</span>
+<span class="n">poblacion</span> <span class="o">=</span> <span class="mi">45_000_000</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">poblacion</span><span class="p">),</span> <span class="n">poblacion</span><span class="p">)</span>
+
+<span class="c1"># Flotantes (float)</span>
+<span class="n">tasa_pobreza</span> <span class="o">=</span> <span class="mf">38.9</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">tasa_pobreza</span><span class="p">),</span> <span class="n">tasa_pobreza</span><span class="p">)</span>
+
+<span class="c1"># Strings (str)</span>
+<span class="n">provincia</span> <span class="o">=</span> <span class="s2">&quot;Buenos Aires&quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">provincia</span><span class="p">),</span> <span class="n">provincia</span><span class="p">)</span>
+
+<span class="c1"># Booleanos (bool)</span>
+<span class="n">es_capital</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">es_capital</span><span class="p">),</span> <span class="n">es_capital</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;class &#39;int&#39;&gt; 45000000
+&lt;class &#39;float&#39;&gt; 38.9
+&lt;class &#39;str&#39;&gt; Buenos Aires
+&lt;class &#39;bool&#39;&gt; True
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># --- Paleta de identidad del curso ---</span>
+<span class="n">C</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#2A6496&#39;</span><span class="p">,</span> <span class="s1">&#39;#E07B3F&#39;</span><span class="p">,</span> <span class="s1">&#39;#3D9970&#39;</span><span class="p">,</span> <span class="s1">&#39;#8E5EA2&#39;</span><span class="p">,</span> <span class="s1">&#39;#C0A830&#39;</span><span class="p">,</span> <span class="s1">&#39;#637A8A&#39;</span><span class="p">]</span>
+
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+    <span class="s1">&#39;figure.figsize&#39;</span>       <span class="p">:</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+    <span class="s1">&#39;font.size&#39;</span>            <span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
+    <span class="s1">&#39;axes.titlesize&#39;</span>       <span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="s1">&#39;axes.titleweight&#39;</span>     <span class="p">:</span> <span class="s1">&#39;normal&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;axes.spines.top&#39;</span>      <span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;axes.spines.right&#39;</span>    <span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;legend.frameon&#39;</span>       <span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;axes.prop_cycle&#39;</span>      <span class="p">:</span> <span class="n">mpl</span><span class="o">.</span><span class="n">cycler</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">C</span><span class="p">),</span>
+    <span class="s1">&#39;figure.dpi&#39;</span>           <span class="p">:</span> <span class="mi">110</span><span class="p">,</span>
+<span class="p">})</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">tit</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Título sin negrita, alineado a la izquierda.&quot;&quot;&quot;</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Operaciones con strings</span>
+<span class="n">nombre</span> <span class="o">=</span> <span class="s2">&quot;Ministerio&quot;</span>
+<span class="n">area</span> <span class="o">=</span> <span class="s2">&quot;Educación&quot;</span>
+
+<span class="c1"># Concatenación</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nombre</span> <span class="o">+</span> <span class="s2">&quot; de &quot;</span> <span class="o">+</span> <span class="n">area</span><span class="p">)</span>
+
+<span class="c1"># f-strings (forma moderna y recomendada)</span>
+<span class="n">presupuesto</span> <span class="o">=</span> <span class="mi">1_250_000</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;El </span><span class="si">{</span><span class="n">nombre</span><span class="si">}</span><span class="s2"> de </span><span class="si">{</span><span class="n">area</span><span class="si">}</span><span class="s2"> tiene un presupuesto de $</span><span class="si">{</span><span class="n">presupuesto</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Métodos de strings útiles</span>
+<span class="n">texto</span> <span class="o">=</span> <span class="s2">&quot;  buenos aires  &quot;</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">texto</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>       <span class="c1"># elimina espacios</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">texto</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">title</span><span class="p">())</span> <span class="c1"># capitaliza</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ministerio de Educación
+El Ministerio de Educación tiene un presupuesto de $1,250,000
+buenos aires
+Buenos Aires
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="operaciones-y-expresiones">
+<h2>4. Operaciones y expresiones<a class="headerlink" href="#operaciones-y-expresiones" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Operaciones aritméticas</span>
+<span class="n">suma</span>       <span class="o">=</span> <span class="mi">10</span> <span class="o">+</span> <span class="mi">3</span>    <span class="c1"># 13</span>
+<span class="n">resta</span>      <span class="o">=</span> <span class="mi">10</span> <span class="o">-</span> <span class="mi">3</span>    <span class="c1"># 7</span>
+<span class="n">producto</span>   <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="mi">3</span>    <span class="c1"># 30</span>
+<span class="n">division</span>   <span class="o">=</span> <span class="mi">10</span> <span class="o">/</span> <span class="mi">3</span>    <span class="c1"># 3.333...</span>
+<span class="n">div_entera</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">//</span> <span class="mi">3</span>   <span class="c1"># 3</span>
+<span class="n">modulo</span>     <span class="o">=</span> <span class="mi">10</span> <span class="o">%</span> <span class="mi">3</span>    <span class="c1"># 1</span>
+<span class="n">potencia</span>   <span class="o">=</span> <span class="mi">10</span> <span class="o">**</span> <span class="mi">3</span>   <span class="c1"># 1000</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">suma</span><span class="p">,</span> <span class="n">resta</span><span class="p">,</span> <span class="n">producto</span><span class="p">,</span> <span class="n">division</span><span class="p">,</span> <span class="n">div_entera</span><span class="p">,</span> <span class="n">modulo</span><span class="p">,</span> <span class="n">potencia</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>13 7 30 3.3333333333333335 3 1 1000
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ejemplo aplicado: calcular tasa de cobertura</span>
+<span class="n">ninos_en_edad_escolar</span> <span class="o">=</span> <span class="mi">8_500_000</span>
+<span class="n">ninos_matriculados</span>    <span class="o">=</span> <span class="mi">7_820_000</span>
+
+<span class="n">tasa_cobertura</span> <span class="o">=</span> <span class="p">(</span><span class="n">ninos_matriculados</span> <span class="o">/</span> <span class="n">ninos_en_edad_escolar</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tasa de cobertura escolar: </span><span class="si">{</span><span class="n">tasa_cobertura</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Tasa de cobertura escolar: 92.0%
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Operadores de comparación (devuelven True o False)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">)</span>   <span class="c1"># True</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># True (igualdad, no asignación)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">)</span>  <span class="c1"># True</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">4</span><span class="p">)</span>  <span class="c1"># False</span>
+
+<span class="c1"># Operadores lógicos</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">)</span>  <span class="c1"># True</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">10</span> <span class="ow">or</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">)</span>   <span class="c1"># False</span>
+<span class="nb">print</span><span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="mi">10</span><span class="p">))</span>      <span class="c1"># True</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>True
+True
+True
+False
+True
+False
+True
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="estructuras-de-control">
+<h2>5. Estructuras de control<a class="headerlink" href="#estructuras-de-control" title="Link to this heading">#</a></h2>
+<section id="if-elif-else">
+<h3>5.1 <code class="docutils literal notranslate"><span class="pre">if</span></code> / <code class="docutils literal notranslate"><span class="pre">elif</span></code> / <code class="docutils literal notranslate"><span class="pre">else</span></code><a class="headerlink" href="#if-elif-else" title="Link to this heading">#</a></h3>
+<p>Permiten ejecutar código de forma condicional.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ejemplo: clasificar nivel de pobreza</span>
+<span class="n">tasa_pobreza</span> <span class="o">=</span> <span class="mf">42.7</span>
+
+<span class="k">if</span> <span class="n">tasa_pobreza</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">:</span>
+    <span class="n">nivel</span> <span class="o">=</span> <span class="s2">&quot;bajo&quot;</span>
+<span class="k">elif</span> <span class="n">tasa_pobreza</span> <span class="o">&lt;</span> <span class="mi">40</span><span class="p">:</span>
+    <span class="n">nivel</span> <span class="o">=</span> <span class="s2">&quot;medio&quot;</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">nivel</span> <span class="o">=</span> <span class="s2">&quot;alto&quot;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Con una tasa de </span><span class="si">{</span><span class="n">tasa_pobreza</span><span class="si">}</span><span class="s2">%, el nivel de pobreza es: </span><span class="si">{</span><span class="n">nivel</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Con una tasa de 42.7%, el nivel de pobreza es: alto
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="for">
+<h3>5.2 <code class="docutils literal notranslate"><span class="pre">for</span></code><a class="headerlink" href="#for" title="Link to this heading">#</a></h3>
+<p>Itera sobre una secuencia de elementos.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Iterar sobre una lista de provincias</span>
+<span class="n">provincias</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Buenos Aires&quot;</span><span class="p">,</span> <span class="s2">&quot;Córdoba&quot;</span><span class="p">,</span> <span class="s2">&quot;Santa Fe&quot;</span><span class="p">,</span> <span class="s2">&quot;Mendoza&quot;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">provincia</span> <span class="ow">in</span> <span class="n">provincias</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Procesando datos de </span><span class="si">{</span><span class="n">provincia</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Procesando datos de Buenos Aires...
+Procesando datos de Córdoba...
+Procesando datos de Santa Fe...
+Procesando datos de Mendoza...
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># range() genera una secuencia de números</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Año </span><span class="si">{</span><span class="mi">2020</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="si">}</span><span class="s2">: ejecutando análisis...&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Año 2020: ejecutando análisis...
+Año 2021: ejecutando análisis...
+Año 2022: ejecutando análisis...
+Año 2023: ejecutando análisis...
+Año 2024: ejecutando análisis...
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># enumerate() da índice y valor</span>
+<span class="n">ministerios</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Educación&quot;</span><span class="p">,</span> <span class="s2">&quot;Salud&quot;</span><span class="p">,</span> <span class="s2">&quot;Economía&quot;</span><span class="p">,</span> <span class="s2">&quot;Obras Públicas&quot;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ministerio</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ministerios</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">. Ministerio de </span><span class="si">{</span><span class="n">ministerio</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1. Ministerio de Educación
+2. Ministerio de Salud
+3. Ministerio de Economía
+4. Ministerio de Obras Públicas
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="while">
+<h3>5.3 <code class="docutils literal notranslate"><span class="pre">while</span></code><a class="headerlink" href="#while" title="Link to this heading">#</a></h3>
+<p>Repite un bloque de código mientras se cumpla una condición.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ejemplo: simular acumulación de presupuesto</span>
+<span class="n">presupuesto_acumulado</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">meta</span> <span class="o">=</span> <span class="mi">1_000_000</span>
+<span class="n">mes</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">transferencia_mensual</span> <span class="o">=</span> <span class="mi">320_000</span>
+
+<span class="k">while</span> <span class="n">presupuesto_acumulado</span> <span class="o">&lt;</span> <span class="n">meta</span><span class="p">:</span>
+    <span class="n">presupuesto_acumulado</span> <span class="o">+=</span> <span class="n">transferencia_mensual</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mes </span><span class="si">{</span><span class="n">mes</span><span class="si">}</span><span class="s2">: presupuesto acumulado = $</span><span class="si">{</span><span class="n">presupuesto_acumulado</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">mes</span> <span class="o">+=</span> <span class="mi">1</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Se alcanzó la meta en el mes </span><span class="si">{</span><span class="n">mes</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mes 1: presupuesto acumulado = $320,000
+Mes 2: presupuesto acumulado = $640,000
+Mes 3: presupuesto acumulado = $960,000
+Mes 4: presupuesto acumulado = $1,280,000
+
+Se alcanzó la meta en el mes 4
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="list-comprehensions-bonus">
+<h3>5.4 List comprehensions (bonus)<a class="headerlink" href="#list-comprehensions-bonus" title="Link to this heading">#</a></h3>
+<p>Una forma concisa de construir listas con un <code class="docutils literal notranslate"><span class="pre">for</span></code> en una sola línea.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Tasas en porcentaje -&gt; convertir a decimal</span>
+<span class="n">tasas_pct</span> <span class="o">=</span> <span class="p">[</span><span class="mf">38.9</span><span class="p">,</span> <span class="mf">42.1</span><span class="p">,</span> <span class="mf">35.7</span><span class="p">,</span> <span class="mf">40.2</span><span class="p">]</span>
+<span class="n">tasas_decimal</span> <span class="o">=</span> <span class="p">[</span><span class="n">t</span> <span class="o">/</span> <span class="mi">100</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">tasas_pct</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tasas_decimal</span><span class="p">)</span>
+
+<span class="c1"># Solo las provincias que empiezan con &#39;S&#39;</span>
+<span class="n">todas</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Salta&quot;</span><span class="p">,</span> <span class="s2">&quot;Buenos Aires&quot;</span><span class="p">,</span> <span class="s2">&quot;Santiago del Estero&quot;</span><span class="p">,</span> <span class="s2">&quot;Córdoba&quot;</span><span class="p">,</span> <span class="s2">&quot;Santa Cruz&quot;</span><span class="p">]</span>
+<span class="n">provincias_s</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">todas</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">provincias_s</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0.389, 0.42100000000000004, 0.35700000000000004, 0.402]
+[&#39;Salta&#39;, &#39;Santiago del Estero&#39;, &#39;Santa Cruz&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="ejercicios">
+<h2>6. Ejercicios<a class="headerlink" href="#ejercicios" title="Link to this heading">#</a></h2>
+<section id="ejercicio-1">
+<h3>Ejercicio 1<a class="headerlink" href="#ejercicio-1" title="Link to this heading">#</a></h3>
+<p>Tenés los siguientes datos de tres municipios:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Municipio</p></th>
+<th class="head"><p>Población</p></th>
+<th class="head"><p>Hogares con acceso a agua potable</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>A</p></td>
+<td><p>120.000</p></td>
+<td><p>98.400</p></td>
+</tr>
+<tr class="row-odd"><td><p>B</p></td>
+<td><p>85.000</p></td>
+<td><p>59.500</p></td>
+</tr>
+<tr class="row-even"><td><p>C</p></td>
+<td><p>200.000</p></td>
+<td><p>174.000</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Calculá la <strong>tasa de cobertura</strong> de agua potable para cada municipio e imprimí un mensaje que diga si es «alta» (≥ 90%), «media» (entre 70% y 90%) o «baja» (&lt; 70%).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Tu solución aquí</span>
+<span class="n">municipios</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">&quot;nombre&quot;</span><span class="p">:</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;poblacion&quot;</span><span class="p">:</span> <span class="mi">120_000</span><span class="p">,</span> <span class="s2">&quot;con_agua&quot;</span><span class="p">:</span> <span class="mi">98_400</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;nombre&quot;</span><span class="p">:</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;poblacion&quot;</span><span class="p">:</span> <span class="mi">85_000</span><span class="p">,</span>  <span class="s2">&quot;con_agua&quot;</span><span class="p">:</span> <span class="mi">59_500</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;nombre&quot;</span><span class="p">:</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;poblacion&quot;</span><span class="p">:</span> <span class="mi">200_000</span><span class="p">,</span> <span class="s2">&quot;con_agua&quot;</span><span class="p">:</span> <span class="mi">174_000</span><span class="p">},</span>
+<span class="p">]</span>
+
+<span class="c1"># Completá el código...</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicio-2">
+<h3>Ejercicio 2<a class="headerlink" href="#ejercicio-2" title="Link to this heading">#</a></h3>
+<p>Escribí un programa que, dado un presupuesto inicial de $500.000 y un gasto mensual de $80.000, imprima cuántos meses dura el presupuesto y en qué mes se agota.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Tu solución aquí</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicio-3">
+<h3>Ejercicio 3<a class="headerlink" href="#ejercicio-3" title="Link to this heading">#</a></h3>
+<p>Tenés esta lista de nombres de programas sociales (con errores de formato):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">programas</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;  plan trabajar&quot;</span><span class="p">,</span> <span class="s2">&quot;PROGRESAR  &quot;</span><span class="p">,</span> <span class="s2">&quot;asignación universal&quot;</span><span class="p">,</span> <span class="s2">&quot;  BECAS PROGRESAR&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Usá una list comprehension para limpiarlos (sin espacios y con formato título).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">programas</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;  plan trabajar&quot;</span><span class="p">,</span> <span class="s2">&quot;PROGRESAR  &quot;</span><span class="p">,</span> <span class="s2">&quot;asignación universal&quot;</span><span class="p">,</span> <span class="s2">&quot;  BECAS PROGRESAR&quot;</span><span class="p">]</span>
+<span class="c1"># Tu solución aquí</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="soluciones">
+<h2>Soluciones<a class="headerlink" href="#soluciones" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solución Ejercicio 1</span>
+<span class="n">municipios</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">&quot;nombre&quot;</span><span class="p">:</span> <span class="s2">&quot;A&quot;</span><span class="p">,</span> <span class="s2">&quot;poblacion&quot;</span><span class="p">:</span> <span class="mi">120_000</span><span class="p">,</span> <span class="s2">&quot;con_agua&quot;</span><span class="p">:</span> <span class="mi">98_400</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;nombre&quot;</span><span class="p">:</span> <span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;poblacion&quot;</span><span class="p">:</span> <span class="mi">85_000</span><span class="p">,</span>  <span class="s2">&quot;con_agua&quot;</span><span class="p">:</span> <span class="mi">59_500</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">&quot;nombre&quot;</span><span class="p">:</span> <span class="s2">&quot;C&quot;</span><span class="p">,</span> <span class="s2">&quot;poblacion&quot;</span><span class="p">:</span> <span class="mi">200_000</span><span class="p">,</span> <span class="s2">&quot;con_agua&quot;</span><span class="p">:</span> <span class="mi">174_000</span><span class="p">},</span>
+<span class="p">]</span>
+
+<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">municipios</span><span class="p">:</span>
+    <span class="n">tasa</span> <span class="o">=</span> <span class="p">(</span><span class="n">m</span><span class="p">[</span><span class="s2">&quot;con_agua&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">m</span><span class="p">[</span><span class="s2">&quot;poblacion&quot;</span><span class="p">])</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="k">if</span> <span class="n">tasa</span> <span class="o">&gt;=</span> <span class="mi">90</span><span class="p">:</span>
+        <span class="n">nivel</span> <span class="o">=</span> <span class="s2">&quot;alta&quot;</span>
+    <span class="k">elif</span> <span class="n">tasa</span> <span class="o">&gt;=</span> <span class="mi">70</span><span class="p">:</span>
+        <span class="n">nivel</span> <span class="o">=</span> <span class="s2">&quot;media&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">nivel</span> <span class="o">=</span> <span class="s2">&quot;baja&quot;</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Municipio </span><span class="si">{</span><span class="n">m</span><span class="p">[</span><span class="s1">&#39;nombre&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">: cobertura </span><span class="si">{</span><span class="n">tasa</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% — nivel </span><span class="si">{</span><span class="n">nivel</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Municipio A: cobertura 82.0% — nivel media
+Municipio B: cobertura 70.0% — nivel media
+Municipio C: cobertura 87.0% — nivel media
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solución Ejercicio 2</span>
+<span class="n">presupuesto</span> <span class="o">=</span> <span class="mi">500_000</span>
+<span class="n">gasto_mensual</span> <span class="o">=</span> <span class="mi">80_000</span>
+<span class="n">mes</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">while</span> <span class="n">presupuesto</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="n">presupuesto</span> <span class="o">-=</span> <span class="n">gasto_mensual</span>
+    <span class="n">mes</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">presupuesto</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mes </span><span class="si">{</span><span class="n">mes</span><span class="si">}</span><span class="s2">: quedan $</span><span class="si">{</span><span class="n">presupuesto</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mes </span><span class="si">{</span><span class="n">mes</span><span class="si">}</span><span class="s2">: presupuesto agotado (déficit de $</span><span class="si">{</span><span class="nb">abs</span><span class="p">(</span><span class="n">presupuesto</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mes 1: quedan $420,000
+Mes 2: quedan $340,000
+Mes 3: quedan $260,000
+Mes 4: quedan $180,000
+Mes 5: quedan $100,000
+Mes 6: quedan $20,000
+Mes 7: presupuesto agotado (déficit de $60,000)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Solución Ejercicio 3</span>
+<span class="n">programas</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;  plan trabajar&quot;</span><span class="p">,</span> <span class="s2">&quot;PROGRESAR  &quot;</span><span class="p">,</span> <span class="s2">&quot;asignación universal&quot;</span><span class="p">,</span> <span class="s2">&quot;  BECAS PROGRESAR&quot;</span><span class="p">]</span>
+<span class="n">programas_limpios</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">title</span><span class="p">()</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">programas</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">programas_limpios</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&#39;Plan Trabajar&#39;, &#39;Progresar&#39;, &#39;Asignación Universal&#39;, &#39;Becas Progresar&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="página anterior">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">anterior</p>
+        <p class="prev-next-title">Python y políticas públicas</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="M01_C02_Listas_Funciones_Numpy.html"
+       title="siguiente página">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">siguiente</p>
+        <p class="prev-next-title">Clase 2 — Listas, funciones y numpy</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contenidos">Contenidos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#que-es-python-y-por-que-usarlo-en-politicas-publicas">1. ¿Qué es Python y por qué usarlo en políticas públicas?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#entorno-de-trabajo">2. Entorno de trabajo</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#anaconda">Anaconda</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-notebooks">Jupyter Notebooks</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tipos-de-datos-basicos">3. Tipos de datos básicos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#operaciones-y-expresiones">4. Operaciones y expresiones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estructuras-de-control">5. Estructuras de control</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#if-elif-else">5.1 <code class="docutils literal notranslate"><span class="pre">if</span></code> / <code class="docutils literal notranslate"><span class="pre">elif</span></code> / <code class="docutils literal notranslate"><span class="pre">else</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#for">5.2 <code class="docutils literal notranslate"><span class="pre">for</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#while">5.3 <code class="docutils literal notranslate"><span class="pre">while</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#list-comprehensions-bonus">5.4 List comprehensions (bonus)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicios">6. Ejercicios</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-1">Ejercicio 1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-2">Ejercicio 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-3">Ejercicio 3</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#soluciones">Soluciones</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por Daniela Risaro
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

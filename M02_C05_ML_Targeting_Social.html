@@ -1,0 +1,1414 @@
+
+<!DOCTYPE html>
+
+
+<html lang="es" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Módulo 2 — Clase 5: Machine Learning para targeting de programas sociales &#8212; Python y Políticas Públicas</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=78d55cf8"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Haz clic para mostrar';</script>
+    <script>let toggleHintHide = 'Haz clic para ocultar';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script src="_static/translations.js?v=d190bf04"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'M02_C05_ML_Targeting_Social';</script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="Módulo 2 — Clase 6: Mapas interactivos para política pública con Folium" href="M02_C06_Mapas_Interactivos_Folium.html" />
+    <link rel="prev" title="Módulo 2 — Clase 4: Web scraping y procesamiento de datos no estructurados" href="M02_C04_Scraping_Datos_Abiertos.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Saltar al contenido principal</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Volver arriba</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Advertencia de versión"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Python y Políticas Públicas</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Búsqueda</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Módulo 1 — Fundamentos de Python</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="M01_C01_Introduccion.html">Clase 1 — Introducción a Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C02_Listas_Funciones_Numpy.html">Clase 2 — Listas, funciones y numpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C03_Matplotlib_Visualizacion.html">Clase 3 — Matplotlib y visualización</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C04_Pandas_I.html">Clase 4 — Pandas I: lectura y exploración de datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C05_Pandas_II.html">Clase 5 — Pandas II: operaciones sobre DataFrames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C06_Data_Cleansing.html">Clase 6 — Data Cleansing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C07_Pandas_Matplotlib.html">Clase 7 — Pandas + Matplotlib: integración</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C08_Estadistica_Aplicada.html">Clase 8 — Estadística aplicada con Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C09_Datos_Geoespaciales.html">Clase 9 — Datos geoespaciales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C10_APIs_Datos_Abiertos_Proyecto.html">Clase 10 — APIs, datos abiertos y proyecto final</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Módulo 2 — Datos reales para políticas públicas</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="M02_C01_Inflacion_Precios.html">Módulo 2 — Clase 1: Análisis de inflación con datos reales del INDEC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M02_C02_Mercado_Laboral_Pobreza.html">Módulo 2 — Clase 2: Mercado de trabajo y pobreza — datos reales de la EPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M02_C03_Comparacion_LATAM_WorldBank.html">Módulo 2 — Clase 3: Comparación regional con la API del Banco Mundial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M02_C04_Scraping_Datos_Abiertos.html">Módulo 2 — Clase 4: Web scraping y procesamiento de datos no estructurados</a></li>
+
+
+
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Módulo 2 — Clase 5: Machine Learning para targeting de programas sociales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M02_C06_Mapas_Interactivos_Folium.html">Módulo 2 — Clase 6: Mapas interactivos para política pública con Folium</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/dbrisaro/Python-y-Politicas-Publicas---Risaro" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Repositorio de origen"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/M02_C05_ML_Targeting_Social.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Tema" data-bs-title="Tema"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Claro"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Oscuro"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="Sistema"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Módulo 2 — Clase 5: Machine Learning para targeting de programas sociales</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos-de-la-clase">Objetivos de la clase</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-problema-de-targeting-en-politica-social">1. El problema de targeting en política social</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#que-es-el-targeting">¿Qué es el targeting?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#principales-tipos-de-targeting">Principales tipos de targeting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#errores-de-inclusion-y-exclusion">Errores de inclusión y exclusión</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generacion-del-dataset-sintetico">2. Generación del dataset sintético</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-exploratorio-distribuciones-por-clase-objetivo">3. Análisis exploratorio: distribuciones por clase objetivo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-1-regresion-logistica">4. Modelo 1: Regresión Logística</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preparacion-de-los-datos">Preparación de los datos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretacion-de-errores-de-targeting">Interpretación de errores de targeting</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-2-random-forest">5. Modelo 2: Random Forest</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-de-umbral-el-trade-off-entre-errores-de-targeting">6. Análisis de umbral: el trade-off entre errores de targeting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion-de-politica-que-modelo-recomendarias">7. Conclusión de política: ¿qué modelo recomendarías?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sintesis-comparativa">Síntesis comparativa</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recomendacion">Recomendación</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicios">Ejercicios</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-1-ajuste-de-umbral-con-restriccion-presupuestaria">Ejercicio 1 — Ajuste de umbral con restricción presupuestaria</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-2-curva-roc-y-comparacion-visual">Ejercicio 2 — Curva ROC y comparación visual</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-3-analisis-de-equidad-fairness">Ejercicio 3 — Análisis de equidad (fairness)</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="modulo-2-clase-5-machine-learning-para-targeting-de-programas-sociales">
+<h1>Módulo 2 — Clase 5: Machine Learning para targeting de programas sociales<a class="headerlink" href="#modulo-2-clase-5-machine-learning-para-targeting-de-programas-sociales" title="Link to this heading">#</a></h1>
+<p><strong>Curso:</strong> Python y Políticas Públicas<br />
+<strong>Nivel:</strong> Avanzado<br />
+<strong>Duración estimada:</strong> 2 horas</p>
+<hr class="docutils" />
+<section id="objetivos-de-la-clase">
+<h2>Objetivos de la clase<a class="headerlink" href="#objetivos-de-la-clase" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Comprender el problema de targeting en política social y sus tipos de errores</p></li>
+<li><p>Aplicar modelos de machine learning (Regresión Logística y Random Forest) para clasificación de hogares</p></li>
+<li><p>Interpretar métricas de clasificación en términos de errores de política pública</p></li>
+<li><p>Analizar el trade-off entre errores de inclusión y exclusión mediante el umbral de decisión</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="el-problema-de-targeting-en-politica-social">
+<h2>1. El problema de targeting en política social<a class="headerlink" href="#el-problema-de-targeting-en-politica-social" title="Link to this heading">#</a></h2>
+<section id="que-es-el-targeting">
+<h3>¿Qué es el targeting?<a class="headerlink" href="#que-es-el-targeting" title="Link to this heading">#</a></h3>
+<p>El <strong>targeting</strong> (focalización) es el mecanismo por el cual un programa social identifica y selecciona a sus beneficiarios entre la población elegible. Un buen sistema de targeting logra que los recursos lleguen a quienes más los necesitan, minimizando filtraciones hacia quienes no califican.</p>
+</section>
+<section id="principales-tipos-de-targeting">
+<h3>Principales tipos de targeting<a class="headerlink" href="#principales-tipos-de-targeting" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Tipo</p></th>
+<th class="head"><p>Descripción</p></th>
+<th class="head"><p>Ejemplo</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Means-tested</strong></p></td>
+<td><p>Verificación directa de ingresos/activos</p></td>
+<td><p>Asignación Universal por Hijo (AUH)</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Categórico</strong></p></td>
+<td><p>Elegibilidad por características observables (edad, sexo)</p></td>
+<td><p>Jubilación universal para mayores de 65</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>PMT (Proxy Means Test)</strong></p></td>
+<td><p>Se estima el nivel socioeconómico a partir de variables proxy (vivienda, educación, activos)</p></td>
+<td><p>SISBEN en Colombia, Ficha CAS en Chile</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Autoselección</strong></p></td>
+<td><p>El diseño del programa desincentiva la participación de no-pobres</p></td>
+<td><p>Programas de workfare</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="errores-de-inclusion-y-exclusion">
+<h3>Errores de inclusión y exclusión<a class="headerlink" href="#errores-de-inclusion-y-exclusion" title="Link to this heading">#</a></h3>
+<p>Ningún sistema de targeting es perfecto. Siempre existen dos tipos de errores:</p>
+<ul class="simple">
+<li><p><strong>Error de inclusión (Tipo I / Falso Positivo):</strong> Un hogar que <strong>no</strong> es elegible recibe el beneficio. Se filtra el programa hacia la población no-objetivo. Incrementa el costo fiscal.</p></li>
+<li><p><strong>Error de exclusión (Tipo II / Falso Negativo):</strong> Un hogar que <strong>sí</strong> es elegible no recibe el beneficio. Se excluye a quienes más necesitan la intervención. Implica un fallo de equidad.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\text{Tasa de inclusión indebida} = \frac{FP}{FP + TN}\]</div>
+<div class="math notranslate nohighlight">
+\[\text{Tasa de exclusión indebida} = \frac{FN}{FN + TP}\]</div>
+<p>Existe un <strong>trade-off</strong> inherente entre ambos errores. Al relajar los criterios de elegibilidad, se reducen las exclusiones pero se incrementan las inclusiones indebidas, y viceversa. El umbral óptimo depende de los costos políticos y fiscales de cada tipo de error.</p>
+<blockquote>
+<div><p><strong>Pregunta de reflexión:</strong> ¿Cuándo es más costoso el error de exclusión? ¿Cuándo lo es el de inclusión? Piensen en un programa de salud materno-infantil vs. un subsidio a empresas.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="generacion-del-dataset-sintetico">
+<h2>2. Generación del dataset sintético<a class="headerlink" href="#generacion-del-dataset-sintetico" title="Link to this heading">#</a></h2>
+<p>Vamos a crear un dataset que replica la estructura de la <strong>Encuesta Permanente de Hogares (EPH)</strong> del INDEC. El dataset tiene 5.000 hogares con las variables más relevantes para un Proxy Means Test.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.gridspec</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gridspec</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomForestClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">,</span>
+    <span class="n">precision_recall_curve</span><span class="p">,</span> <span class="n">roc_auc_score</span><span class="p">,</span>
+    <span class="n">ConfusionMatrixDisplay</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+
+<span class="c1"># Estilo visual</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">120</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">11</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;axes.spines.top&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;axes.spines.right&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Librerías importadas correctamente.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Librerías importadas correctamente.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># --- Paleta de identidad del curso ---</span>
+<span class="n">C</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#2A6496&#39;</span><span class="p">,</span> <span class="s1">&#39;#E07B3F&#39;</span><span class="p">,</span> <span class="s1">&#39;#3D9970&#39;</span><span class="p">,</span> <span class="s1">&#39;#8E5EA2&#39;</span><span class="p">,</span> <span class="s1">&#39;#C0A830&#39;</span><span class="p">,</span> <span class="s1">&#39;#637A8A&#39;</span><span class="p">]</span>
+
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+    <span class="s1">&#39;figure.figsize&#39;</span>       <span class="p">:</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+    <span class="s1">&#39;font.size&#39;</span>            <span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
+    <span class="s1">&#39;axes.titlesize&#39;</span>       <span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="s1">&#39;axes.titleweight&#39;</span>     <span class="p">:</span> <span class="s1">&#39;normal&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;axes.spines.top&#39;</span>      <span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;axes.spines.right&#39;</span>    <span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;legend.frameon&#39;</span>       <span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;axes.prop_cycle&#39;</span>      <span class="p">:</span> <span class="n">mpl</span><span class="o">.</span><span class="n">cycler</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">C</span><span class="p">),</span>
+    <span class="s1">&#39;figure.dpi&#39;</span>           <span class="p">:</span> <span class="mi">110</span><span class="p">,</span>
+<span class="p">})</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">tit</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Título sin negrita, alineado a la izquierda.&quot;&quot;&quot;</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">5000</span>
+
+<span class="c1"># --- Región (NOA, NEA, Cuyo, Pampeana, Patagonia, GBA) ---</span>
+<span class="n">regiones</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;GBA&#39;</span><span class="p">,</span> <span class="s1">&#39;Pampeana&#39;</span><span class="p">,</span> <span class="s1">&#39;NOA&#39;</span><span class="p">,</span> <span class="s1">&#39;NEA&#39;</span><span class="p">,</span> <span class="s1">&#39;Cuyo&#39;</span><span class="p">,</span> <span class="s1">&#39;Patagonia&#39;</span><span class="p">]</span>
+<span class="n">probs_region</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.10</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.07</span><span class="p">]</span>
+<span class="n">region</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">regiones</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="n">probs_region</span><span class="p">)</span>
+
+<span class="c1"># --- Años de educación del jefe/a de hogar ---</span>
+<span class="c1"># Correlacionado con región: NOA y NEA tienen menor educación promedio</span>
+<span class="n">edu_base</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;GBA&#39;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span> <span class="s1">&#39;Pampeana&#39;</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span> <span class="s1">&#39;NOA&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;NEA&#39;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s1">&#39;Cuyo&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;Patagonia&#39;</span><span class="p">:</span> <span class="mi">11</span><span class="p">}</span>
+<span class="n">educacion</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">edu_base</span><span class="p">[</span><span class="n">r</span><span class="p">],</span> <span class="mf">3.5</span><span class="p">))</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">region</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">educacion</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">educacion</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+
+<span class="c1"># --- Ingreso per cápita del hogar (en pesos, log-normal) ---</span>
+<span class="c1"># Correlacionado con educación y región</span>
+<span class="n">ingreso_mu</span> <span class="o">=</span> <span class="mf">9.5</span> <span class="o">+</span> <span class="mf">0.12</span> <span class="o">*</span> <span class="n">educacion</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;NOA&#39;</span><span class="p">,</span> <span class="s1">&#39;NEA&#39;</span><span class="p">]),</span> <span class="o">-</span><span class="mf">0.4</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">ingreso_pcapita</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">lognormal</span><span class="p">(</span><span class="n">ingreso_mu</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">)</span>
+
+<span class="c1"># --- Tenencia de vivienda (0=inquilino/precario, 1=propietario) ---</span>
+<span class="c1"># Correlacionado con ingreso</span>
+<span class="n">prob_propietario</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">ingreso_pcapita</span> <span class="o">/</span> <span class="mi">50000</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)))</span>
+<span class="n">propietario</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">prob_propietario</span><span class="p">)</span>
+
+<span class="c1"># --- Hacinamiento (personas por cuarto, &gt;=2 es crítico) ---</span>
+<span class="c1"># Mayor en hogares pobres</span>
+<span class="n">hacinamiento_mu</span> <span class="o">=</span> <span class="mf">1.2</span> <span class="o">-</span> <span class="mf">0.00002</span> <span class="o">*</span> <span class="n">ingreso_pcapita</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;NOA&#39;</span><span class="p">,</span> <span class="s1">&#39;NEA&#39;</span><span class="p">]),</span> <span class="mf">0.3</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">hacinamiento</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">lognormal</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">hacinamiento_mu</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">)),</span> <span class="mf">0.4</span><span class="p">),</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+
+<span class="c1"># --- Cobertura de salud (0=solo pública, 1=obra social/prepaga) ---</span>
+<span class="n">prob_cobertura</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">ingreso_pcapita</span> <span class="o">/</span> <span class="mi">40000</span> <span class="o">-</span> <span class="mf">2.5</span><span class="p">)))</span>
+<span class="n">cobertura_salud</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">prob_cobertura</span><span class="p">)</span>
+
+<span class="c1"># --- Presencia de menores de 18 en el hogar ---</span>
+<span class="c1"># Ligeramente más frecuente en hogares con menor ingreso</span>
+<span class="n">prob_menores</span> <span class="o">=</span> <span class="mf">0.55</span> <span class="o">-</span> <span class="mf">0.00001</span> <span class="o">*</span> <span class="n">ingreso_pcapita</span>
+<span class="n">prob_menores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">prob_menores</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">)</span>
+<span class="n">tiene_menores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">prob_menores</span><span class="p">)</span>
+
+<span class="c1"># --- Empleo informal del jefe/a ---</span>
+<span class="c1"># Mayor en hogares pobres y con menor educación</span>
+<span class="n">prob_informal</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">0.0001</span> <span class="o">*</span> <span class="n">ingreso_pcapita</span> <span class="o">+</span> <span class="mf">0.15</span> <span class="o">*</span> <span class="n">educacion</span> <span class="o">-</span> <span class="mf">2.0</span><span class="p">))</span>
+<span class="n">empleo_informal</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">binomial</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">prob_informal</span><span class="p">)</span>
+
+<span class="c1"># --- Variable objetivo: elegibilidad ---</span>
+<span class="c1"># Índice de vulnerabilidad (Proxy Means Test simplificado)</span>
+<span class="c1"># Negativo = más vulnerable. Elegible si score &lt; umbral.</span>
+<span class="n">score_vulnerabilidad</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="o">-</span> <span class="mf">0.00003</span> <span class="o">*</span> <span class="n">ingreso_pcapita</span>
+    <span class="o">-</span> <span class="mf">0.15</span> <span class="o">*</span> <span class="n">educacion</span>
+    <span class="o">-</span> <span class="mf">0.8</span> <span class="o">*</span> <span class="n">propietario</span>
+    <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">hacinamiento</span>
+    <span class="o">-</span> <span class="mf">0.6</span> <span class="o">*</span> <span class="n">cobertura_salud</span>
+    <span class="o">+</span> <span class="mf">0.4</span> <span class="o">*</span> <span class="n">tiene_menores</span>
+    <span class="o">+</span> <span class="mf">0.7</span> <span class="o">*</span> <span class="n">empleo_informal</span>
+    <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;NOA&#39;</span><span class="p">,</span> <span class="s1">&#39;NEA&#39;</span><span class="p">]),</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>   <span class="c1"># ruido (info no observada)</span>
+<span class="p">)</span>
+
+<span class="c1"># El 30% más vulnerable es elegible (umbral basado en percentil)</span>
+<span class="n">umbral</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">score_vulnerabilidad</span><span class="p">,</span> <span class="mi">70</span><span class="p">)</span>
+<span class="n">elegible</span> <span class="o">=</span> <span class="p">(</span><span class="n">score_vulnerabilidad</span> <span class="o">&gt;=</span> <span class="n">umbral</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+<span class="c1"># --- Armar DataFrame ---</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;ingreso_pcapita&#39;</span><span class="p">:</span> <span class="n">ingreso_pcapita</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">),</span>
+    <span class="s1">&#39;educacion_jefe&#39;</span><span class="p">:</span>  <span class="n">educacion</span><span class="p">,</span>
+    <span class="s1">&#39;propietario&#39;</span><span class="p">:</span>     <span class="n">propietario</span><span class="p">,</span>
+    <span class="s1">&#39;hacinamiento&#39;</span><span class="p">:</span>    <span class="n">hacinamiento</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+    <span class="s1">&#39;cobertura_salud&#39;</span><span class="p">:</span> <span class="n">cobertura_salud</span><span class="p">,</span>
+    <span class="s1">&#39;tiene_menores&#39;</span><span class="p">:</span>   <span class="n">tiene_menores</span><span class="p">,</span>
+    <span class="s1">&#39;empleo_informal&#39;</span><span class="p">:</span> <span class="n">empleo_informal</span><span class="p">,</span>
+    <span class="s1">&#39;region&#39;</span><span class="p">:</span>          <span class="n">region</span><span class="p">,</span>
+    <span class="s1">&#39;elegible&#39;</span><span class="p">:</span>        <span class="n">elegible</span>
+<span class="p">})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Dataset generado: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1"> hogares, </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s1"> variables&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Tasa de elegibilidad: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">elegible</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.1%</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dataset generado: 5,000 hogares, 9 variables
+Tasa de elegibilidad: 30.0%
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ingreso_pcapita</th>
+      <th>educacion_jefe</th>
+      <th>propietario</th>
+      <th>hacinamiento</th>
+      <th>cobertura_salud</th>
+      <th>tiene_menores</th>
+      <th>empleo_informal</th>
+      <th>region</th>
+      <th>elegible</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>31516</td>
+      <td>8</td>
+      <td>0</td>
+      <td>0.50</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>Pampeana</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>21659</td>
+      <td>2</td>
+      <td>0</td>
+      <td>0.51</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>Patagonia</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>9213</td>
+      <td>6</td>
+      <td>0</td>
+      <td>1.26</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>NOA</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>64664</td>
+      <td>14</td>
+      <td>1</td>
+      <td>0.50</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>Pampeana</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>49053</td>
+      <td>12</td>
+      <td>0</td>
+      <td>0.50</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>GBA</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Estadísticas descriptivas por grupo de elegibilidad:</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;elegible&#39;</span><span class="p">)[[</span><span class="s1">&#39;ingreso_pcapita&#39;</span><span class="p">,</span><span class="s1">&#39;educacion_jefe&#39;</span><span class="p">,</span><span class="s1">&#39;hacinamiento&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Estadísticas descriptivas por grupo de elegibilidad:
+
+          ingreso_pcapita  educacion_jefe  hacinamiento
+elegible                                               
+0                 72293.2            11.0           0.6
+1                 17495.3             6.3           1.1
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="analisis-exploratorio-distribuciones-por-clase-objetivo">
+<h2>3. Análisis exploratorio: distribuciones por clase objetivo<a class="headerlink" href="#analisis-exploratorio-distribuciones-por-clase-objetivo" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">variables_continuas</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;ingreso_pcapita&#39;</span><span class="p">,</span> <span class="s1">&#39;educacion_jefe&#39;</span><span class="p">,</span> <span class="s1">&#39;hacinamiento&#39;</span><span class="p">]</span>
+<span class="n">variables_binarias</span>  <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;propietario&#39;</span><span class="p">,</span> <span class="s1">&#39;cobertura_salud&#39;</span><span class="p">,</span> <span class="s1">&#39;tiene_menores&#39;</span><span class="p">,</span> <span class="s1">&#39;empleo_informal&#39;</span><span class="p">]</span>
+<span class="n">colores</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#3A86FF&#39;</span><span class="p">,</span> <span class="s1">&#39;#FF6B6B&#39;</span><span class="p">]</span>
+<span class="n">etiquetas</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;No elegible&#39;</span><span class="p">,</span> <span class="s1">&#39;Elegible&#39;</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s1">&#39;Distribución de variables por elegibilidad al programa&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.01</span><span class="p">)</span>
+
+<span class="c1"># Fila 1: variables continuas</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">var</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">variables_continuas</span><span class="p">):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">val</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">etiquetas</span><span class="p">,</span> <span class="n">colores</span><span class="p">):</span>
+        <span class="n">subset</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;elegible&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">val</span><span class="p">][</span><span class="n">var</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">var</span> <span class="o">==</span> <span class="s1">&#39;ingreso_pcapita&#39;</span><span class="p">:</span>
+            <span class="n">subset</span> <span class="o">=</span> <span class="n">subset</span> <span class="o">/</span> <span class="mi">1000</span>  <span class="c1"># en miles</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">subset</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">var</span> <span class="o">==</span> <span class="s1">&#39;ingreso_pcapita&#39;</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Miles de pesos&#39;</span><span class="p">)</span>
+
+<span class="c1"># Región (cuarto panel de fila 1)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="n">region_elegible</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;region&#39;</span><span class="p">)[</span><span class="s1">&#39;elegible&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">region_elegible</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;barh&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#3A86FF&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Tasa de elegibilidad por región&#39;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Proporción elegible&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;elegible&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Promedio&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Fila 2: variables binarias</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">var</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">variables_binarias</span><span class="p">):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>
+    <span class="n">ct</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;elegible&#39;</span><span class="p">,</span> <span class="n">var</span><span class="p">])</span><span class="o">.</span><span class="n">size</span><span class="p">()</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">ct_pct</span> <span class="o">=</span> <span class="n">ct</span><span class="o">.</span><span class="n">div</span><span class="p">(</span><span class="n">ct</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">ct_pct</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;bar&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;#AECBF0&#39;</span><span class="p">,</span> <span class="s1">&#39;#3A86FF&#39;</span><span class="p">],</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="p">(</span><span class="n">i</span><span class="o">==</span><span class="mi">0</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">var</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Elegible&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="s1">&#39;No&#39;</span><span class="p">,</span> <span class="s1">&#39;Sí&#39;</span><span class="p">],</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Proporción&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s1">&#39;No tiene&#39;</span><span class="p">,</span> <span class="s1">&#39;Tiene&#39;</span><span class="p">],</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;eda_targeting.png&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">120</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;El ingreso per cápita y el nivel educativo son los predictores más discriminantes.&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/f7b6bc19a0c958c03523c5869fb245ccd73997f7355eaf9ed134fc0a9da58dd6.png" src="_images/f7b6bc19a0c958c03523c5869fb245ccd73997f7355eaf9ed134fc0a9da58dd6.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>El ingreso per cápita y el nivel educativo son los predictores más discriminantes.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="modelo-1-regresion-logistica">
+<h2>4. Modelo 1: Regresión Logística<a class="headerlink" href="#modelo-1-regresion-logistica" title="Link to this heading">#</a></h2>
+<p>La regresión logística es el punto de partida natural para problemas de clasificación binaria. Su principal ventaja es la <strong>interpretabilidad</strong>: los coeficientes indican la dirección y magnitud del efecto de cada variable sobre la probabilidad de elegibilidad.</p>
+<section id="preparacion-de-los-datos">
+<h3>Preparación de los datos<a class="headerlink" href="#preparacion-de-los-datos" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Codificar región con dummies</span>
+<span class="n">df_model</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">get_dummies</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;region&#39;</span><span class="p">],</span> <span class="n">drop_first</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Variables predictoras</span>
+<span class="n">feature_cols</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;ingreso_pcapita&#39;</span><span class="p">,</span> <span class="s1">&#39;educacion_jefe&#39;</span><span class="p">,</span> <span class="s1">&#39;propietario&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;hacinamiento&#39;</span><span class="p">,</span> <span class="s1">&#39;cobertura_salud&#39;</span><span class="p">,</span> <span class="s1">&#39;tiene_menores&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;empleo_informal&#39;</span>
+<span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">df_model</span><span class="o">.</span><span class="n">columns</span> <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;region_&#39;</span><span class="p">)]</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">df_model</span><span class="p">[</span><span class="n">feature_cols</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df_model</span><span class="p">[</span><span class="s1">&#39;elegible&#39;</span><span class="p">]</span>
+
+<span class="c1"># División train/test estratificada (80/20)</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span>
+<span class="p">)</span>
+
+<span class="c1"># Estandarización</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+<span class="n">X_train_sc</span> <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">X_test_sc</span>  <span class="o">=</span> <span class="n">scaler</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Train: </span><span class="si">{</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1"> hogares | Test: </span><span class="si">{</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1"> hogares&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Tasa de elegibles en train: </span><span class="si">{</span><span class="n">y_train</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.1%</span><span class="si">}</span><span class="s1"> | en test: </span><span class="si">{</span><span class="n">y_test</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.1%</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Train: 4,000 hogares | Test: 1,000 hogares
+Tasa de elegibles en train: 30.0% | en test: 30.0%
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Ajustar modelo</span>
+<span class="n">log_reg</span> <span class="o">=</span> <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">log_reg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_sc</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+<span class="c1"># Coeficientes</span>
+<span class="n">coef_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;variable&#39;</span><span class="p">:</span> <span class="n">feature_cols</span><span class="p">,</span>
+    <span class="s1">&#39;coeficiente&#39;</span><span class="p">:</span> <span class="n">log_reg</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="p">})</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;coeficiente&#39;</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#FF6B6B&#39;</span> <span class="k">if</span> <span class="n">c</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="s1">&#39;#3A86FF&#39;</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">coef_df</span><span class="p">[</span><span class="s1">&#39;coeficiente&#39;</span><span class="p">]]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">coef_df</span><span class="p">[</span><span class="s1">&#39;variable&#39;</span><span class="p">],</span> <span class="n">coef_df</span><span class="p">[</span><span class="s1">&#39;coeficiente&#39;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Coeficiente estandarizado&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Regresión Logística — Coeficientes (variables estandarizadas)&#39;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">([</span><span class="n">v</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;region_&#39;</span><span class="p">,</span> <span class="s1">&#39;Región: &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span> 
+                    <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">coef_df</span><span class="p">[</span><span class="s1">&#39;variable&#39;</span><span class="p">]])</span>
+
+<span class="c1"># Anotación interpretativa</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="s1">&#39;Azul (+): aumenta prob. de elegibilidad</span><span class="se">\n</span><span class="s1">Rojo (–): reduce prob. de elegibilidad&#39;</span><span class="p">,</span>
+        <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">verticalalignment</span><span class="o">=</span><span class="s1">&#39;bottom&#39;</span><span class="p">,</span>
+        <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">boxstyle</span><span class="o">=</span><span class="s1">&#39;round&#39;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s1">&#39;lightyellow&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;coefs_logistica.png&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">120</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/75faffea67bfa85099bee96d2d6e747732891e24f48d9d7ff793fa5120bc9f71.png" src="_images/75faffea67bfa85099bee96d2d6e747732891e24f48d9d7ff793fa5120bc9f71.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Predicciones</span>
+<span class="n">y_pred_lr</span> <span class="o">=</span> <span class="n">log_reg</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test_sc</span><span class="p">)</span>
+<span class="n">y_proba_lr</span> <span class="o">=</span> <span class="n">log_reg</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test_sc</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># --- Matriz de confusión ---</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+
+<span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">)</span>
+<span class="n">disp</span> <span class="o">=</span> <span class="n">ConfusionMatrixDisplay</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="o">=</span><span class="n">cm</span><span class="p">,</span> <span class="n">display_labels</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;No elegible&#39;</span><span class="p">,</span> <span class="s1">&#39;Elegible&#39;</span><span class="p">])</span>
+<span class="n">disp</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">colorbar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Blues&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Matriz de confusión — Regresión Logística&#39;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+
+<span class="c1"># --- Reporte y tasas de error de targeting ---</span>
+<span class="n">tn</span><span class="p">,</span> <span class="n">fp</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">tp</span> <span class="o">=</span> <span class="n">cm</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+<span class="n">tasa_inclusion</span>  <span class="o">=</span> <span class="n">fp</span> <span class="o">/</span> <span class="p">(</span><span class="n">fp</span> <span class="o">+</span> <span class="n">tn</span><span class="p">)</span>  <span class="c1"># Falsos positivos / Total no elegibles</span>
+<span class="n">tasa_exclusion</span>  <span class="o">=</span> <span class="n">fn</span> <span class="o">/</span> <span class="p">(</span><span class="n">fn</span> <span class="o">+</span> <span class="n">tp</span><span class="p">)</span>  <span class="c1"># Falsos negativos / Total elegibles</span>
+
+<span class="n">categorias</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Error de inclusión</span><span class="se">\n</span><span class="s1">(falsos positivos)&#39;</span><span class="p">,</span> <span class="s1">&#39;Error de exclusión</span><span class="se">\n</span><span class="s1">(falsos negativos)&#39;</span><span class="p">]</span>
+<span class="n">tasas</span> <span class="o">=</span> <span class="p">[</span><span class="n">tasa_inclusion</span><span class="p">,</span> <span class="n">tasa_exclusion</span><span class="p">]</span>
+<span class="n">colores_err</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#FF9F43&#39;</span><span class="p">,</span> <span class="s1">&#39;#EE5A24&#39;</span><span class="p">]</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">categorias</span><span class="p">,</span> <span class="n">tasas</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colores_err</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">cat</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">categorias</span><span class="p">,</span> <span class="n">tasas</span><span class="p">)):</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">t</span> <span class="o">+</span> <span class="mf">0.005</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">t</span><span class="si">:</span><span class="s1">.1%</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">tasas</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1.3</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Tasas de error de targeting&#39;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Proporción&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;cm_logistica.png&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">120</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">=== Reporte de clasificación — Regresión Logística ===&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;No elegible&#39;</span><span class="p">,</span> <span class="s1">&#39;Elegible&#39;</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;AUC-ROC: </span><span class="si">{</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_proba_lr</span><span class="p">)</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">--- Errores de targeting ---&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Error de inclusión (hogares no elegibles que reciben el beneficio): </span><span class="si">{</span><span class="n">tasa_inclusion</span><span class="si">:</span><span class="s1">.1%</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Error de exclusión (hogares elegibles que NO reciben el beneficio): </span><span class="si">{</span><span class="n">tasa_exclusion</span><span class="si">:</span><span class="s1">.1%</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/09cf204589f78dc027db47e09c50ea5f8c247bd6d5503f2c728a6ff07e5c17c4.png" src="_images/09cf204589f78dc027db47e09c50ea5f8c247bd6d5503f2c728a6ff07e5c17c4.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Reporte de clasificación — Regresión Logística ===
+              precision    recall  f1-score   support
+
+ No elegible       0.97      0.97      0.97       700
+    Elegible       0.93      0.93      0.93       300
+
+    accuracy                           0.96      1000
+   macro avg       0.95      0.95      0.95      1000
+weighted avg       0.96      0.96      0.96      1000
+
+AUC-ROC: 0.993
+
+--- Errores de targeting ---
+Error de inclusión (hogares no elegibles que reciben el beneficio): 2.9%
+Error de exclusión (hogares elegibles que NO reciben el beneficio): 6.7%
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="interpretacion-de-errores-de-targeting">
+<h3>Interpretación de errores de targeting<a class="headerlink" href="#interpretacion-de-errores-de-targeting" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>El <strong>error de inclusión</strong> indica qué proporción de hogares no vulnerables estarían recibiendo el beneficio indebidamente. Desde el punto de vista fiscal, este error eleva el costo del programa.</p></li>
+<li><p>El <strong>error de exclusión</strong> indica qué proporción de hogares que deberían recibir el beneficio quedan fuera. Este es el error de equidad: los más vulnerables quedan sin cobertura.</p></li>
+</ul>
+<blockquote>
+<div><p>En la AUH y programas similares, el umbral estándar de 0.5 puede no ser el óptimo. Veremos más adelante cómo ajustarlo.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="modelo-2-random-forest">
+<h2>5. Modelo 2: Random Forest<a class="headerlink" href="#modelo-2-random-forest" title="Link to this heading">#</a></h2>
+<p>El Random Forest es un método de ensemble que construye múltiples árboles de decisión sobre subconjuntos aleatorios de datos y variables. Suele tener mejor rendimiento que la regresión logística cuando hay relaciones no lineales entre variables, pero <strong>es menos interpretable en términos de coeficientes</strong>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">rf</span> <span class="o">=</span> <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">n_estimators</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">max_depth</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">rf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>  <span class="c1"># Random Forest no requiere estandarización</span>
+
+<span class="n">y_pred_rf</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">y_proba_rf</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Importancia de variables</span>
+<span class="n">importancias</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">rf</span><span class="o">.</span><span class="n">feature_importances_</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">feature_cols</span><span class="p">)</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">labels_limpios</span> <span class="o">=</span> <span class="p">[</span><span class="n">v</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;region_&#39;</span><span class="p">,</span> <span class="s1">&#39;Región: &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="s1">&#39; &#39;</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">importancias</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># Importancia de variables</span>
+<span class="n">importancias</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s1">&#39;barh&#39;</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#6C5CE7&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_yticklabels</span><span class="p">(</span><span class="n">labels_limpios</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Importancia (disminución media de impureza)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Random Forest — Importancia de variables&#39;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+
+<span class="c1"># Comparación accuracy/precision/recall</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span> <span class="n">recall_score</span><span class="p">,</span> <span class="n">f1_score</span>
+
+<span class="n">metricas</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Accuracy&#39;</span><span class="p">,</span> <span class="s1">&#39;Precision&#39;</span><span class="p">,</span> <span class="s1">&#39;Recall&#39;</span><span class="p">,</span> <span class="s1">&#39;F1-Score&#39;</span><span class="p">]</span>
+<span class="n">valores_lr</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">),</span>
+    <span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">),</span>
+    <span class="n">recall_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">),</span>
+    <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">)</span>
+<span class="p">]</span>
+<span class="n">valores_rf</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">),</span>
+    <span class="n">precision_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">),</span>
+    <span class="n">recall_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">),</span>
+    <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">metricas</span><span class="p">))</span>
+<span class="n">width</span> <span class="o">=</span> <span class="mf">0.35</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">valores_lr</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Reg. Logística&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#3A86FF&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">width</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">valores_rf</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Random Forest&#39;</span><span class="p">,</span>  <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#6C5CE7&#39;</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;white&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">(</span><span class="n">metricas</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Comparación de modelos&#39;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">rect</span> <span class="ow">in</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">patches</span><span class="p">:</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">rect</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">rect</span><span class="o">.</span><span class="n">get_x</span><span class="p">()</span> <span class="o">+</span> <span class="n">rect</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span><span class="o">/</span><span class="mf">2.</span><span class="p">,</span> <span class="n">h</span> <span class="o">+</span> <span class="mf">0.01</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">h</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;center&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;rf_comparacion.png&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">120</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="n">cm_rf</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">)</span>
+<span class="n">tn_rf</span><span class="p">,</span> <span class="n">fp_rf</span><span class="p">,</span> <span class="n">fn_rf</span><span class="p">,</span> <span class="n">tp_rf</span> <span class="o">=</span> <span class="n">cm_rf</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;=== Reporte — Random Forest ===&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">,</span> <span class="n">target_names</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;No elegible&#39;</span><span class="p">,</span> <span class="s1">&#39;Elegible&#39;</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;AUC-ROC: </span><span class="si">{</span><span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="w"> </span><span class="n">y_proba_rf</span><span class="p">)</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Error de inclusión:  </span><span class="si">{</span><span class="n">fp_rf</span><span class="o">/</span><span class="p">(</span><span class="n">fp_rf</span><span class="o">+</span><span class="n">tn_rf</span><span class="p">)</span><span class="si">:</span><span class="s1">.1%</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Error de exclusión:  </span><span class="si">{</span><span class="n">fn_rf</span><span class="o">/</span><span class="p">(</span><span class="n">fn_rf</span><span class="o">+</span><span class="n">tp_rf</span><span class="p">)</span><span class="si">:</span><span class="s1">.1%</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/be8e73091a423e88859c6469efb2437a64089557ff556e79bccf4b347ca2342e.png" src="_images/be8e73091a423e88859c6469efb2437a64089557ff556e79bccf4b347ca2342e.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Reporte — Random Forest ===
+              precision    recall  f1-score   support
+
+ No elegible       0.96      0.97      0.97       700
+    Elegible       0.93      0.91      0.92       300
+
+    accuracy                           0.95      1000
+   macro avg       0.95      0.94      0.94      1000
+weighted avg       0.95      0.95      0.95      1000
+
+AUC-ROC: 0.991
+Error de inclusión:  3.0%
+Error de exclusión:  9.0%
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="analisis-de-umbral-el-trade-off-entre-errores-de-targeting">
+<h2>6. Análisis de umbral: el trade-off entre errores de targeting<a class="headerlink" href="#analisis-de-umbral-el-trade-off-entre-errores-de-targeting" title="Link to this heading">#</a></h2>
+<p>Hasta ahora, ambos modelos usaron el umbral por defecto de 0.5: un hogar es clasificado como elegible si la probabilidad predicha supera el 50%. Pero en política pública este umbral rara vez es el óptimo.</p>
+<ul class="simple">
+<li><p><strong>Umbral más alto (ej: 0.7):</strong> El modelo solo asigna elegibilidad a hogares con alta confianza. Reduce los errores de inclusión pero aumenta los de exclusión.</p></li>
+<li><p><strong>Umbral más bajo (ej: 0.3):</strong> El modelo amplía la elegibilidad. Reduce los errores de exclusión pero incluye más hogares no vulnerables.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+<span class="c1"># --- Panel 1: Curva Precision-Recall ---</span>
+<span class="n">precision_lr</span><span class="p">,</span> <span class="n">recall_lr</span><span class="p">,</span> <span class="n">thresholds_lr</span> <span class="o">=</span> <span class="n">precision_recall_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_proba_lr</span><span class="p">)</span>
+<span class="n">precision_rf</span><span class="p">,</span> <span class="n">recall_rf</span><span class="p">,</span> <span class="n">thresholds_rf</span> <span class="o">=</span> <span class="n">precision_recall_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_proba_rf</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">recall_lr</span><span class="p">,</span> <span class="n">precision_lr</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#3A86FF&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Reg. Logística&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">recall_rf</span><span class="p">,</span> <span class="n">precision_rf</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#6C5CE7&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Random Forest&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Baseline (prevalencia)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Recall (= 1 - Error de exclusión)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Precisión (= 1 - tasa de falsos positivos)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Curva Precision-Recall&#39;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">])</span>
+
+<span class="c1"># --- Panel 2: Trade-off inclusión/exclusión por umbral (Random Forest) ---</span>
+<span class="n">umbrales</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">incl_errors</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">excl_errors</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">u</span> <span class="ow">in</span> <span class="n">umbrales</span><span class="p">:</span>
+    <span class="n">pred_u</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_proba_rf</span> <span class="o">&gt;=</span> <span class="n">u</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">cm_u</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">pred_u</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cm_u</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="n">tn_u</span><span class="p">,</span> <span class="n">fp_u</span><span class="p">,</span> <span class="n">fn_u</span><span class="p">,</span> <span class="n">tp_u</span> <span class="o">=</span> <span class="n">cm_u</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+        <span class="n">incl_errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fp_u</span> <span class="o">/</span> <span class="p">(</span><span class="n">fp_u</span> <span class="o">+</span> <span class="n">tn_u</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">fp_u</span> <span class="o">+</span> <span class="n">tn_u</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">excl_errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fn_u</span> <span class="o">/</span> <span class="p">(</span><span class="n">fn_u</span> <span class="o">+</span> <span class="n">tp_u</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">fn_u</span> <span class="o">+</span> <span class="n">tp_u</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">incl_errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+        <span class="n">excl_errors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">umbrales</span><span class="p">,</span> <span class="n">incl_errors</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#FF9F43&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Error de inclusión (FP)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">umbrales</span><span class="p">,</span> <span class="n">excl_errors</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;#EE5A24&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Error de exclusión (FN)&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Umbral = 0.5 (default)&#39;</span><span class="p">)</span>
+
+<span class="c1"># Umbral óptimo: minimiza la suma de ambos errores</span>
+<span class="n">suma_errores</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="n">e</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">incl_errors</span><span class="p">,</span> <span class="n">excl_errors</span><span class="p">)]</span>
+<span class="n">umbral_optimo</span> <span class="o">=</span> <span class="n">umbrales</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">nanargmin</span><span class="p">(</span><span class="n">suma_errores</span><span class="p">)]</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">umbral_optimo</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;:&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> 
+                <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Umbral óptimo = </span><span class="si">{</span><span class="n">umbral_optimo</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Umbral de decisión&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Tasa de error&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">&#39;Trade-off errores de targeting — Random Forest&#39;</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;threshold_analysis.png&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">120</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Umbral que minimiza la suma de errores de inclusión y exclusión: </span><span class="si">{</span><span class="n">umbral_optimo</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/1c75ea650f00f4e54faa70eaf1c23aba818f3609d20dca065476dac9c73bc4a2.png" src="_images/1c75ea650f00f4e54faa70eaf1c23aba818f3609d20dca065476dac9c73bc4a2.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Umbral que minimiza la suma de errores de inclusión y exclusión: 0.39
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Evaluación con umbral óptimo</span>
+<span class="n">y_pred_optimo</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_proba_rf</span> <span class="o">&gt;=</span> <span class="n">umbral_optimo</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="n">cm_opt</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_optimo</span><span class="p">)</span>
+<span class="n">tn_o</span><span class="p">,</span> <span class="n">fp_o</span><span class="p">,</span> <span class="n">fn_o</span><span class="p">,</span> <span class="n">tp_o</span> <span class="o">=</span> <span class="n">cm_opt</span><span class="o">.</span><span class="n">ravel</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;=== Random Forest con umbral óptimo (</span><span class="si">{</span><span class="n">umbral_optimo</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">) ===&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Error de inclusión:  </span><span class="si">{</span><span class="n">fp_o</span><span class="o">/</span><span class="p">(</span><span class="n">fp_o</span><span class="o">+</span><span class="n">tn_o</span><span class="p">)</span><span class="si">:</span><span class="s1">.1%</span><span class="si">}</span><span class="s1">  (antes: </span><span class="si">{</span><span class="n">fp_rf</span><span class="o">/</span><span class="p">(</span><span class="n">fp_rf</span><span class="o">+</span><span class="n">tn_rf</span><span class="p">)</span><span class="si">:</span><span class="s1">.1%</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Error de exclusión:  </span><span class="si">{</span><span class="n">fn_o</span><span class="o">/</span><span class="p">(</span><span class="n">fn_o</span><span class="o">+</span><span class="n">tp_o</span><span class="p">)</span><span class="si">:</span><span class="s1">.1%</span><span class="si">}</span><span class="s1">  (antes: </span><span class="si">{</span><span class="n">fn_rf</span><span class="o">/</span><span class="p">(</span><span class="n">fn_rf</span><span class="o">+</span><span class="n">tp_rf</span><span class="p">)</span><span class="si">:</span><span class="s1">.1%</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">Presupuesto relativo (beneficiarios asignados):&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Con umbral 0.50: </span><span class="si">{</span><span class="n">y_pred_rf</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1"> hogares (</span><span class="si">{</span><span class="n">y_pred_rf</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.1%</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;  Con umbral </span><span class="si">{</span><span class="n">umbral_optimo</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">: </span><span class="si">{</span><span class="n">y_pred_optimo</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">:</span><span class="s1">,</span><span class="si">}</span><span class="s1"> hogares (</span><span class="si">{</span><span class="n">y_pred_optimo</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="si">:</span><span class="s1">.1%</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Random Forest con umbral óptimo (0.39) ===
+Error de inclusión:  4.9%  (antes: 3.0%)
+Error de exclusión:  4.3%  (antes: 9.0%)
+
+Presupuesto relativo (beneficiarios asignados):
+  Con umbral 0.50: 294 hogares (29.4%)
+  Con umbral 0.39: 321 hogares (32.1%)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="conclusion-de-politica-que-modelo-recomendarias">
+<h2>7. Conclusión de política: ¿qué modelo recomendarías?<a class="headerlink" href="#conclusion-de-politica-que-modelo-recomendarias" title="Link to this heading">#</a></h2>
+<section id="sintesis-comparativa">
+<h3>Síntesis comparativa<a class="headerlink" href="#sintesis-comparativa" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">resumen</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;Modelo&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Regresión Logística&#39;</span><span class="p">,</span> <span class="s1">&#39;Random Forest (umbral 0.5)&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;Random Forest (umbral </span><span class="si">{</span><span class="n">umbral_optimo</span><span class="si">:</span><span class="s1">.2f</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;AUC-ROC&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_proba_lr</span><span class="p">),</span>
+        <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_proba_rf</span><span class="p">),</span>
+        <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_proba_rf</span><span class="p">)</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;Error inclusión&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="n">fp</span><span class="o">/</span><span class="p">(</span><span class="n">fp</span><span class="o">+</span><span class="n">tn</span><span class="p">),</span> <span class="n">fp_rf</span><span class="o">/</span><span class="p">(</span><span class="n">fp_rf</span><span class="o">+</span><span class="n">tn_rf</span><span class="p">),</span> <span class="n">fp_o</span><span class="o">/</span><span class="p">(</span><span class="n">fp_o</span><span class="o">+</span><span class="n">tn_o</span><span class="p">)</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;Error exclusión&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="n">fn</span><span class="o">/</span><span class="p">(</span><span class="n">fn</span><span class="o">+</span><span class="n">tp</span><span class="p">),</span> <span class="n">fn_rf</span><span class="o">/</span><span class="p">(</span><span class="n">fn_rf</span><span class="o">+</span><span class="n">tp_rf</span><span class="p">),</span> <span class="n">fn_o</span><span class="o">/</span><span class="p">(</span><span class="n">fn_o</span><span class="o">+</span><span class="n">tp_o</span><span class="p">)</span>
+    <span class="p">],</span>
+    <span class="s1">&#39;F1-Score&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_lr</span><span class="p">),</span>
+        <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_rf</span><span class="p">),</span>
+        <span class="n">f1_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred_optimo</span><span class="p">)</span>
+    <span class="p">]</span>
+<span class="p">})</span>
+<span class="n">resumen</span> <span class="o">=</span> <span class="n">resumen</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">&#39;Modelo&#39;</span><span class="p">)</span>
+<span class="n">resumen</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.3f}</span><span class="s1">&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">highlight_min</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;#d4edda&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">highlight_max</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;#f8d7da&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style type="text/css">
+#T_17b4a_row0_col0, #T_17b4a_row0_col3, #T_17b4a_row1_col2, #T_17b4a_row2_col1 {
+  background-color: #f8d7da;
+}
+#T_17b4a_row0_col1, #T_17b4a_row1_col0, #T_17b4a_row1_col3, #T_17b4a_row2_col0, #T_17b4a_row2_col2 {
+  background-color: #d4edda;
+}
+</style>
+<table id="T_17b4a">
+  <thead>
+    <tr>
+      <th class="blank level0" >&nbsp;</th>
+      <th id="T_17b4a_level0_col0" class="col_heading level0 col0" >AUC-ROC</th>
+      <th id="T_17b4a_level0_col1" class="col_heading level0 col1" >Error inclusión</th>
+      <th id="T_17b4a_level0_col2" class="col_heading level0 col2" >Error exclusión</th>
+      <th id="T_17b4a_level0_col3" class="col_heading level0 col3" >F1-Score</th>
+    </tr>
+    <tr>
+      <th class="index_name level0" >Modelo</th>
+      <th class="blank col0" >&nbsp;</th>
+      <th class="blank col1" >&nbsp;</th>
+      <th class="blank col2" >&nbsp;</th>
+      <th class="blank col3" >&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th id="T_17b4a_level0_row0" class="row_heading level0 row0" >Regresión Logística</th>
+      <td id="T_17b4a_row0_col0" class="data row0 col0" >0.993</td>
+      <td id="T_17b4a_row0_col1" class="data row0 col1" >0.029</td>
+      <td id="T_17b4a_row0_col2" class="data row0 col2" >0.067</td>
+      <td id="T_17b4a_row0_col3" class="data row0 col3" >0.933</td>
+    </tr>
+    <tr>
+      <th id="T_17b4a_level0_row1" class="row_heading level0 row1" >Random Forest (umbral 0.5)</th>
+      <td id="T_17b4a_row1_col0" class="data row1 col0" >0.991</td>
+      <td id="T_17b4a_row1_col1" class="data row1 col1" >0.030</td>
+      <td id="T_17b4a_row1_col2" class="data row1 col2" >0.090</td>
+      <td id="T_17b4a_row1_col3" class="data row1 col3" >0.919</td>
+    </tr>
+    <tr>
+      <th id="T_17b4a_level0_row2" class="row_heading level0 row2" >Random Forest (umbral 0.39)</th>
+      <td id="T_17b4a_row2_col0" class="data row2 col0" >0.991</td>
+      <td id="T_17b4a_row2_col1" class="data row2 col1" >0.049</td>
+      <td id="T_17b4a_row2_col2" class="data row2 col2" >0.043</td>
+      <td id="T_17b4a_row2_col3" class="data row2 col3" >0.924</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</section>
+<section id="recomendacion">
+<h3>Recomendación<a class="headerlink" href="#recomendacion" title="Link to this heading">#</a></h3>
+<p><strong>Para la mayoría de los programas sociales con presupuesto acotado:</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Random Forest con umbral ajustado</strong> ofrece el mejor rendimiento predictivo (AUC-ROC superior) y permite calibrar el trade-off inclusión/exclusión según las prioridades de política.</p></li>
+<li><p><strong>Sin embargo</strong>, la <strong>Regresión Logística</strong> tiene ventajas no técnicas cruciales en política pública:</p>
+<ul class="simple">
+<li><p>Es <strong>auditable</strong>: funcionarios y beneficiarios pueden entender por qué se tomó la decisión.</p></li>
+<li><p>Es <strong>judicializable</strong>: se puede defender ante reclamos administrativos.</p></li>
+<li><p>Es más <strong>robusta a overfitting</strong> cuando el dataset es pequeño o tiene variables con baja calidad.</p></li>
+</ul>
+</li>
+<li><p><strong>Recomendación práctica:</strong> Usar Random Forest para <em>priorizar</em> el orden de atención (scoring), pero Regresión Logística para la <em>regla de elegibilidad</em> formal publicada en el boletín oficial.</p></li>
+<li><p><strong>Umbral:</strong> Si el programa tiene restricción presupuestaria fija, el umbral debe ajustarse para respetar la restricción. Si el mandato es cobertura universal de vulnerables, el umbral debe minimizar el error de exclusión aunque ello implique mayor costo.</p></li>
+</ol>
+<blockquote>
+<div><p><strong>Nota ética:</strong> Los modelos de ML pueden perpetuar o amplificar sesgos históricos. Si los datos de entrenamiento reflejan un programa previo con errores de exclusión sistemáticos para ciertos grupos (ej: pueblos originarios, migrantes), el modelo aprenderá ese sesgo. Siempre analizar las métricas desagregadas por subgrupos.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="ejercicios">
+<h2>Ejercicios<a class="headerlink" href="#ejercicios" title="Link to this heading">#</a></h2>
+<section id="ejercicio-1-ajuste-de-umbral-con-restriccion-presupuestaria">
+<h3>Ejercicio 1 — Ajuste de umbral con restricción presupuestaria<a class="headerlink" href="#ejercicio-1-ajuste-de-umbral-con-restriccion-presupuestaria" title="Link to this heading">#</a></h3>
+<p>Supongamos que el programa tiene presupuesto para atender exactamente al <strong>25% de los hogares</strong> (en lugar del 30% que es la tasa real de elegibles).</p>
+<p>a) Usando las probabilidades del Random Forest, encontrá el umbral que clasifica exactamente al 25% de los hogares del test set como elegibles.<br />
+b) Calculá los errores de inclusión y exclusión con ese umbral.<br />
+c) ¿Qué grupo etario o región resulta más perjudicado por la restricción presupuestaria? (sugerencia: analizá los falsos negativos según las variables del dataset original).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Tu código aquí</span>
+<span class="c1"># Pista: usá np.percentile(y_proba_rf, 75) como umbral inicial</span>
+</pre></div>
+</div>
+</section>
+<section id="ejercicio-2-curva-roc-y-comparacion-visual">
+<h3>Ejercicio 2 — Curva ROC y comparación visual<a class="headerlink" href="#ejercicio-2-curva-roc-y-comparacion-visual" title="Link to this heading">#</a></h3>
+<p>a) Graficar las curvas ROC de ambos modelos en el mismo plot.<br />
+b) Sombrear el área bajo la curva (AUC) para cada modelo.<br />
+c) ¿En qué región de la curva (baja tasa de FP vs alta tasa de FP) se diferencia más el Random Forest de la Regresión Logística? ¿Qué implicancia tiene esto para la política?</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">roc_curve</span>
+<span class="c1"># Tu código aquí</span>
+</pre></div>
+</div>
+</section>
+<section id="ejercicio-3-analisis-de-equidad-fairness">
+<h3>Ejercicio 3 — Análisis de equidad (fairness)<a class="headerlink" href="#ejercicio-3-analisis-de-equidad-fairness" title="Link to this heading">#</a></h3>
+<p>a) Calculá las tasas de error de exclusión <strong>por región</strong> para el Random Forest con umbral 0.5.<br />
+b) ¿Hay regiones para las cuales el modelo excluye más hogares elegibles que otras?<br />
+c) Si el error de exclusión en una región es significativamente mayor al promedio, ¿qué medidas de política podrían compensarlo?</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pista: merge de X_test con y_test y y_pred_rf usando los índices originales</span>
+<span class="c1"># Tu código aquí</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="M02_C04_Scraping_Datos_Abiertos.html"
+       title="página anterior">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">anterior</p>
+        <p class="prev-next-title">Módulo 2 — Clase 4: Web scraping y procesamiento de datos no estructurados</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="M02_C06_Mapas_Interactivos_Folium.html"
+       title="siguiente página">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">siguiente</p>
+        <p class="prev-next-title">Módulo 2 — Clase 6: Mapas interactivos para política pública con Folium</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos-de-la-clase">Objetivos de la clase</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-problema-de-targeting-en-politica-social">1. El problema de targeting en política social</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#que-es-el-targeting">¿Qué es el targeting?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#principales-tipos-de-targeting">Principales tipos de targeting</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#errores-de-inclusion-y-exclusion">Errores de inclusión y exclusión</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generacion-del-dataset-sintetico">2. Generación del dataset sintético</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-exploratorio-distribuciones-por-clase-objetivo">3. Análisis exploratorio: distribuciones por clase objetivo</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-1-regresion-logistica">4. Modelo 1: Regresión Logística</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#preparacion-de-los-datos">Preparación de los datos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretacion-de-errores-de-targeting">Interpretación de errores de targeting</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelo-2-random-forest">5. Modelo 2: Random Forest</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-de-umbral-el-trade-off-entre-errores-de-targeting">6. Análisis de umbral: el trade-off entre errores de targeting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion-de-politica-que-modelo-recomendarias">7. Conclusión de política: ¿qué modelo recomendarías?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sintesis-comparativa">Síntesis comparativa</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recomendacion">Recomendación</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicios">Ejercicios</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-1-ajuste-de-umbral-con-restriccion-presupuestaria">Ejercicio 1 — Ajuste de umbral con restricción presupuestaria</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-2-curva-roc-y-comparacion-visual">Ejercicio 2 — Curva ROC y comparación visual</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-3-analisis-de-equidad-fairness">Ejercicio 3 — Análisis de equidad (fairness)</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por Daniela Risaro
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

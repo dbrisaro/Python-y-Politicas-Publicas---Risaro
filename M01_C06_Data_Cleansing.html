@@ -1,0 +1,1339 @@
+
+<!DOCTYPE html>
+
+
+<html lang="es" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Clase 6 — Data Cleansing &#8212; Python y Políticas Públicas</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=78d55cf8"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Haz clic para mostrar';</script>
+    <script>let toggleHintHide = 'Haz clic para ocultar';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script src="_static/translations.js?v=d190bf04"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'M01_C06_Data_Cleansing';</script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="Clase 7 — Pandas + Matplotlib: integración" href="M01_C07_Pandas_Matplotlib.html" />
+    <link rel="prev" title="Clase 5 — Pandas II: operaciones sobre DataFrames" href="M01_C05_Pandas_II.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Saltar al contenido principal</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Volver arriba</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Advertencia de versión"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Python y Políticas Públicas</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Búsqueda</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Módulo 1 — Fundamentos de Python</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="M01_C01_Introduccion.html">Clase 1 — Introducción a Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C02_Listas_Funciones_Numpy.html">Clase 2 — Listas, funciones y numpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C03_Matplotlib_Visualizacion.html">Clase 3 — Matplotlib y visualización</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C04_Pandas_I.html">Clase 4 — Pandas I: lectura y exploración de datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C05_Pandas_II.html">Clase 5 — Pandas II: operaciones sobre DataFrames</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Clase 6 — Data Cleansing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C07_Pandas_Matplotlib.html">Clase 7 — Pandas + Matplotlib: integración</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C08_Estadistica_Aplicada.html">Clase 8 — Estadística aplicada con Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C09_Datos_Geoespaciales.html">Clase 9 — Datos geoespaciales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C10_APIs_Datos_Abiertos_Proyecto.html">Clase 10 — APIs, datos abiertos y proyecto final</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Módulo 2 — Datos reales para políticas públicas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="M02_C01_Inflacion_Precios.html">Módulo 2 — Clase 1: Análisis de inflación con datos reales del INDEC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M02_C02_Mercado_Laboral_Pobreza.html">Módulo 2 — Clase 2: Mercado de trabajo y pobreza — datos reales de la EPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M02_C03_Comparacion_LATAM_WorldBank.html">Módulo 2 — Clase 3: Comparación regional con la API del Banco Mundial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M02_C04_Scraping_Datos_Abiertos.html">Módulo 2 — Clase 4: Web scraping y procesamiento de datos no estructurados</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="M02_C05_ML_Targeting_Social.html">Módulo 2 — Clase 5: Machine Learning para targeting de programas sociales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M02_C06_Mapas_Interactivos_Folium.html">Módulo 2 — Clase 6: Mapas interactivos para política pública con Folium</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/dbrisaro/Python-y-Politicas-Publicas---Risaro" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Repositorio de origen"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/M01_C06_Data_Cleansing.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Tema" data-bs-title="Tema"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Claro"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Oscuro"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="Sistema"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Clase 6 — Data Cleansing</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contenidos">Contenidos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-limpiar-datos">1. ¿Por qué limpiar datos?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#valores-faltantes">2. Valores faltantes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#duplicados-e-inconsistencias">3. Duplicados e inconsistencias</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limpieza-de-strings">4. Limpieza de strings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conversion-y-correccion-de-tipos-de-datos">5. Conversión y corrección de tipos de datos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outliers">6. Outliers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-integrador">7. Ejercicio integrador</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicios">Ejercicios</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-1">Ejercicio 1</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="clase-6-data-cleansing">
+<h1>Clase 6 — Data Cleansing<a class="headerlink" href="#clase-6-data-cleansing" title="Link to this heading">#</a></h1>
+<p><strong>Python y Políticas Públicas</strong></p>
+<hr class="docutils" />
+<section id="contenidos">
+<h2>Contenidos<a class="headerlink" href="#contenidos" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>¿Por qué limpiar datos?</p></li>
+<li><p>Valores faltantes: detección, eliminación e imputación</p></li>
+<li><p>Duplicados e inconsistencias</p></li>
+<li><p>Conversión y corrección de tipos de datos</p></li>
+<li><p>Limpieza de strings</p></li>
+<li><p>Outliers</p></li>
+<li><p>Ejercicio integrador: limpiar un dataset real</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># --- Paleta de identidad del curso ---</span>
+<span class="n">C</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#2A6496&#39;</span><span class="p">,</span> <span class="s1">&#39;#E07B3F&#39;</span><span class="p">,</span> <span class="s1">&#39;#3D9970&#39;</span><span class="p">,</span> <span class="s1">&#39;#8E5EA2&#39;</span><span class="p">,</span> <span class="s1">&#39;#C0A830&#39;</span><span class="p">,</span> <span class="s1">&#39;#637A8A&#39;</span><span class="p">]</span>
+
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+    <span class="s1">&#39;figure.figsize&#39;</span>       <span class="p">:</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+    <span class="s1">&#39;font.size&#39;</span>            <span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
+    <span class="s1">&#39;axes.titlesize&#39;</span>       <span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="s1">&#39;axes.titleweight&#39;</span>     <span class="p">:</span> <span class="s1">&#39;normal&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;axes.spines.top&#39;</span>      <span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;axes.spines.right&#39;</span>    <span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;legend.frameon&#39;</span>       <span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;axes.prop_cycle&#39;</span>      <span class="p">:</span> <span class="n">mpl</span><span class="o">.</span><span class="n">cycler</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">C</span><span class="p">),</span>
+    <span class="s1">&#39;figure.dpi&#39;</span>           <span class="p">:</span> <span class="mi">110</span><span class="p">,</span>
+<span class="p">})</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">tit</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Título sin negrita, alineado a la izquierda.&quot;&quot;&quot;</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="por-que-limpiar-datos">
+<h2>1. ¿Por qué limpiar datos?<a class="headerlink" href="#por-que-limpiar-datos" title="Link to this heading">#</a></h2>
+<p>En el sector público, los datos provienen de múltiples fuentes: formularios en papel escaneados, sistemas legados, carga manual, distintos organismos con criterios distintos. Es muy común encontrar:</p>
+<ul class="simple">
+<li><p>Valores faltantes (el campo quedó vacío)</p></li>
+<li><p>Duplicados (el mismo registro cargado dos veces)</p></li>
+<li><p>Inconsistencias («Buenos Aires», «Bs. As.», «BsAs», «BUENOS AIRES» para la misma provincia)</p></li>
+<li><p>Tipos incorrectos (fechas guardadas como texto, números con comas en lugar de puntos)</p></li>
+<li><p>Valores imposibles (edad = 200, porcentaje = 150%)</p></li>
+</ul>
+<p><strong>Regla de oro</strong>: no modificar los datos originales. Siempre trabajar sobre una copia y documentar cada decisión de limpieza.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Dataset simulado con problemas típicos</span>
+<span class="n">data_sucia</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">],</span>
+    <span class="s1">&#39;nombre&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;María López&#39;</span><span class="p">,</span> <span class="s1">&#39;juan perez&#39;</span><span class="p">,</span> <span class="s1">&#39;ANA GARCIA&#39;</span><span class="p">,</span> <span class="s1">&#39;Carlos Ruiz&#39;</span><span class="p">,</span> <span class="s1">&#39;LUCIA MARTINEZ&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;LUCIA MARTINEZ&#39;</span><span class="p">,</span> <span class="s1">&#39;Pedro Gómez&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;Rosa Silva&#39;</span><span class="p">,</span> <span class="s1">&#39;Miguel Torres&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Laura Díaz&#39;</span><span class="p">,</span> <span class="s1">&#39;Fernando Paz&#39;</span><span class="p">,</span> <span class="s1">&#39;Carmen Vega&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;provincia&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Buenos Aires&#39;</span><span class="p">,</span> <span class="s1">&#39;Bs. As.&#39;</span><span class="p">,</span> <span class="s1">&#39;CORDOBA&#39;</span><span class="p">,</span> <span class="s1">&#39;córdoba&#39;</span><span class="p">,</span> <span class="s1">&#39;Santa fe&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;Santa fe&#39;</span><span class="p">,</span> <span class="s1">&#39;santa fe&#39;</span><span class="p">,</span> <span class="s1">&#39;Mendoza&#39;</span><span class="p">,</span> <span class="s1">&#39;mendoza&#39;</span><span class="p">,</span> <span class="s1">&#39;TUCUMAN&#39;</span><span class="p">,</span>
+                  <span class="s1">&#39;Tucumán&#39;</span><span class="p">,</span> <span class="s1">&#39;Salta&#39;</span><span class="p">,</span> <span class="s1">&#39;salta&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;edad&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">34</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">250</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="mi">31</span><span class="p">,</span> <span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">29</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">44</span><span class="p">,</span> <span class="mi">61</span><span class="p">,</span> <span class="mi">27</span><span class="p">],</span>
+    <span class="s1">&#39;ingreso&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;45000&#39;</span><span class="p">,</span> <span class="s1">&#39;82000&#39;</span><span class="p">,</span> <span class="s1">&#39;31000&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;95000&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;95000&#39;</span><span class="p">,</span> <span class="s1">&#39;28000&#39;</span><span class="p">,</span> <span class="s1">&#39;67,500&#39;</span><span class="p">,</span> <span class="s1">&#39;41000&#39;</span><span class="p">,</span> <span class="s1">&#39;120000&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;55000&#39;</span><span class="p">,</span> <span class="s1">&#39;78000&#39;</span><span class="p">,</span> <span class="s1">&#39;33000&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;fecha_registro&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;2023-03-15&#39;</span><span class="p">,</span> <span class="s1">&#39;15/04/2023&#39;</span><span class="p">,</span> <span class="s1">&#39;2023-05-20&#39;</span><span class="p">,</span> <span class="s1">&#39;2023-06-10&#39;</span><span class="p">,</span> <span class="s1">&#39;20-07-2023&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;20-07-2023&#39;</span><span class="p">,</span> <span class="s1">&#39;2023-08-05&#39;</span><span class="p">,</span> <span class="s1">&#39;2023-09-12&#39;</span><span class="p">,</span> <span class="s1">&#39;2023-10-01&#39;</span><span class="p">,</span> <span class="s1">&#39;01/11/2023&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;2023-11-28&#39;</span><span class="p">,</span> <span class="s1">&#39;2023-12-15&#39;</span><span class="p">,</span> <span class="s1">&#39;2024-01-08&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;programa&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;AUH&#39;</span><span class="p">,</span> <span class="s1">&#39;auh&#39;</span><span class="p">,</span> <span class="s1">&#39;AUH&#39;</span><span class="p">,</span> <span class="s1">&#39;Progresar&#39;</span><span class="p">,</span> <span class="s1">&#39;Progresar&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;Progresar&#39;</span><span class="p">,</span> <span class="s1">&#39;potenciar trabajo&#39;</span><span class="p">,</span> <span class="s1">&#39;Potenciar Trabajo&#39;</span><span class="p">,</span> <span class="s1">&#39;AUH&#39;</span><span class="p">,</span> <span class="s1">&#39;Alimentar&#39;</span><span class="p">,</span>
+                 <span class="s1">&#39;alimentar&#39;</span><span class="p">,</span> <span class="s1">&#39;Alimentar&#39;</span><span class="p">,</span> <span class="s1">&#39;AUH&#39;</span><span class="p">],</span>
+<span class="p">}</span>
+
+<span class="n">df_original</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data_sucia</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df_original</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># siempre trabajar sobre una copia</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Dataset original con problemas:&quot;</span><span class="p">)</span>
+<span class="n">df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dataset original con problemas:
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>nombre</th>
+      <th>provincia</th>
+      <th>edad</th>
+      <th>ingreso</th>
+      <th>fecha_registro</th>
+      <th>programa</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>María López</td>
+      <td>Buenos Aires</td>
+      <td>34</td>
+      <td>45000</td>
+      <td>2023-03-15</td>
+      <td>AUH</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>juan perez</td>
+      <td>Bs. As.</td>
+      <td>28</td>
+      <td>82000</td>
+      <td>15/04/2023</td>
+      <td>auh</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>ANA GARCIA</td>
+      <td>CORDOBA</td>
+      <td>250</td>
+      <td>31000</td>
+      <td>2023-05-20</td>
+      <td>AUH</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>Carlos Ruiz</td>
+      <td>córdoba</td>
+      <td>45</td>
+      <td>None</td>
+      <td>2023-06-10</td>
+      <td>Progresar</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>LUCIA MARTINEZ</td>
+      <td>Santa fe</td>
+      <td>31</td>
+      <td>95000</td>
+      <td>20-07-2023</td>
+      <td>Progresar</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>5</td>
+      <td>LUCIA MARTINEZ</td>
+      <td>Santa fe</td>
+      <td>31</td>
+      <td>95000</td>
+      <td>20-07-2023</td>
+      <td>Progresar</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>6</td>
+      <td>Pedro Gómez</td>
+      <td>santa fe</td>
+      <td>-5</td>
+      <td>28000</td>
+      <td>2023-08-05</td>
+      <td>potenciar trabajo</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>7</td>
+      <td>None</td>
+      <td>Mendoza</td>
+      <td>52</td>
+      <td>67,500</td>
+      <td>2023-09-12</td>
+      <td>Potenciar Trabajo</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>8</td>
+      <td>Rosa Silva</td>
+      <td>mendoza</td>
+      <td>29</td>
+      <td>41000</td>
+      <td>2023-10-01</td>
+      <td>AUH</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>9</td>
+      <td>Miguel Torres</td>
+      <td>TUCUMAN</td>
+      <td>38</td>
+      <td>120000</td>
+      <td>01/11/2023</td>
+      <td>Alimentar</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>10</td>
+      <td>Laura Díaz</td>
+      <td>Tucumán</td>
+      <td>44</td>
+      <td>55000</td>
+      <td>2023-11-28</td>
+      <td>alimentar</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>11</td>
+      <td>Fernando Paz</td>
+      <td>Salta</td>
+      <td>61</td>
+      <td>78000</td>
+      <td>2023-12-15</td>
+      <td>Alimentar</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>12</td>
+      <td>Carmen Vega</td>
+      <td>salta</td>
+      <td>27</td>
+      <td>33000</td>
+      <td>2024-01-08</td>
+      <td>AUH</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="valores-faltantes">
+<h2>2. Valores faltantes<a class="headerlink" href="#valores-faltantes" title="Link to this heading">#</a></h2>
+<p>pandas representa los valores faltantes como <code class="docutils literal notranslate"><span class="pre">NaN</span></code> (Not a Number). La estrategia depende del contexto:</p>
+<ul class="simple">
+<li><p><strong>Eliminar</strong>: si son pocas filas y no sesga el análisis.</p></li>
+<li><p><strong>Imputar</strong>: reemplazar con media, mediana, moda u otro valor.</p></li>
+<li><p><strong>Dejar como está</strong>: si el faltante es informativo en sí mismo.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Detectar nulos</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Nulos por columna:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Total de celdas: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">size</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Celdas con nulo: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Nulos por columna:
+id                0
+nombre            1
+provincia         0
+edad              0
+ingreso           1
+fecha_registro    0
+programa          0
+dtype: int64
+
+Total de celdas: 91
+Celdas con nulo: 2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Eliminar filas con algún nulo</span>
+<span class="n">df_sin_nulos</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Filas originales: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s2">, después de dropna: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_sin_nulos</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Eliminar filas con nulo en columnas específicas</span>
+<span class="n">df_sin_nulos_nombre</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;nombre&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Filas sin nulo en &#39;nombre&#39;: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_sin_nulos_nombre</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Rellenar nulos con un valor</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;nombre&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;nombre&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;Sin nombre&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;ingreso_num&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ingreso&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">),</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+
+<span class="c1"># Imputar con la mediana (más robusta que la media para ingresos)</span>
+<span class="n">mediana_ingreso</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;ingreso_num&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">()</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;ingreso_num&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;ingreso_num&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">mediana_ingreso</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Mediana de ingreso usada para imputar: $</span><span class="si">{</span><span class="n">mediana_ingreso</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Filas originales: 13, después de dropna: 11
+Filas sin nulo en &#39;nombre&#39;: 12
+
+Mediana de ingreso usada para imputar: $50,000
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="duplicados-e-inconsistencias">
+<h2>3. Duplicados e inconsistencias<a class="headerlink" href="#duplicados-e-inconsistencias" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Detectar duplicados</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Filas duplicadas: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Filas duplicadas:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">(</span><span class="n">keep</span><span class="o">=</span><span class="kc">False</span><span class="p">)])</span>  <span class="c1"># keep=False: muestra todas las copias</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Filas duplicadas: 1
+
+Filas duplicadas:
+   id          nombre provincia  edad ingreso fecha_registro   programa  \
+4   5  LUCIA MARTINEZ  Santa fe    31   95000     20-07-2023  Progresar   
+5   5  LUCIA MARTINEZ  Santa fe    31   95000     20-07-2023  Progresar   
+
+   ingreso_num  
+4      95000.0  
+5      95000.0  
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Eliminar duplicados (conservar el primero)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Filas después de eliminar duplicados: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Duplicados por columnas específicas (mismo id)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="n">keep</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Filas después de deduplicar por id: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Filas después de eliminar duplicados: 12
+Filas después de deduplicar por id: 12
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="limpieza-de-strings">
+<h2>4. Limpieza de strings<a class="headerlink" href="#limpieza-de-strings" title="Link to this heading">#</a></h2>
+<p>Las columnas de texto son las más propensas a inconsistencias. pandas tiene <code class="docutils literal notranslate"><span class="pre">.str</span></code> para operaciones vectorizadas sobre strings.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Normalizar: eliminar espacios, unificar case, reemplazar abreviaturas</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Provincias antes:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;provincia&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+
+<span class="c1"># Paso 1: strip + lower</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;provincia&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;provincia&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+
+<span class="c1"># Paso 2: mapa de corrección</span>
+<span class="n">mapa_provincias</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;bs. as.&#39;</span><span class="p">:</span> <span class="s1">&#39;buenos aires&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;cordoba&#39;</span><span class="p">:</span> <span class="s1">&#39;córdoba&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;santa fe&#39;</span><span class="p">:</span> <span class="s1">&#39;santa fe&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;tucuman&#39;</span><span class="p">:</span> <span class="s1">&#39;tucumán&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;provincia&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;provincia&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">mapa_provincias</span><span class="p">)</span>
+
+<span class="c1"># Paso 3: title case</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;provincia&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;provincia&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Provincias después:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;provincia&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Provincias antes: [&#39;Buenos Aires&#39; &#39;Bs. As.&#39; &#39;CORDOBA&#39; &#39;córdoba&#39; &#39;Santa fe&#39; &#39;santa fe&#39;
+ &#39;Mendoza&#39; &#39;mendoza&#39; &#39;TUCUMAN&#39; &#39;Tucumán&#39; &#39;Salta&#39; &#39;salta&#39;]
+Provincias después: [&#39;Buenos Aires&#39; &#39;Córdoba&#39; &#39;Santa Fe&#39; &#39;Mendoza&#39; &#39;Tucumán&#39; &#39;Salta&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Normalizar columna &#39;programa&#39;</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Programas antes:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;programa&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+
+<span class="n">mapa_programas</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;auh&#39;</span><span class="p">:</span> <span class="s1">&#39;AUH&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;potenciar trabajo&#39;</span><span class="p">:</span> <span class="s1">&#39;Potenciar Trabajo&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;alimentar&#39;</span><span class="p">:</span> <span class="s1">&#39;Alimentar&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;progresar&#39;</span><span class="p">:</span> <span class="s1">&#39;Progresar&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;programa&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;programa&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">mapa_programas</span><span class="p">)</span>
+
+<span class="c1"># Para los que ya están correctos después del lower, no se reemplazan — capitalizar manualmente</span>
+<span class="n">correcto</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;auh&#39;</span><span class="p">:</span> <span class="s1">&#39;AUH&#39;</span><span class="p">,</span> <span class="s1">&#39;progresar&#39;</span><span class="p">:</span> <span class="s1">&#39;Progresar&#39;</span><span class="p">,</span> <span class="s1">&#39;potenciar trabajo&#39;</span><span class="p">:</span> <span class="s1">&#39;Potenciar Trabajo&#39;</span><span class="p">,</span> <span class="s1">&#39;alimentar&#39;</span><span class="p">:</span> <span class="s1">&#39;Alimentar&#39;</span><span class="p">}</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;programa&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;programa&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">correcto</span><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;programa&#39;</span><span class="p">])</span>
+
+<span class="c1"># Forma más robusta:</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;programa&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;programa&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;programa&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;programa&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s1">&#39;Auh&#39;</span><span class="p">:</span> <span class="s1">&#39;AUH&#39;</span><span class="p">})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Programas después:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;programa&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Programas antes: [&#39;AUH&#39; &#39;auh&#39; &#39;Progresar&#39; &#39;potenciar trabajo&#39; &#39;Potenciar Trabajo&#39;
+ &#39;Alimentar&#39; &#39;alimentar&#39;]
+Programas después: [&#39;AUH&#39; &#39;Progresar&#39; &#39;Potenciar Trabajo&#39; &#39;Alimentar&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="conversion-y-correccion-de-tipos-de-datos">
+<h2>5. Conversión y corrección de tipos de datos<a class="headerlink" href="#conversion-y-correccion-de-tipos-de-datos" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convertir strings a fechas (pandas infiere el formato automáticamente)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Fechas originales:&quot;</span><span class="p">,</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;fecha_registro&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;fecha_registro&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;fecha_registro&#39;</span><span class="p">],</span> <span class="n">dayfirst</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Fechas convertidas:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[[</span><span class="s1">&#39;nombre&#39;</span><span class="p">,</span> <span class="s1">&#39;fecha_registro&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+
+<span class="c1"># Extraer componentes de fecha</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;anio_registro&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;fecha_registro&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">year</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;mes_registro&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;fecha_registro&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fechas originales: [&#39;2023-03-15&#39;, &#39;15/04/2023&#39;, &#39;2023-05-20&#39;, &#39;2023-06-10&#39;, &#39;20-07-2023&#39;, &#39;2023-08-05&#39;, &#39;2023-09-12&#39;, &#39;2023-10-01&#39;, &#39;01/11/2023&#39;, &#39;2023-11-28&#39;, &#39;2023-12-15&#39;, &#39;2024-01-08&#39;]
+
+Fechas convertidas:
+            nombre fecha_registro
+0      María López     2023-03-15
+1       juan perez            NaT
+2       ANA GARCIA     2023-05-20
+3      Carlos Ruiz     2023-06-10
+4   LUCIA MARTINEZ            NaT
+6      Pedro Gómez     2023-08-05
+7       Sin nombre     2023-09-12
+8       Rosa Silva     2023-10-01
+9    Miguel Torres            NaT
+10      Laura Díaz     2023-11-28
+11    Fernando Paz     2023-12-15
+12     Carmen Vega     2024-01-08
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convertir a categoría (eficiente en memoria para variables con pocas categorías)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;provincia&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;provincia&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;programa&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;programa&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">dtypes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>id                         int64
+nombre                    object
+provincia               category
+edad                       int64
+ingreso                   object
+fecha_registro    datetime64[ns]
+programa                category
+ingreso_num              float64
+anio_registro            float64
+mes_registro             float64
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="outliers">
+<h2>6. Outliers<a class="headerlink" href="#outliers" title="Link to this heading">#</a></h2>
+<p>Los outliers pueden ser errores de carga o valores válidos pero extremos. En políticas públicas, siempre investigar antes de eliminar.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Detectar valores imposibles</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Valores de edad:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;edad&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Edades fuera de rango (18-100): </span><span class="si">{</span><span class="n">df</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;edad&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">18</span><span class="p">)</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;edad&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">100</span><span class="p">)][</span><span class="s1">&#39;edad&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Valores de edad:
+count     12.000000
+mean      52.833333
+std       64.194071
+min       -5.000000
+25%       28.750000
+50%       36.000000
+75%       46.750000
+max      250.000000
+Name: edad, dtype: float64
+
+Edades fuera de rango (18-100): [250, -5]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Estrategia: marcar como NaN los valores imposibles</span>
+<span class="n">df</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;edad&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">18</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;edad&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">),</span> <span class="s1">&#39;edad&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Después de corrección, nulos en edad: </span><span class="si">{</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;edad&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Después de corrección, nulos en edad: 2
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Método IQR para detectar outliers estadísticos</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">ingresos_sample</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">lognormal</span><span class="p">(</span><span class="mi">11</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
+    <span class="p">[</span><span class="mi">5_000_000</span><span class="p">,</span> <span class="mi">8_000_000</span><span class="p">]</span>  <span class="c1"># outliers extremos</span>
+<span class="p">])</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">ingresos_sample</span><span class="p">)</span>
+<span class="n">Q1</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.25</span><span class="p">)</span>
+<span class="n">Q3</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">quantile</span><span class="p">(</span><span class="mf">0.75</span><span class="p">)</span>
+<span class="n">IQR</span> <span class="o">=</span> <span class="n">Q3</span> <span class="o">-</span> <span class="n">Q1</span>
+
+<span class="n">outliers</span> <span class="o">=</span> <span class="n">s</span><span class="p">[(</span><span class="n">s</span> <span class="o">&lt;</span> <span class="n">Q1</span> <span class="o">-</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">IQR</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">s</span> <span class="o">&gt;</span> <span class="n">Q3</span> <span class="o">+</span> <span class="mf">1.5</span> <span class="o">*</span> <span class="n">IQR</span><span class="p">)]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Q1: $</span><span class="si">{</span><span class="n">Q1</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">, Q3: $</span><span class="si">{</span><span class="n">Q3</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">, IQR: $</span><span class="si">{</span><span class="n">IQR</span><span class="si">:</span><span class="s2">,.0f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Outliers detectados: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">outliers</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">outliers</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Q1: $44,556, Q3: $77,232, IQR: $32,676
+Outliers detectados: 7
+[ 128221.55283858  131874.55486213  151166.79249562  129187.26317484
+  130917.39462522 5000000.         8000000.        ]
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="ejercicio-integrador">
+<h2>7. Ejercicio integrador<a class="headerlink" href="#ejercicio-integrador" title="Link to this heading">#</a></h2>
+<p>Ejecutar el pipeline completo de limpieza y documentar cada paso.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pipeline de limpieza documentado</span>
+<span class="n">df_clean</span> <span class="o">=</span> <span class="n">df_original</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">log</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># registro de cada paso</span>
+
+<span class="c1"># 1. Eliminar duplicados</span>
+<span class="n">n_antes</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df_clean</span><span class="p">)</span>
+<span class="n">df_clean</span> <span class="o">=</span> <span class="n">df_clean</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="n">keep</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">)</span>
+<span class="n">log</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Eliminados </span><span class="si">{</span><span class="n">n_antes</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">df_clean</span><span class="p">)</span><span class="si">}</span><span class="s2"> duplicados por id&quot;</span><span class="p">)</span>
+
+<span class="c1"># 2. Normalizar provincia</span>
+<span class="n">mapa_prov</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;bs. as.&#39;</span><span class="p">:</span> <span class="s1">&#39;buenos aires&#39;</span><span class="p">,</span> <span class="s1">&#39;cordoba&#39;</span><span class="p">:</span> <span class="s1">&#39;córdoba&#39;</span><span class="p">,</span> <span class="s1">&#39;tucuman&#39;</span><span class="p">:</span> <span class="s1">&#39;tucumán&#39;</span><span class="p">}</span>
+<span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;provincia&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;provincia&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+                         <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">mapa_prov</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">title</span><span class="p">())</span>
+<span class="n">log</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Normalizada columna &#39;provincia&#39;&quot;</span><span class="p">)</span>
+
+<span class="c1"># 3. Normalizar programa</span>
+<span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;programa&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;programa&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span><span class="s1">&#39;Auh&#39;</span><span class="p">:</span> <span class="s1">&#39;AUH&#39;</span><span class="p">})</span>
+<span class="n">log</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Normalizada columna &#39;programa&#39;&quot;</span><span class="p">)</span>
+
+<span class="c1"># 4. Convertir ingreso a numérico</span>
+<span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;ingreso&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;ingreso&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">),</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+<span class="n">n_nulos_ingreso</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;ingreso&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">isnull</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;ingreso&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;ingreso&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;ingreso&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">median</span><span class="p">())</span>
+<span class="n">log</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Convertido &#39;ingreso&#39; a numérico; </span><span class="si">{</span><span class="n">n_nulos_ingreso</span><span class="si">}</span><span class="s2"> nulos imputados con mediana&quot;</span><span class="p">)</span>
+
+<span class="c1"># 5. Corregir edades imposibles</span>
+<span class="n">n_edades_inv</span> <span class="o">=</span> <span class="p">((</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;edad&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">18</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;edad&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+<span class="n">df_clean</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;edad&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">18</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;edad&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">),</span> <span class="s1">&#39;edad&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="n">log</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Marcadas </span><span class="si">{</span><span class="n">n_edades_inv</span><span class="si">}</span><span class="s2"> edades imposibles como NaN&quot;</span><span class="p">)</span>
+
+<span class="c1"># 6. Convertir fecha</span>
+<span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;fecha_registro&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;fecha_registro&#39;</span><span class="p">],</span> <span class="n">dayfirst</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">)</span>
+<span class="n">log</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Convertida &#39;fecha_registro&#39; a datetime&quot;</span><span class="p">)</span>
+
+<span class="c1"># 7. Completar nombre nulo</span>
+<span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;nombre&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_clean</span><span class="p">[</span><span class="s1">&#39;nombre&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="s1">&#39;Sin nombre&#39;</span><span class="p">)</span>
+<span class="n">log</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;Rellenados nombres nulos con &#39;Sin nombre&#39;&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== LOG DE LIMPIEZA ===&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">paso</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">log</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">. </span><span class="si">{</span><span class="n">paso</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Dataset final: </span><span class="si">{</span><span class="n">df_clean</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> filas × </span><span class="si">{</span><span class="n">df_clean</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> columnas&quot;</span><span class="p">)</span>
+<span class="n">df_clean</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== LOG DE LIMPIEZA ===
+1. Eliminados 1 duplicados por id
+2. Normalizada columna &#39;provincia&#39;
+3. Normalizada columna &#39;programa&#39;
+4. Convertido &#39;ingreso&#39; a numérico; 1 nulos imputados con mediana
+5. Marcadas 2 edades imposibles como NaN
+6. Convertida &#39;fecha_registro&#39; a datetime
+7. Rellenados nombres nulos con &#39;Sin nombre&#39;
+
+Dataset final: 12 filas × 7 columnas
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>nombre</th>
+      <th>provincia</th>
+      <th>edad</th>
+      <th>ingreso</th>
+      <th>fecha_registro</th>
+      <th>programa</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1</td>
+      <td>María López</td>
+      <td>Buenos Aires</td>
+      <td>34.0</td>
+      <td>45000.0</td>
+      <td>2023-03-15</td>
+      <td>AUH</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2</td>
+      <td>juan perez</td>
+      <td>Buenos Aires</td>
+      <td>28.0</td>
+      <td>82000.0</td>
+      <td>NaT</td>
+      <td>AUH</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>3</td>
+      <td>ANA GARCIA</td>
+      <td>Córdoba</td>
+      <td>NaN</td>
+      <td>31000.0</td>
+      <td>2023-05-20</td>
+      <td>AUH</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4</td>
+      <td>Carlos Ruiz</td>
+      <td>Córdoba</td>
+      <td>45.0</td>
+      <td>45000.0</td>
+      <td>2023-06-10</td>
+      <td>Progresar</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5</td>
+      <td>LUCIA MARTINEZ</td>
+      <td>Santa Fe</td>
+      <td>31.0</td>
+      <td>95000.0</td>
+      <td>NaT</td>
+      <td>Progresar</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>6</td>
+      <td>Pedro Gómez</td>
+      <td>Santa Fe</td>
+      <td>NaN</td>
+      <td>28000.0</td>
+      <td>2023-08-05</td>
+      <td>Potenciar Trabajo</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>7</td>
+      <td>Sin nombre</td>
+      <td>Mendoza</td>
+      <td>52.0</td>
+      <td>67.5</td>
+      <td>2023-09-12</td>
+      <td>Potenciar Trabajo</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>8</td>
+      <td>Rosa Silva</td>
+      <td>Mendoza</td>
+      <td>29.0</td>
+      <td>41000.0</td>
+      <td>2023-10-01</td>
+      <td>AUH</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>9</td>
+      <td>Miguel Torres</td>
+      <td>Tucumán</td>
+      <td>38.0</td>
+      <td>120000.0</td>
+      <td>NaT</td>
+      <td>Alimentar</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>10</td>
+      <td>Laura Díaz</td>
+      <td>Tucumán</td>
+      <td>44.0</td>
+      <td>55000.0</td>
+      <td>2023-11-28</td>
+      <td>Alimentar</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>11</td>
+      <td>Fernando Paz</td>
+      <td>Salta</td>
+      <td>61.0</td>
+      <td>78000.0</td>
+      <td>2023-12-15</td>
+      <td>Alimentar</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>12</td>
+      <td>Carmen Vega</td>
+      <td>Salta</td>
+      <td>27.0</td>
+      <td>33000.0</td>
+      <td>2024-01-08</td>
+      <td>AUH</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="ejercicios">
+<h2>Ejercicios<a class="headerlink" href="#ejercicios" title="Link to this heading">#</a></h2>
+<section id="ejercicio-1">
+<h3>Ejercicio 1<a class="headerlink" href="#ejercicio-1" title="Link to this heading">#</a></h3>
+<p>El siguiente dataset tiene múltiples problemas. Identificá al menos 5 y escribí el código para corregirlos:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df_ej</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;municipio&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;La Plata&#39;</span><span class="p">,</span> <span class="s1">&#39;la plata&#39;</span><span class="p">,</span> <span class="s1">&#39;ROSARIO&#39;</span><span class="p">,</span> <span class="s1">&#39;rosario&#39;</span><span class="p">,</span> <span class="s1">&#39;Córdoba&#39;</span><span class="p">,</span> <span class="s1">&#39;córdoba&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;poblacion&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;750000&#39;</span><span class="p">,</span> <span class="s1">&#39;750000&#39;</span><span class="p">,</span> <span class="s1">&#39;1.200.000&#39;</span><span class="p">,</span> <span class="s1">&#39;1200000&#39;</span><span class="p">,</span> <span class="s1">&#39;1500000&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+    <span class="s1">&#39;tasa_desempleo&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">8.5</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">,</span> <span class="mf">7.2</span><span class="p">,</span> <span class="mf">7.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">250.0</span><span class="p">],</span>
+    <span class="s1">&#39;anio&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;2023&#39;</span><span class="p">,</span> <span class="s1">&#39;2023&#39;</span><span class="p">,</span> <span class="s1">&#39;2022&#39;</span><span class="p">,</span> <span class="mi">2022</span><span class="p">,</span> <span class="s1">&#39;2023&#39;</span><span class="p">,</span> <span class="s1">&#39;2023&#39;</span><span class="p">],</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df_ej</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;municipio&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;La Plata&#39;</span><span class="p">,</span> <span class="s1">&#39;la plata&#39;</span><span class="p">,</span> <span class="s1">&#39;ROSARIO&#39;</span><span class="p">,</span> <span class="s1">&#39;rosario&#39;</span><span class="p">,</span> <span class="s1">&#39;Córdoba&#39;</span><span class="p">,</span> <span class="s1">&#39;córdoba&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;poblacion&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;750000&#39;</span><span class="p">,</span> <span class="s1">&#39;750000&#39;</span><span class="p">,</span> <span class="s1">&#39;1.200.000&#39;</span><span class="p">,</span> <span class="s1">&#39;1200000&#39;</span><span class="p">,</span> <span class="s1">&#39;1500000&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span>
+    <span class="s1">&#39;tasa_desempleo&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">8.5</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">,</span> <span class="mf">7.2</span><span class="p">,</span> <span class="mf">7.2</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">250.0</span><span class="p">],</span>
+    <span class="s1">&#39;anio&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;2023&#39;</span><span class="p">,</span> <span class="s1">&#39;2023&#39;</span><span class="p">,</span> <span class="s1">&#39;2022&#39;</span><span class="p">,</span> <span class="mi">2022</span><span class="p">,</span> <span class="s1">&#39;2023&#39;</span><span class="p">,</span> <span class="s1">&#39;2023&#39;</span><span class="p">],</span>
+<span class="p">})</span>
+
+<span class="c1"># Tu solución aquí</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="M01_C05_Pandas_II.html"
+       title="página anterior">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">anterior</p>
+        <p class="prev-next-title">Clase 5 — Pandas II: operaciones sobre DataFrames</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="M01_C07_Pandas_Matplotlib.html"
+       title="siguiente página">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">siguiente</p>
+        <p class="prev-next-title">Clase 7 — Pandas + Matplotlib: integración</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contenidos">Contenidos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-limpiar-datos">1. ¿Por qué limpiar datos?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#valores-faltantes">2. Valores faltantes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#duplicados-e-inconsistencias">3. Duplicados e inconsistencias</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limpieza-de-strings">4. Limpieza de strings</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conversion-y-correccion-de-tipos-de-datos">5. Conversión y corrección de tipos de datos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#outliers">6. Outliers</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-integrador">7. Ejercicio integrador</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicios">Ejercicios</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-1">Ejercicio 1</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por Daniela Risaro
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

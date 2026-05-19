@@ -1,0 +1,614 @@
+
+<!DOCTYPE html>
+
+
+<html lang="es" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Python y políticas públicas &#8212; Python y Políticas Públicas</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=78d55cf8"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Haz clic para mostrar';</script>
+    <script>let toggleHintHide = 'Haz clic para ocultar';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script src="_static/translations.js?v=d190bf04"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Introduccion';</script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Saltar al contenido principal</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Volver arriba</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Advertencia de versión"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Python y Políticas Públicas</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Búsqueda</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Módulo 1 — Fundamentos de Python</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="M01_C01_Introduccion.html">Clase 1 — Introducción a Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C02_Listas_Funciones_Numpy.html">Clase 2 — Listas, funciones y numpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C03_Matplotlib_Visualizacion.html">Clase 3 — Matplotlib y visualización</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C04_Pandas_I.html">Clase 4 — Pandas I: lectura y exploración de datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C05_Pandas_II.html">Clase 5 — Pandas II: operaciones sobre DataFrames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C06_Data_Cleansing.html">Clase 6 — Data Cleansing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C07_Pandas_Matplotlib.html">Clase 7 — Pandas + Matplotlib: integración</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C08_Estadistica_Aplicada.html">Clase 8 — Estadística aplicada con Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C09_Datos_Geoespaciales.html">Clase 9 — Datos geoespaciales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C10_APIs_Datos_Abiertos_Proyecto.html">Clase 10 — APIs, datos abiertos y proyecto final</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Módulo 2 — Datos reales para políticas públicas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="M02_C01_Inflacion_Precios.html">Módulo 2 — Clase 1: Análisis de inflación con datos reales del INDEC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M02_C02_Mercado_Laboral_Pobreza.html">Módulo 2 — Clase 2: Mercado de trabajo y pobreza — datos reales de la EPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M02_C03_Comparacion_LATAM_WorldBank.html">Módulo 2 — Clase 3: Comparación regional con la API del Banco Mundial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M02_C04_Scraping_Datos_Abiertos.html">Módulo 2 — Clase 4: Web scraping y procesamiento de datos no estructurados</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="M02_C05_ML_Targeting_Social.html">Módulo 2 — Clase 5: Machine Learning para targeting de programas sociales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M02_C06_Mapas_Interactivos_Folium.html">Módulo 2 — Clase 6: Mapas interactivos para política pública con Folium</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/dbrisaro/Python-y-Politicas-Publicas---Risaro" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Repositorio de origen"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Introduccion.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Tema" data-bs-title="Tema"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Claro"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Oscuro"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="Sistema"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Python y políticas públicas</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estructura-del-curso">Estructura del curso</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clase-1-introduccion-a-python">Clase 1 — Introducción a Python</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clase-2-listas-funciones-y-numpy">Clase 2 — Listas, funciones y numpy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clase-3-matplotlib-y-visualizacion">Clase 3 — Matplotlib y visualización</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clase-4-pandas-i-lectura-y-exploracion-de-datos">Clase 4 — Pandas I: lectura y exploración de datos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clase-5-pandas-ii-operaciones-sobre-dataframes">Clase 5 — Pandas II: operaciones sobre DataFrames</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clase-6-data-cleansing">Clase 6 — Data cleansing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clase-7-pandas-matplotlib-integracion">Clase 7 — Pandas + Matplotlib: integración</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clase-8-estadistica-aplicada-con-python">Clase 8 — Estadística aplicada con Python</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clase-9-datos-geoespaciales">Clase 9 — Datos geoespaciales</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clase-10-apis-datos-abiertos-y-proyecto-final">Clase 10 — APIs, datos abiertos y proyecto final</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proyecto-final">Proyecto final</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#faq">FAQ</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="python-y-politicas-publicas">
+<h1>Python y políticas públicas<a class="headerlink" href="#python-y-politicas-publicas" title="Link to this heading">#</a></h1>
+<p>Bienvenidos y bienvenidas! Este es un curso introductorio de Python para estudiantes de políticas públicas o interesados/as en el análisis de bases de datos e información proveniente o para el sector público.</p>
+<p>El uso de evidencia para la toma de decisiones en el sector público es uno de los grandes desafíos para lograr administraciones eficaces y efectivas. En la actualidad, dada la enorme disponibilidad de datos, las personas profesionales de las políticas públicas requieren conocer las bases del análisis, la manipulación y la visualización de datos, para generar evidencias que sustenten la toma de decisiones.</p>
+<p>Python es un lenguaje que se destaca por su versatilidad: permite realizar todo tipo de análisis estadísticos, implementar algoritmos de aprendizaje automático, manipular bases georreferenciadas, visualizar información en dashboards, crear páginas web, y mucho más. Es uno de los lenguajes de programación más utilizados en la actualidad y su gran comunidad hace que sus potencialidades crezcan día a día en forma exponencial. Además, Python es <em>open source</em>, lo cual lo hace participativo y colaborativo. ¡No te quedes afuera de este barco!</p>
+<hr class="docutils" />
+<section id="estructura-del-curso">
+<h2>Estructura del curso<a class="headerlink" href="#estructura-del-curso" title="Link to this heading">#</a></h2>
+<p>Este curso se divide en <strong>10 clases</strong> con contenido teórico y práctico, y culmina con el desarrollo de un <strong>proyecto final individual</strong> en formato de <em>policy brief</em> con datos.</p>
+<hr class="docutils" />
+<section id="clase-1-introduccion-a-python">
+<h3>Clase 1 — Introducción a Python<a class="headerlink" href="#clase-1-introduccion-a-python" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>¿Qué es Python? Intérpretes disponibles. Introducción a Anaconda.</p></li>
+<li><p>Primeros pasos en Jupyter Notebooks.</p></li>
+<li><p>Tipos de datos y operaciones: enteros, flotantes, strings, booleanos.</p></li>
+<li><p>Estructuras de control: <code class="docutils literal notranslate"><span class="pre">if</span></code>, <code class="docutils literal notranslate"><span class="pre">while</span></code>, <code class="docutils literal notranslate"><span class="pre">for</span></code>.</p></li>
+</ul>
+</section>
+<section id="clase-2-listas-funciones-y-numpy">
+<h3>Clase 2 — Listas, funciones y numpy<a class="headerlink" href="#clase-2-listas-funciones-y-numpy" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Introducción a <code class="docutils literal notranslate"><span class="pre">numpy</span></code>: arrays uni y multidimensionales, operaciones vectorizadas.</p></li>
+<li><p>Creación y operaciones sobre listas.</p></li>
+<li><p>Diccionarios.</p></li>
+<li><p>Definición y uso de funciones.</p></li>
+<li><p><em>Ejercicio integrador</em>: combinar funciones, numpy, listas y un <code class="docutils literal notranslate"><span class="pre">for</span></code>.</p></li>
+</ul>
+</section>
+<section id="clase-3-matplotlib-y-visualizacion">
+<h3>Clase 3 — Matplotlib y visualización<a class="headerlink" href="#clase-3-matplotlib-y-visualizacion" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Buenas prácticas en visualización de datos.</p></li>
+<li><p>Tipos de gráficos: line plots, scatter plots, bar charts, histogramas, heatmaps, series temporales.</p></li>
+<li><p>¿Qué gráfico elegir según el tipo de variable?</p></li>
+<li><p>Personalización: títulos, etiquetas, colores, estilos.</p></li>
+</ul>
+</section>
+<section id="clase-4-pandas-i-lectura-y-exploracion-de-datos">
+<h3>Clase 4 — Pandas I: lectura y exploración de datos<a class="headerlink" href="#clase-4-pandas-i-lectura-y-exploracion-de-datos" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Lectura de archivos: <code class="docutils literal notranslate"><span class="pre">.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">.xlsx</span></code>, <code class="docutils literal notranslate"><span class="pre">.sav</span></code> y otros formatos.</p></li>
+<li><p>Tipos de datos de pandas: <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> y <code class="docutils literal notranslate"><span class="pre">Series</span></code>.</p></li>
+<li><p>Exploración inicial: <code class="docutils literal notranslate"><span class="pre">.head()</span></code>, <code class="docutils literal notranslate"><span class="pre">.info()</span></code>, <code class="docutils literal notranslate"><span class="pre">.describe()</span></code>, <code class="docutils literal notranslate"><span class="pre">.dtypes</span></code>.</p></li>
+<li><p>Lectura de datos de fuentes públicas (<a class="reference external" href="http://datos.gob.ar">datos.gob.ar</a>, portales provinciales).</p></li>
+</ul>
+</section>
+<section id="clase-5-pandas-ii-operaciones-sobre-dataframes">
+<h3>Clase 5 — Pandas II: operaciones sobre DataFrames<a class="headerlink" href="#clase-5-pandas-ii-operaciones-sobre-dataframes" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Selección de datos: indexing, selecting, slicing.</p></li>
+<li><p>Merge, join, concatenate.</p></li>
+<li><p>Reshaping y pivot tables.</p></li>
+<li><p>GroupBy y agregaciones.</p></li>
+</ul>
+</section>
+<section id="clase-6-data-cleansing">
+<h3>Clase 6 — Data cleansing<a class="headerlink" href="#clase-6-data-cleansing" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Valores faltantes: detección, eliminación e imputación.</p></li>
+<li><p>Duplicados y inconsistencias.</p></li>
+<li><p>Conversión de tipos de datos.</p></li>
+<li><p>Normalización y estandarización de variables.</p></li>
+<li><p><em>Ejercicio integrador</em>: limpiar un dataset real del sector público.</p></li>
+</ul>
+</section>
+<section id="clase-7-pandas-matplotlib-integracion">
+<h3>Clase 7 — Pandas + Matplotlib: integración<a class="headerlink" href="#clase-7-pandas-matplotlib-integracion" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Exploración visual de DataFrames: distribuciones, outliers, series temporales.</p></li>
+<li><p>Subplots y figuras con múltiples paneles.</p></li>
+<li><p>Gráficos directamente desde pandas.</p></li>
+<li><p>Exportar gráficos con calidad de publicación.</p></li>
+</ul>
+</section>
+<section id="clase-8-estadistica-aplicada-con-python">
+<h3>Clase 8 — Estadística aplicada con Python<a class="headerlink" href="#clase-8-estadistica-aplicada-con-python" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Estadística descriptiva con <code class="docutils literal notranslate"><span class="pre">pandas</span></code> y <code class="docutils literal notranslate"><span class="pre">scipy.stats</span></code>.</p></li>
+<li><p>Correlaciones e interpretación.</p></li>
+<li><p>Regresión lineal con <code class="docutils literal notranslate"><span class="pre">statsmodels</span></code> (OLS): especificación, estimación, interpretación de coeficientes.</p></li>
+<li><p>Tablas de resultados listas para incluir en un <em>policy brief</em>.</p></li>
+</ul>
+</section>
+<section id="clase-9-datos-geoespaciales">
+<h3>Clase 9 — Datos geoespaciales<a class="headerlink" href="#clase-9-datos-geoespaciales" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>¿Qué son los datos geoespaciales? Formatos: shapefiles, GeoJSON.</p></li>
+<li><p>Introducción a <code class="docutils literal notranslate"><span class="pre">geopandas</span></code>.</p></li>
+<li><p>Mapas coropléticos: visualizar indicadores por provincia o municipio.</p></li>
+<li><p>Integración con datos del sector público argentino (INDEC, <a class="reference external" href="http://datos.gob.ar">datos.gob.ar</a>).</p></li>
+</ul>
+</section>
+<section id="clase-10-apis-datos-abiertos-y-proyecto-final">
+<h3>Clase 10 — APIs, datos abiertos y proyecto final<a class="headerlink" href="#clase-10-apis-datos-abiertos-y-proyecto-final" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>¿Qué es una API? Cómo consumir datos de APIs públicas con <code class="docutils literal notranslate"><span class="pre">requests</span></code>.</p></li>
+<li><p>APIs relevantes para políticas públicas: <a class="reference external" href="http://datos.gob.ar">datos.gob.ar</a>, World Bank, CEPAL.</p></li>
+<li><p>Estructura del proyecto final: cómo armar un <em>policy brief</em> con datos en Python.</p></li>
+<li><p>Taller de cierre: presentación de avances y consultas.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="proyecto-final">
+<h2>Proyecto final<a class="headerlink" href="#proyecto-final" title="Link to this heading">#</a></h2>
+<p>El proyecto final consiste en la elaboración de un <strong>policy brief con datos</strong> usando Python. Cada estudiante elige un tema de política pública de su interés, identifica fuentes de datos abiertas relevantes, realiza un análisis en Python (limpieza, exploración, visualización y al menos una técnica estadística), y presenta sus hallazgos en formato de policy brief (2–4 páginas).</p>
+<p><strong>Criterios de evaluación:</strong></p>
+<ul class="simple">
+<li><p>Calidad y pertinencia del análisis de datos.</p></li>
+<li><p>Claridad de las visualizaciones.</p></li>
+<li><p>Solidez del argumento de política pública.</p></li>
+<li><p>Reproducibilidad del código (Jupyter Notebook entregado).</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="faq">
+<h2>FAQ<a class="headerlink" href="#faq" title="Link to this heading">#</a></h2>
+<p><strong>¿Necesito tener experiencia previa para tomar este curso?</strong><br />
+No. Aprenderemos a programar en Python desde cero. Si tenés experiencia previa, siempre viene bien refrescar conceptos.</p>
+<p><strong>¿Me sirve saber R o Stata?</strong><br />
+Sí. Tener experiencia de programación en otros lenguajes o herramientas estadísticas es un plus, aunque en este curso nos enfocaremos en Python.</p>
+<p><strong>¿Qué herramientas necesito instalar?</strong><br />
+Recomendamos instalar <a class="reference external" href="https://www.anaconda.com/">Anaconda</a>, que incluye Python, Jupyter Notebooks y las principales librerías que usaremos. Las instrucciones de instalación se proveen en la Clase 1.</p>
+<p><strong>¿Qué datos vamos a usar?</strong><br />
+Trabajaremos principalmente con datos abiertos del sector público argentino (<a class="reference external" href="http://datos.gob.ar">datos.gob.ar</a>, INDEC, portales provinciales) y fuentes internacionales (World Bank, CEPAL). Todos los datasets son de libre acceso.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estructura-del-curso">Estructura del curso</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clase-1-introduccion-a-python">Clase 1 — Introducción a Python</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clase-2-listas-funciones-y-numpy">Clase 2 — Listas, funciones y numpy</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clase-3-matplotlib-y-visualizacion">Clase 3 — Matplotlib y visualización</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clase-4-pandas-i-lectura-y-exploracion-de-datos">Clase 4 — Pandas I: lectura y exploración de datos</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clase-5-pandas-ii-operaciones-sobre-dataframes">Clase 5 — Pandas II: operaciones sobre DataFrames</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clase-6-data-cleansing">Clase 6 — Data cleansing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clase-7-pandas-matplotlib-integracion">Clase 7 — Pandas + Matplotlib: integración</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clase-8-estadistica-aplicada-con-python">Clase 8 — Estadística aplicada con Python</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clase-9-datos-geoespaciales">Clase 9 — Datos geoespaciales</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clase-10-apis-datos-abiertos-y-proyecto-final">Clase 10 — APIs, datos abiertos y proyecto final</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#proyecto-final">Proyecto final</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#faq">FAQ</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por Daniela Risaro
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

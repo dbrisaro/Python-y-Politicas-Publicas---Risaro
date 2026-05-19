@@ -1,0 +1,1272 @@
+
+<!DOCTYPE html>
+
+
+<html lang="es" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Módulo 2 — Clase 2: Mercado de trabajo y pobreza — datos reales de la EPH &#8212; Python y Políticas Públicas</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=78d55cf8"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Haz clic para mostrar';</script>
+    <script>let toggleHintHide = 'Haz clic para ocultar';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script src="_static/translations.js?v=d190bf04"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'M02_C02_Mercado_Laboral_Pobreza';</script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="Módulo 2 — Clase 3: Comparación regional con la API del Banco Mundial" href="M02_C03_Comparacion_LATAM_WorldBank.html" />
+    <link rel="prev" title="Módulo 2 — Clase 1: Análisis de inflación con datos reales del INDEC" href="M02_C01_Inflacion_Precios.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Saltar al contenido principal</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Volver arriba</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Advertencia de versión"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Python y Políticas Públicas</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Búsqueda</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Módulo 1 — Fundamentos de Python</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="M01_C01_Introduccion.html">Clase 1 — Introducción a Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C02_Listas_Funciones_Numpy.html">Clase 2 — Listas, funciones y numpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C03_Matplotlib_Visualizacion.html">Clase 3 — Matplotlib y visualización</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C04_Pandas_I.html">Clase 4 — Pandas I: lectura y exploración de datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C05_Pandas_II.html">Clase 5 — Pandas II: operaciones sobre DataFrames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C06_Data_Cleansing.html">Clase 6 — Data Cleansing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C07_Pandas_Matplotlib.html">Clase 7 — Pandas + Matplotlib: integración</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C08_Estadistica_Aplicada.html">Clase 8 — Estadística aplicada con Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C09_Datos_Geoespaciales.html">Clase 9 — Datos geoespaciales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C10_APIs_Datos_Abiertos_Proyecto.html">Clase 10 — APIs, datos abiertos y proyecto final</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Módulo 2 — Datos reales para políticas públicas</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="M02_C01_Inflacion_Precios.html">Módulo 2 — Clase 1: Análisis de inflación con datos reales del INDEC</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Módulo 2 — Clase 2: Mercado de trabajo y pobreza — datos reales de la EPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M02_C03_Comparacion_LATAM_WorldBank.html">Módulo 2 — Clase 3: Comparación regional con la API del Banco Mundial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M02_C04_Scraping_Datos_Abiertos.html">Módulo 2 — Clase 4: Web scraping y procesamiento de datos no estructurados</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="M02_C05_ML_Targeting_Social.html">Módulo 2 — Clase 5: Machine Learning para targeting de programas sociales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M02_C06_Mapas_Interactivos_Folium.html">Módulo 2 — Clase 6: Mapas interactivos para política pública con Folium</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/dbrisaro/Python-y-Politicas-Publicas---Risaro" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Repositorio de origen"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/M02_C02_Mercado_Laboral_Pobreza.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Tema" data-bs-title="Tema"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Claro"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Oscuro"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="Sistema"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Módulo 2 — Clase 2: Mercado de trabajo y pobreza — datos reales de la EPH</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos-de-la-clase">Objetivos de la clase</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#la-eph-en-contexto">La EPH en contexto</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descarga-y-limpieza-de-datos">1. Descarga y limpieza de datos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alineacion-temporal-de-series-con-distinta-frecuencia">2. Alineación temporal de series con distinta frecuencia</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grafico-de-doble-eje-desempleo-y-pobreza">3. Gráfico de doble eje: desempleo y pobreza</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diagrama-de-dispersion-desempleo-vs-pobreza">4. Diagrama de dispersión: desempleo vs. pobreza</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlacion-y-analisis-de-rezagos">5. Correlación y análisis de rezagos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estadisticas-descriptivas-comparando-dos-periodos">6. Estadísticas descriptivas comparando dos períodos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metodologia-de-la-eph-que-mide-y-que-no">7. Metodología de la EPH: qué mide y qué no</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#que-mide-la-eph">¿Qué mide la EPH?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limitaciones-estructurales">Limitaciones estructurales</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#el-indice-de-gini-y-la-distribucion-del-ingreso">El índice de Gini y la distribución del ingreso</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicios">Ejercicios</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-1-tasa-de-pobreza-ajustada-por-inflacion">Ejercicio 1 — Tasa de pobreza ajustada por inflación</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-2-analisis-de-composicion-de-la-pobreza">Ejercicio 2 — Análisis de composición de la pobreza</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-3-analisis-regional-una-comparacion-hipotetica">Ejercicio 3 — Análisis regional: una comparación hipotética</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="modulo-2-clase-2-mercado-de-trabajo-y-pobreza-datos-reales-de-la-eph">
+<h1>Módulo 2 — Clase 2: Mercado de trabajo y pobreza — datos reales de la EPH<a class="headerlink" href="#modulo-2-clase-2-mercado-de-trabajo-y-pobreza-datos-reales-de-la-eph" title="Link to this heading">#</a></h1>
+<p><strong>Curso: Python y Políticas Públicas</strong><br />
+<strong>Módulo 2 — Nivel avanzado</strong></p>
+<hr class="docutils" />
+<section id="objetivos-de-la-clase">
+<h2>Objetivos de la clase<a class="headerlink" href="#objetivos-de-la-clase" title="Link to this heading">#</a></h2>
+<p>En esta clase vamos a trabajar con microdatos agregados de la <strong>Encuesta Permanente de Hogares (EPH)</strong> del INDEC para analizar la evolución del mercado de trabajo y de la pobreza en Argentina desde 2003. El foco es metodológico y analítico: cómo alinear series con distintas frecuencias, cómo construir visualizaciones de doble eje, y cómo razonar sobre causalidad y correlación en datos observacionales.</p>
+<p>Al finalizar esta clase vas a poder:</p>
+<ul class="simple">
+<li><p>Alinear y combinar series de tiempo con distintas frecuencias (anual, semestral)</p></li>
+<li><p>Construir gráficos con dos ejes <code class="docutils literal notranslate"><span class="pre">y</span></code> en matplotlib</p></li>
+<li><p>Estimar correlaciones con rezagos para explorar relaciones temporales</p></li>
+<li><p>Construir tablas de estadísticas descriptivas comparando períodos</p></li>
+<li><p>Articular las limitaciones metodológicas de la EPH con la interpretación de los datos</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="la-eph-en-contexto">
+<h2>La EPH en contexto<a class="headerlink" href="#la-eph-en-contexto" title="Link to this heading">#</a></h2>
+<p>La <strong>Encuesta Permanente de Hogares</strong> es una encuesta por muestreo que el INDEC realiza de manera continua en 31 aglomerados urbanos del país, representando aproximadamente el 70% de la población urbana argentina. Sus principales indicadores son:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Indicador</p></th>
+<th class="head"><p>Definición operacional</p></th>
+<th class="head"><p>Limitación</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Tasa de desempleo</strong></p></td>
+<td><p>Desocupados / PEA</p></td>
+<td><p>Solo mide desocupación abierta; excluye subempleo y desaliento</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Tasa de actividad</strong></p></td>
+<td><p>PEA / Población total</p></td>
+<td><p>Puede caer en crisis por efecto desaliento (trabajadores que abandonan la búsqueda)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Tasa de pobreza</strong></p></td>
+<td><p>Hogares bajo la línea de pobreza / Total hogares</p></td>
+<td><p>Depende del valor de la CBT, muy sensible al IPC</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Tasa de indigencia</strong></p></td>
+<td><p>Hogares bajo la línea de indigencia / Total hogares</p></td>
+<td><p>Depende del valor de la CBA</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<div><p><strong>Nota crítica</strong>: la EPH tiene un corte urbano. La pobreza rural —históricamente más alta— no está capturada. Además, durante los años del conflicto en el INDEC (2007-2016), las series de pobreza también fueron afectadas por la misma crisis de credibilidad que el IPC.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.dates</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mdates</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.patches</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpatches</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="c1"># Configuración de estilo</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.dpi&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">120</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.family&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;DejaVu Sans&#39;</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;axes.spines.top&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;axes.spines.right&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;axes.grid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;grid.alpha&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.3</span>
+
+<span class="n">HEADERS</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="s2">&quot;Mozilla/5.0&quot;</span><span class="p">}</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Librerías cargadas correctamente.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Librerías cargadas correctamente.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># --- Paleta de identidad del curso ---</span>
+<span class="n">C</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#2A6496&#39;</span><span class="p">,</span> <span class="s1">&#39;#E07B3F&#39;</span><span class="p">,</span> <span class="s1">&#39;#3D9970&#39;</span><span class="p">,</span> <span class="s1">&#39;#8E5EA2&#39;</span><span class="p">,</span> <span class="s1">&#39;#C0A830&#39;</span><span class="p">,</span> <span class="s1">&#39;#637A8A&#39;</span><span class="p">]</span>
+
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+    <span class="s1">&#39;figure.figsize&#39;</span>       <span class="p">:</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+    <span class="s1">&#39;font.size&#39;</span>            <span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
+    <span class="s1">&#39;axes.titlesize&#39;</span>       <span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="s1">&#39;axes.titleweight&#39;</span>     <span class="p">:</span> <span class="s1">&#39;normal&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;axes.spines.top&#39;</span>      <span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;axes.spines.right&#39;</span>    <span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;legend.frameon&#39;</span>       <span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;axes.prop_cycle&#39;</span>      <span class="p">:</span> <span class="n">mpl</span><span class="o">.</span><span class="n">cycler</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">C</span><span class="p">),</span>
+    <span class="s1">&#39;figure.dpi&#39;</span>           <span class="p">:</span> <span class="mi">110</span><span class="p">,</span>
+<span class="p">})</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">tit</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Título sin negrita, alineado a la izquierda.&quot;&quot;&quot;</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="descarga-y-limpieza-de-datos">
+<h2>1. Descarga y limpieza de datos<a class="headerlink" href="#descarga-y-limpieza-de-datos" title="Link to this heading">#</a></h2>
+<p>Las series de la EPH en <a class="reference external" href="http://datos.gob.ar">datos.gob.ar</a> tienen distintas frecuencias:</p>
+<ul class="simple">
+<li><p>La <strong>tasa de desempleo</strong> está disponible con frecuencia anual (promedio del año).</p></li>
+<li><p>La <strong>tasa de pobreza e indigencia</strong> se publica con frecuencia semestral (primer y segundo semestre de cada año).</p></li>
+</ul>
+<p>Los valores vienen expresados como fracciones (0.12 = 12%). Los multiplicamos por 100 para trabajar en puntos porcentuales.</p>
+<p>La alineación temporal va a requerir algunas decisiones metodológicas explícitas.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ── Datos de fallback: desempleo anual ─────────────────────────────────────────</span>
+<span class="c1"># Fuente: EPH, INDEC. Valores en fracción (0.12 = 12%).</span>
+<span class="c1"># Nota: 2007-2015 son estimaciones con IPC alternativo (datos INDEC originales subestiman pobreza)</span>
+<span class="n">FALLBACK_DESEMPLEO</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="s2">&quot;2004-01-01&quot;</span><span class="p">,</span> <span class="mf">0.1301</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2005-01-01&quot;</span><span class="p">,</span> <span class="mf">0.1122</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2006-01-01&quot;</span><span class="p">,</span> <span class="mf">0.0997</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;2007-01-01&quot;</span><span class="p">,</span> <span class="mf">0.0830</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2008-01-01&quot;</span><span class="p">,</span> <span class="mf">0.0742</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2009-01-01&quot;</span><span class="p">,</span> <span class="mf">0.0875</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;2010-01-01&quot;</span><span class="p">,</span> <span class="mf">0.0766</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2011-01-01&quot;</span><span class="p">,</span> <span class="mf">0.0720</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2012-01-01&quot;</span><span class="p">,</span> <span class="mf">0.0703</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;2013-01-01&quot;</span><span class="p">,</span> <span class="mf">0.0678</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2014-01-01&quot;</span><span class="p">,</span> <span class="mf">0.0724</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2015-01-01&quot;</span><span class="p">,</span> <span class="mf">0.0588</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;2016-01-01&quot;</span><span class="p">,</span> <span class="mf">0.0879</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2017-01-01&quot;</span><span class="p">,</span> <span class="mf">0.0836</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2018-01-01&quot;</span><span class="p">,</span> <span class="mf">0.0195</span><span class="p">],</span>  <span class="c1"># promedio</span>
+    <span class="p">[</span><span class="s2">&quot;2019-01-01&quot;</span><span class="p">,</span> <span class="mf">0.1009</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2020-01-01&quot;</span><span class="p">,</span> <span class="mf">0.1121</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2021-01-01&quot;</span><span class="p">,</span> <span class="mf">0.0880</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;2022-01-01&quot;</span><span class="p">,</span> <span class="mf">0.0702</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2023-01-01&quot;</span><span class="p">,</span> <span class="mf">0.0625</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2024-01-01&quot;</span><span class="p">,</span> <span class="mf">0.0710</span><span class="p">],</span>
+<span class="p">]</span>
+
+<span class="c1"># ── Datos de fallback: pobreza e indigencia semestral ─────────────────────────</span>
+<span class="c1"># Columnas: [fecha, tasa_pobreza, tasa_indigencia] — en fracción</span>
+<span class="c1"># Serie reconstruida con metodología EPH continua desde 2003</span>
+<span class="n">FALLBACK_POBREZA</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">[</span><span class="s2">&quot;2003-01-01&quot;</span><span class="p">,</span> <span class="mf">0.458</span><span class="p">,</span> <span class="mf">0.205</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2003-07-01&quot;</span><span class="p">,</span> <span class="mf">0.425</span><span class="p">,</span> <span class="mf">0.188</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;2004-01-01&quot;</span><span class="p">,</span> <span class="mf">0.403</span><span class="p">,</span> <span class="mf">0.178</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2004-07-01&quot;</span><span class="p">,</span> <span class="mf">0.375</span><span class="p">,</span> <span class="mf">0.161</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;2005-01-01&quot;</span><span class="p">,</span> <span class="mf">0.339</span><span class="p">,</span> <span class="mf">0.134</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2005-07-01&quot;</span><span class="p">,</span> <span class="mf">0.312</span><span class="p">,</span> <span class="mf">0.118</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;2006-01-01&quot;</span><span class="p">,</span> <span class="mf">0.287</span><span class="p">,</span> <span class="mf">0.107</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2006-07-01&quot;</span><span class="p">,</span> <span class="mf">0.265</span><span class="p">,</span> <span class="mf">0.092</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;2007-01-01&quot;</span><span class="p">,</span> <span class="mf">0.230</span><span class="p">,</span> <span class="mf">0.079</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2007-07-01&quot;</span><span class="p">,</span> <span class="mf">0.214</span><span class="p">,</span> <span class="mf">0.072</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;2008-01-01&quot;</span><span class="p">,</span> <span class="mf">0.197</span><span class="p">,</span> <span class="mf">0.067</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2008-07-01&quot;</span><span class="p">,</span> <span class="mf">0.185</span><span class="p">,</span> <span class="mf">0.062</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;2009-01-01&quot;</span><span class="p">,</span> <span class="mf">0.197</span><span class="p">,</span> <span class="mf">0.068</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2009-07-01&quot;</span><span class="p">,</span> <span class="mf">0.192</span><span class="p">,</span> <span class="mf">0.065</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;2010-01-01&quot;</span><span class="p">,</span> <span class="mf">0.178</span><span class="p">,</span> <span class="mf">0.059</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2010-07-01&quot;</span><span class="p">,</span> <span class="mf">0.173</span><span class="p">,</span> <span class="mf">0.055</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;2016-01-01&quot;</span><span class="p">,</span> <span class="mf">0.305</span><span class="p">,</span> <span class="mf">0.065</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2016-07-01&quot;</span><span class="p">,</span> <span class="mf">0.304</span><span class="p">,</span> <span class="mf">0.063</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;2017-01-01&quot;</span><span class="p">,</span> <span class="mf">0.284</span><span class="p">,</span> <span class="mf">0.062</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2017-07-01&quot;</span><span class="p">,</span> <span class="mf">0.259</span><span class="p">,</span> <span class="mf">0.050</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;2018-01-01&quot;</span><span class="p">,</span> <span class="mf">0.275</span><span class="p">,</span> <span class="mf">0.056</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2018-07-01&quot;</span><span class="p">,</span> <span class="mf">0.317</span><span class="p">,</span> <span class="mf">0.088</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;2019-01-01&quot;</span><span class="p">,</span> <span class="mf">0.351</span><span class="p">,</span> <span class="mf">0.079</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2019-07-01&quot;</span><span class="p">,</span> <span class="mf">0.357</span><span class="p">,</span> <span class="mf">0.081</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;2020-01-01&quot;</span><span class="p">,</span> <span class="mf">0.404</span><span class="p">,</span> <span class="mf">0.105</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2020-07-01&quot;</span><span class="p">,</span> <span class="mf">0.425</span><span class="p">,</span> <span class="mf">0.108</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;2021-01-01&quot;</span><span class="p">,</span> <span class="mf">0.422</span><span class="p">,</span> <span class="mf">0.106</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2021-07-01&quot;</span><span class="p">,</span> <span class="mf">0.401</span><span class="p">,</span> <span class="mf">0.101</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;2022-01-01&quot;</span><span class="p">,</span> <span class="mf">0.368</span><span class="p">,</span> <span class="mf">0.088</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2022-07-01&quot;</span><span class="p">,</span> <span class="mf">0.375</span><span class="p">,</span> <span class="mf">0.091</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;2023-01-01&quot;</span><span class="p">,</span> <span class="mf">0.399</span><span class="p">,</span> <span class="mf">0.099</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2023-07-01&quot;</span><span class="p">,</span> <span class="mf">0.449</span><span class="p">,</span> <span class="mf">0.119</span><span class="p">],</span>
+    <span class="p">[</span><span class="s2">&quot;2024-01-01&quot;</span><span class="p">,</span> <span class="mf">0.552</span><span class="p">,</span> <span class="mf">0.181</span><span class="p">],</span> <span class="p">[</span><span class="s2">&quot;2024-07-01&quot;</span><span class="p">,</span> <span class="mf">0.483</span><span class="p">,</span> <span class="mf">0.151</span><span class="p">],</span>
+<span class="p">]</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Datos de fallback definidos.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Datos de fallback definidos.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">fetch_series</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">fallback_data</span><span class="p">,</span> <span class="n">nombre</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Descarga una serie de la API de datos.gob.ar con manejo de errores.&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">resp</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">HEADERS</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+        <span class="n">resp</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+        <span class="n">raw</span> <span class="o">=</span> <span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">raw</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">nombre</span><span class="si">}</span><span class="s2">] API OK — </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2"> observaciones.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">data</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">nombre</span><span class="si">}</span><span class="s2">] API no disponible: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">. Usando fallback.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">fallback_data</span>
+
+
+<span class="n">URL_DESEMPLEO</span> <span class="o">=</span> <span class="s2">&quot;https://apis.datos.gob.ar/series/api/series/?ids=45.1_ECTDT_0_A_33&amp;last=25&amp;format=json&quot;</span>
+<span class="n">URL_POBREZA</span> <span class="o">=</span> <span class="s2">&quot;https://apis.datos.gob.ar/series/api/series/?ids=64.2_POBLACION_NUA_0_0_34_74,63.2_HOGARES_PONUA_0_0_33_21&amp;last=60&amp;format=json&quot;</span>
+
+<span class="n">raw_desempleo</span> <span class="o">=</span> <span class="n">fetch_series</span><span class="p">(</span><span class="n">URL_DESEMPLEO</span><span class="p">,</span> <span class="n">FALLBACK_DESEMPLEO</span><span class="p">,</span> <span class="s2">&quot;Desempleo&quot;</span><span class="p">)</span>
+<span class="n">raw_pobreza</span> <span class="o">=</span> <span class="n">fetch_series</span><span class="p">(</span><span class="n">URL_POBREZA</span><span class="p">,</span> <span class="n">FALLBACK_POBREZA</span><span class="p">,</span> <span class="s2">&quot;Pobreza/Indigencia&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Desempleo] API OK — 22 observaciones.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Pobreza/Indigencia] API OK — 46 observaciones.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ── Desempleo ─────────────────────────────────────────────────────────────────</span>
+<span class="n">df_desempleo</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">raw_desempleo</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;fecha&quot;</span><span class="p">,</span> <span class="s2">&quot;desempleo&quot;</span><span class="p">])</span>
+<span class="n">df_desempleo</span><span class="p">[</span><span class="s2">&quot;fecha&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df_desempleo</span><span class="p">[</span><span class="s2">&quot;fecha&quot;</span><span class="p">])</span>
+<span class="n">df_desempleo</span> <span class="o">=</span> <span class="n">df_desempleo</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;fecha&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+<span class="c1"># Convertir a porcentaje si viene como fracción</span>
+<span class="k">if</span> <span class="n">df_desempleo</span><span class="p">[</span><span class="s2">&quot;desempleo&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="n">df_desempleo</span><span class="p">[</span><span class="s2">&quot;desempleo&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_desempleo</span><span class="p">[</span><span class="s2">&quot;desempleo&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Desempleo: convertido de fracción a porcentaje.&quot;</span><span class="p">)</span>
+
+<span class="c1"># ── Pobreza e indigencia ───────────────────────────────────────────────────────</span>
+<span class="n">cols_pob</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;fecha&quot;</span><span class="p">,</span> <span class="s2">&quot;pobreza&quot;</span><span class="p">,</span> <span class="s2">&quot;indigencia&quot;</span><span class="p">]</span>
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">raw_pobreza</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="c1"># Si la API devuelve solo una columna, ajustar</span>
+    <span class="n">df_pobreza</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">raw_pobreza</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;fecha&quot;</span><span class="p">,</span> <span class="s2">&quot;pobreza&quot;</span><span class="p">])</span>
+    <span class="n">df_pobreza</span><span class="p">[</span><span class="s2">&quot;indigencia&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">df_pobreza</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">raw_pobreza</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">cols_pob</span><span class="p">)</span>
+
+<span class="n">df_pobreza</span><span class="p">[</span><span class="s2">&quot;fecha&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df_pobreza</span><span class="p">[</span><span class="s2">&quot;fecha&quot;</span><span class="p">])</span>
+<span class="n">df_pobreza</span> <span class="o">=</span> <span class="n">df_pobreza</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;fecha&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+<span class="c1"># Convertir a porcentaje si viene como fracción</span>
+<span class="k">if</span> <span class="n">df_pobreza</span><span class="p">[</span><span class="s2">&quot;pobreza&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="n">df_pobreza</span><span class="p">[[</span><span class="s2">&quot;pobreza&quot;</span><span class="p">,</span> <span class="s2">&quot;indigencia&quot;</span><span class="p">]]</span> <span class="o">*=</span> <span class="mi">100</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pobreza/Indigencia: convertidas de fracción a porcentaje.&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Desempleo:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_desempleo</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Pobreza e Indigencia:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_pobreza</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Desempleo: convertido de fracción a porcentaje.
+Pobreza/Indigencia: convertidas de fracción a porcentaje.
+
+Desempleo:
+       desempleo
+count      22.00
+mean        8.48
+std         1.85
+min         6.13
+25%         7.15
+50%         8.09
+75%         9.09
+max        13.52
+
+Pobreza e Indigencia:
+       pobreza  indigencia
+count    28.00       28.00
+mean     36.91       27.55
+std       7.35        6.33
+min      25.70       17.90
+25%      31.55       23.10
+50%      36.90       27.80
+75%      40.67       30.60
+max      54.00       42.70
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="alineacion-temporal-de-series-con-distinta-frecuencia">
+<h2>2. Alineación temporal de series con distinta frecuencia<a class="headerlink" href="#alineacion-temporal-de-series-con-distinta-frecuencia" title="Link to this heading">#</a></h2>
+<p>El desempleo está en frecuencia anual y la pobreza en frecuencia semestral. Para graficarlos juntos tenemos dos opciones:</p>
+<ol class="arabic simple">
+<li><p><strong>Submuestrear la pobreza a frecuencia anual</strong> (promedio de los dos semestres).</p></li>
+<li><p><strong>Interpolar el desempleo a frecuencia semestral</strong> (asumir que el valor anual vale para ambos semestres).</p></li>
+</ol>
+<p>La opción 1 pierde información semestral pero es más honesta. La opción 2 introduce supuestos fuertes. Vamos a usar la opción 1 para el análisis correlacional y mostrar ambas series con su frecuencia original en el gráfico de doble eje.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Promedio anual de pobreza e indigencia</span>
+<span class="n">df_pob_anual</span> <span class="o">=</span> <span class="n">df_pobreza</span><span class="o">.</span><span class="n">resample</span><span class="p">(</span><span class="s2">&quot;YS&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="c1"># Combinar desempleo y pobreza al año</span>
+<span class="n">df_anual</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_desempleo</span><span class="p">,</span> <span class="n">df_pob_anual</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;desempleo&quot;</span><span class="p">,</span> <span class="s2">&quot;pobreza&quot;</span><span class="p">])</span>
+<span class="n">df_anual</span><span class="p">[</span><span class="s2">&quot;anio&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_anual</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">year</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Serie combinada: </span><span class="si">{</span><span class="n">df_anual</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s2"> – </span><span class="si">{</span><span class="n">df_anual</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">year</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Observaciones: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_anual</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_anual</span><span class="p">[[</span><span class="s2">&quot;desempleo&quot;</span><span class="p">,</span> <span class="s2">&quot;pobreza&quot;</span><span class="p">,</span> <span class="s2">&quot;indigencia&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Serie combinada: 2004 – 2025
+Observaciones: 14
+
+            desempleo  pobreza  indigencia
+fecha                                     
+2004-01-01       13.5     46.0        35.0
+2005-01-01       11.5     39.6        29.3
+2006-01-01       10.1     32.6        23.9
+2007-01-01        8.4     26.9        19.2
+2016-01-01        8.5     32.2        23.1
+2017-01-01        8.4     29.4        21.0
+2018-01-01        9.2     26.5        18.8
+2019-01-01        9.8     33.7        24.4
+2020-01-01       11.5     38.2        28.2
+2021-01-01        8.8     41.3        31.4
+2022-01-01        6.8     36.9        27.8
+2023-01-01        6.1     39.7        29.6
+2024-01-01        7.1     47.3        37.2
+2025-01-01        7.4     34.8        26.4
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="grafico-de-doble-eje-desempleo-y-pobreza">
+<h2>3. Gráfico de doble eje: desempleo y pobreza<a class="headerlink" href="#grafico-de-doble-eje-desempleo-y-pobreza" title="Link to this heading">#</a></h2>
+<p>Un gráfico de doble eje <code class="docutils literal notranslate"><span class="pre">y</span></code> es útil cuando dos variables tienen unidades comparables (aquí ambas son porcentajes) pero están en rangos distintos. La técnica es legítima pero hay que usarla con cuidado: visualmente puede sugerir correlaciones que no existen, simplemente por la escala elegida.</p>
+<p>Para mitigar ese riesgo, elegimos escalas que permitan comparar los mínimos y máximos históricos de cada serie por separado.</p>
+<p>También vamos a sombrear los <strong>períodos de recesión</strong> —definidos como caídas del PIB de al menos dos trimestres consecutivos— para contextualizar los movimientos de las series.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Períodos de recesión en Argentina (aproximados por caída del PIB)</span>
+<span class="n">recesiones</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;2001-10-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2002-09-01&quot;</span><span class="p">,</span> <span class="s2">&quot;Crisis 2001-02&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;2008-07-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2009-03-01&quot;</span><span class="p">,</span> <span class="s2">&quot;Crisis global&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;2018-04-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2019-06-01&quot;</span><span class="p">,</span> <span class="s2">&quot;Crisis 2018-19&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;2020-01-01&quot;</span><span class="p">,</span> <span class="s2">&quot;2020-09-01&quot;</span><span class="p">,</span> <span class="s2">&quot;COVID-19&quot;</span><span class="p">),</span>
+<span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax1</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+
+<span class="c1"># Desempleo en eje izquierdo (azul)</span>
+<span class="n">color_desemp</span> <span class="o">=</span> <span class="s2">&quot;#2980b9&quot;</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_desempleo</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df_desempleo</span><span class="p">[</span><span class="s2">&quot;desempleo&quot;</span><span class="p">],</span>
+         <span class="n">color</span><span class="o">=</span><span class="n">color_desemp</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
+         <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Tasa de desempleo&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Tasa de desempleo (%)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color_desemp</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">labelcolor</span><span class="o">=</span><span class="n">color_desemp</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">df_desempleo</span><span class="p">[</span><span class="s2">&quot;desempleo&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.3</span><span class="p">)</span>
+
+<span class="c1"># Pobreza en eje derecho (rojo)</span>
+<span class="n">color_pob</span> <span class="o">=</span> <span class="s2">&quot;#c0392b&quot;</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_pobreza</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df_pobreza</span><span class="p">[</span><span class="s2">&quot;pobreza&quot;</span><span class="p">],</span>
+         <span class="n">color</span><span class="o">=</span><span class="n">color_pob</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+         <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Tasa de pobreza&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">df_pobreza</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df_pobreza</span><span class="p">[</span><span class="s2">&quot;indigencia&quot;</span><span class="p">],</span>
+                 <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#e74c3c&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Indigencia&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Tasa de pobreza / indigencia (%)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color_pob</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">labelcolor</span><span class="o">=</span><span class="n">color_pob</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">df_pobreza</span><span class="p">[</span><span class="s2">&quot;pobreza&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.2</span><span class="p">)</span>
+
+<span class="c1"># Sombrear recesiones</span>
+<span class="k">for</span> <span class="n">inicio</span><span class="p">,</span> <span class="n">fin</span><span class="p">,</span> <span class="n">etiq</span> <span class="ow">in</span> <span class="n">recesiones</span><span class="p">:</span>
+    <span class="n">i</span><span class="p">,</span> <span class="n">f</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">inicio</span><span class="p">),</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">fin</span><span class="p">)</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">)</span>
+    <span class="n">mid</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="p">(</span><span class="n">f</span> <span class="o">-</span> <span class="n">i</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">mid</span><span class="p">,</span> <span class="n">ax1</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.95</span><span class="p">,</span> <span class="n">etiq</span><span class="p">,</span>
+             <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mf">7.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;italic&quot;</span><span class="p">)</span>
+
+<span class="c1"># Leyendas combinadas</span>
+<span class="n">lines1</span><span class="p">,</span> <span class="n">labels1</span> <span class="o">=</span> <span class="n">ax1</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">()</span>
+<span class="n">lines2</span><span class="p">,</span> <span class="n">labels2</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">()</span>
+<span class="n">recession_patch</span> <span class="o">=</span> <span class="n">mpatches</span><span class="o">.</span><span class="n">Patch</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Recesión&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">lines1</span> <span class="o">+</span> <span class="n">lines2</span> <span class="o">+</span> <span class="p">[</span><span class="n">recession_patch</span><span class="p">],</span>
+           <span class="n">labels1</span> <span class="o">+</span> <span class="n">labels2</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;Recesión&quot;</span><span class="p">],</span>
+           <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper right&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Desempleo y Pobreza en Argentina — EPH (INDEC, loc=&#39;left&#39;)&quot;</span><span class="p">,</span>
+              <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">mdates</span><span class="o">.</span><span class="n">DateFormatter</span><span class="p">(</span><span class="s2">&quot;%Y&quot;</span><span class="p">))</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">mdates</span><span class="o">.</span><span class="n">YearLocator</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
+
+<span class="c1"># Eliminar el spine derecho del ax1 para que no se superponga con el eje de ax2</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">&quot;left&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_visible</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;desempleo_pobreza.png&quot;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/415295d9d05373b09357f01a29140e0532a06cfca83566c5c16d8f53348f0748.png" src="_images/415295d9d05373b09357f01a29140e0532a06cfca83566c5c16d8f53348f0748.png" />
+</div>
+</div>
+</section>
+<section id="diagrama-de-dispersion-desempleo-vs-pobreza">
+<h2>4. Diagrama de dispersión: desempleo vs. pobreza<a class="headerlink" href="#diagrama-de-dispersion-desempleo-vs-pobreza" title="Link to this heading">#</a></h2>
+<p>El gráfico de dispersión con etiquetas por año permite ver si la relación entre desempleo y pobreza es lineal, si existen agrupamientos por períodos, y si hay años que son outliers claros respecto a la tendencia general.</p>
+<p>En un país con alta informalidad laboral como Argentina, la relación desempleo-pobreza no es tan directa como sugiere la teoría neoclásica estándar: muchas personas en situación de pobreza trabajan (los llamados <strong>trabajadores pobres</strong>), y la tasa de desempleo puede bajar sin que se reduzca la pobreza si los empleos creados son de baja productividad e ingresos.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Colorear por período político/macroeconómico</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">color_periodo</span><span class="p">(</span><span class="n">anio</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">anio</span> <span class="o">&lt;=</span> <span class="mi">2007</span><span class="p">:</span>  <span class="c1"># Kirchnerismo temprano</span>
+        <span class="k">return</span> <span class="s2">&quot;#27ae60&quot;</span>
+    <span class="k">elif</span> <span class="n">anio</span> <span class="o">&lt;=</span> <span class="mi">2015</span><span class="p">:</span>  <span class="c1"># Kirchnerismo tardío</span>
+        <span class="k">return</span> <span class="s2">&quot;#2ecc71&quot;</span>
+    <span class="k">elif</span> <span class="n">anio</span> <span class="o">&lt;=</span> <span class="mi">2019</span><span class="p">:</span>  <span class="c1"># Cambiemos</span>
+        <span class="k">return</span> <span class="s2">&quot;#f39c12&quot;</span>
+    <span class="k">elif</span> <span class="n">anio</span> <span class="o">&lt;=</span> <span class="mi">2023</span><span class="p">:</span>  <span class="c1"># Frente de Todos</span>
+        <span class="k">return</span> <span class="s2">&quot;#e74c3c&quot;</span>
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># La Libertad Avanza</span>
+        <span class="k">return</span> <span class="s2">&quot;#8e44ad&quot;</span>
+
+<span class="n">colores</span> <span class="o">=</span> <span class="p">[</span><span class="n">color_periodo</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">df_anual</span><span class="p">[</span><span class="s2">&quot;anio&quot;</span><span class="p">]]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+
+<span class="n">scatter</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">df_anual</span><span class="p">[</span><span class="s2">&quot;desempleo&quot;</span><span class="p">],</span> <span class="n">df_anual</span><span class="p">[</span><span class="s2">&quot;pobreza&quot;</span><span class="p">],</span>
+                     <span class="n">c</span><span class="o">=</span><span class="n">colores</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+
+<span class="c1"># Etiquetas de año</span>
+<span class="k">for</span> <span class="n">_</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">df_anual</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;anio&quot;</span><span class="p">])),</span>
+                <span class="n">xy</span><span class="o">=</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&quot;desempleo&quot;</span><span class="p">],</span> <span class="n">row</span><span class="p">[</span><span class="s2">&quot;pobreza&quot;</span><span class="p">]),</span>
+                <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="n">textcoords</span><span class="o">=</span><span class="s2">&quot;offset points&quot;</span><span class="p">,</span>
+                <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#333333&quot;</span><span class="p">)</span>
+
+<span class="c1"># Línea de tendencia (regresión lineal simple)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">df_anual</span><span class="p">[</span><span class="s2">&quot;desempleo&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df_anual</span><span class="p">[</span><span class="s2">&quot;pobreza&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+<span class="n">mask</span> <span class="o">=</span> <span class="o">~</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+<span class="n">coef</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">polyfit</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">poly</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">poly1d</span><span class="p">(</span><span class="n">coef</span><span class="p">)</span>
+<span class="n">x_line</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">x</span><span class="p">[</span><span class="n">mask</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="mi">100</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_line</span><span class="p">,</span> <span class="n">poly</span><span class="p">(</span><span class="n">x_line</span><span class="p">),</span> <span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#7f8c8d&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span>
+        <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Tendencia lineal (β = </span><span class="si">{</span><span class="n">coef</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+<span class="c1"># Leyenda de períodos</span>
+<span class="n">periodos</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s2">&quot;#27ae60&quot;</span><span class="p">,</span> <span class="s2">&quot;Kirchnerismo temprano (2003-07)&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;#2ecc71&quot;</span><span class="p">,</span> <span class="s2">&quot;Kirchnerismo tardío (2008-15)&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;#f39c12&quot;</span><span class="p">,</span> <span class="s2">&quot;Cambiemos (2016-19)&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;#e74c3c&quot;</span><span class="p">,</span> <span class="s2">&quot;Frente de Todos (2020-23)&quot;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;#8e44ad&quot;</span><span class="p">,</span> <span class="s2">&quot;LLA (2024+)&quot;</span><span class="p">),</span>
+<span class="p">]</span>
+<span class="n">handles</span> <span class="o">=</span> <span class="p">[</span><span class="n">mpatches</span><span class="o">.</span><span class="n">Patch</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">l</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">periodos</span><span class="p">]</span>
+<span class="n">handles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">Line2D</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#7f8c8d&quot;</span><span class="p">,</span>
+                           <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Tendencia (β=</span><span class="si">{</span><span class="n">coef</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">handles</span><span class="o">=</span><span class="n">handles</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper right&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Tasa de desempleo (%)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Tasa de pobreza (%)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Desempleo vs. Pobreza — Argentina (por año, loc=&#39;left&#39;)&quot;</span><span class="p">,</span>
+             <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;scatter_desempleo_pobreza.png&quot;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Correlación</span>
+<span class="n">corr</span> <span class="o">=</span> <span class="n">df_anual</span><span class="p">[[</span><span class="s2">&quot;desempleo&quot;</span><span class="p">,</span> <span class="s2">&quot;pobreza&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">corr</span><span class="p">()</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s2">&quot;desempleo&quot;</span><span class="p">,</span> <span class="s2">&quot;pobreza&quot;</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Correlación (Pearson) desempleo–pobreza: </span><span class="si">{</span><span class="n">corr</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;R² de la tendencia lineal: </span><span class="si">{</span><span class="n">corr</span><span class="o">**</span><span class="mi">2</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/d48d74e06a06ee670c7d1f2ffb7fd522bbd2644501ea119702d207363cb7e993.png" src="_images/d48d74e06a06ee670c7d1f2ffb7fd522bbd2644501ea119702d207363cb7e993.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Correlación (Pearson) desempleo–pobreza: 0.181
+R² de la tendencia lineal: 0.033
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="correlacion-y-analisis-de-rezagos">
+<h2>5. Correlación y análisis de rezagos<a class="headerlink" href="#correlacion-y-analisis-de-rezagos" title="Link to this heading">#</a></h2>
+<p>Una pregunta relevante para la política pública es: ¿cuánto tarda el mercado de trabajo en reflejar las condiciones macroeconómicas en los indicadores de pobreza?</p>
+<p>El desempleo puede ser un <strong>indicador adelantado</strong> de la pobreza si los shocks laborales se transmiten a los ingresos con rezago. O puede ser un <strong>indicador rezagado</strong> si la pobreza sube primero (por inflación) y el mercado laboral se ajusta después.</p>
+<p>Vamos a calcular la correlación cruzada entre desempleo y pobreza para distintos rezagos y ver cuál es el rezago que maximiza la correlación.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">lags</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>  <span class="c1"># de -4 a +4 períodos (en frecuencia anual: de -4 a +4 años)</span>
+<span class="n">correlaciones</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">lag</span> <span class="ow">in</span> <span class="n">lags</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">lag</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># desempleo rezagado: ¿predice la pobreza futura?</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">df_anual</span><span class="p">[</span><span class="s2">&quot;desempleo&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[:</span><span class="o">-</span><span class="n">lag</span> <span class="k">if</span> <span class="n">lag</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span><span class="p">]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">df_anual</span><span class="p">[</span><span class="s2">&quot;pobreza&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">lag</span><span class="p">:]</span> <span class="k">if</span> <span class="n">lag</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">df_anual</span><span class="p">[</span><span class="s2">&quot;pobreza&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># pobreza rezagada: ¿predice el desempleo futuro?</span>
+        <span class="n">abs_lag</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">lag</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">df_anual</span><span class="p">[</span><span class="s2">&quot;desempleo&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">abs_lag</span><span class="p">:]</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">df_anual</span><span class="p">[</span><span class="s2">&quot;pobreza&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[:</span><span class="o">-</span><span class="n">abs_lag</span><span class="p">]</span>
+
+    <span class="n">mask</span> <span class="o">=</span> <span class="o">~</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">mask</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="n">corr_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">y</span><span class="p">[</span><span class="n">mask</span><span class="p">])[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">corr_val</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+    <span class="n">correlaciones</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">corr_val</span><span class="p">)</span>
+
+<span class="n">lag_optimo</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">lags</span><span class="p">)[</span><span class="n">np</span><span class="o">.</span><span class="n">nanargmax</span><span class="p">(</span><span class="n">correlaciones</span><span class="p">)]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">colores_bar</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;#c0392b&quot;</span> <span class="k">if</span> <span class="n">c</span> <span class="o">==</span> <span class="nb">max</span><span class="p">([</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">correlaciones</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">c</span><span class="p">)])</span>
+               <span class="k">else</span> <span class="s2">&quot;#bdc3c7&quot;</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">correlaciones</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">lags</span><span class="p">,</span> <span class="n">correlaciones</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colores_bar</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;gray&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Rezago (períodos anuales)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Correlación de Pearson&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Correlación cruzada: desempleo → pobreza (con distintos rezagos, loc=&#39;left&#39;)&quot;</span><span class="p">,</span>
+             <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">lags</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xticklabels</span><span class="p">([</span><span class="sa">f</span><span class="s2">&quot;t</span><span class="si">{</span><span class="s1">&#39;+&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="si">}{</span><span class="n">l</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">lags</span><span class="p">])</span>
+<span class="c1"># Nota interpretativa</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span>
+        <span class="s2">&quot;Rezago positivo: desempleo predice pobreza futura</span><span class="se">\n</span><span class="s2">&quot;</span>
+        <span class="s2">&quot;Rezago negativo: pobreza pasada predice desempleo actual&quot;</span><span class="p">,</span>
+        <span class="n">transform</span><span class="o">=</span><span class="n">ax</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mf">8.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#555555&quot;</span><span class="p">,</span>
+        <span class="n">bbox</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">boxstyle</span><span class="o">=</span><span class="s2">&quot;round&quot;</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">&quot;#f0f0f0&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;lag_correlacion.png&quot;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Correlación máxima: </span><span class="si">{</span><span class="nb">max</span><span class="p">(</span><span class="n">correlaciones</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2"> en rezago t</span><span class="si">{</span><span class="s1">&#39;+&#39;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">lag_optimo</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="si">}{</span><span class="n">lag_optimo</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/146c5c52e7e573b2b9139cd07d6ba14cb0ba47ce22a958ae02c3c40d572c666a.png" src="_images/146c5c52e7e573b2b9139cd07d6ba14cb0ba47ce22a958ae02c3c40d572c666a.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Correlación máxima: 0.181 en rezago t+0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="estadisticas-descriptivas-comparando-dos-periodos">
+<h2>6. Estadísticas descriptivas comparando dos períodos<a class="headerlink" href="#estadisticas-descriptivas-comparando-dos-periodos" title="Link to this heading">#</a></h2>
+<p>Un análisis de política pública frecuentemente requiere comparar indicadores entre períodos. Vamos a construir una tabla de estadísticas descriptivas comparando:</p>
+<ul class="simple">
+<li><p><strong>Pre-2019</strong>: período que incluye tanto el kirchnerismo como el macrismo (2004-2018)</p></li>
+<li><p><strong>Post-2019</strong>: período que incluye la pandemia, el gobierno de Fernández y el de Milei (2019-2024)</p></li>
+</ul>
+<p>El corte en 2019 no es arbitrario: marca el inicio de una nueva aceleración inflacionaria y de un ciclo de mayor volatilidad macroeconómica.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pre2019</span> <span class="o">=</span> <span class="n">df_anual</span><span class="p">[</span><span class="n">df_anual</span><span class="p">[</span><span class="s2">&quot;anio&quot;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">2019</span><span class="p">]</span>
+<span class="n">post2019</span> <span class="o">=</span> <span class="n">df_anual</span><span class="p">[</span><span class="n">df_anual</span><span class="p">[</span><span class="s2">&quot;anio&quot;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">2019</span><span class="p">]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">stats_periodo</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">nombre</span><span class="p">):</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s2">&quot;desempleo&quot;</span><span class="p">,</span> <span class="s2">&quot;pobreza&quot;</span><span class="p">,</span> <span class="s2">&quot;indigencia&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">agg</span><span class="p">([</span><span class="s2">&quot;mean&quot;</span><span class="p">,</span> <span class="s2">&quot;std&quot;</span><span class="p">,</span> <span class="s2">&quot;min&quot;</span><span class="p">,</span> <span class="s2">&quot;max&quot;</span><span class="p">])</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Media&quot;</span><span class="p">,</span> <span class="s2">&quot;Desvío&quot;</span><span class="p">,</span> <span class="s2">&quot;Mínimo&quot;</span><span class="p">,</span> <span class="s2">&quot;Máximo&quot;</span><span class="p">]</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">MultiIndex</span><span class="o">.</span><span class="n">from_tuples</span><span class="p">(</span>
+        <span class="p">[(</span><span class="n">nombre</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">s</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">s</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">tabla</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">stats_periodo</span><span class="p">(</span><span class="n">pre2019</span><span class="p">,</span> <span class="s2">&quot;Pre-2019&quot;</span><span class="p">),</span> <span class="n">stats_periodo</span><span class="p">(</span><span class="n">post2019</span><span class="p">,</span> <span class="s2">&quot;Post-2019&quot;</span><span class="p">)],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Estadísticas descriptivas por período (valores en %)&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">tabla</span><span class="o">.</span><span class="n">to_string</span><span class="p">())</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># Delta entre períodos</span>
+<span class="n">delta_desemp</span> <span class="o">=</span> <span class="n">post2019</span><span class="p">[</span><span class="s2">&quot;desempleo&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">pre2019</span><span class="p">[</span><span class="s2">&quot;desempleo&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">delta_pob</span> <span class="o">=</span> <span class="n">post2019</span><span class="p">[</span><span class="s2">&quot;pobreza&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">pre2019</span><span class="p">[</span><span class="s2">&quot;pobreza&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">delta_ind</span> <span class="o">=</span> <span class="n">post2019</span><span class="p">[</span><span class="s2">&quot;indigencia&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span> <span class="o">-</span> <span class="n">pre2019</span><span class="p">[</span><span class="s2">&quot;indigencia&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Diferencia Post-2019 vs Pre-2019 (en puntos porcentuales):&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Desempleo:  </span><span class="si">{</span><span class="n">delta_desemp</span><span class="si">:</span><span class="s2">+.1f</span><span class="si">}</span><span class="s2"> pp&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Pobreza:    </span><span class="si">{</span><span class="n">delta_pob</span><span class="si">:</span><span class="s2">+.1f</span><span class="si">}</span><span class="s2"> pp&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Indigencia: </span><span class="si">{</span><span class="n">delta_ind</span><span class="si">:</span><span class="s2">+.1f</span><span class="si">}</span><span class="s2"> pp&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Estadísticas descriptivas por período (valores en %)
+
+        Pre-2019                    Post-2019                   
+       desempleo pobreza indigencia desempleo pobreza indigencia
+Media        9.9    33.3       24.3       8.2    38.8       29.3
+Desvío       2.0     7.1        5.9       1.9     4.6        4.1
+Mínimo       8.4    26.5       18.8       6.1    33.7       24.4
+Máximo      13.5    46.0       35.0      11.5    47.3       37.2
+
+Diferencia Post-2019 vs Pre-2019 (en puntos porcentuales):
+  Desempleo:  -1.7 pp
+  Pobreza:    +5.5 pp
+  Indigencia: +4.9 pp
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">vars_plot</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;desempleo&quot;</span><span class="p">,</span> <span class="s2">&quot;Desempleo&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;pobreza&quot;</span><span class="p">,</span> <span class="s2">&quot;Pobreza&quot;</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;indigencia&quot;</span><span class="p">,</span> <span class="s2">&quot;Indigencia&quot;</span><span class="p">)]</span>
+<span class="n">colores_per</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;#3498db&quot;</span><span class="p">,</span> <span class="s2">&quot;#e74c3c&quot;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">ax</span><span class="p">,</span> <span class="p">(</span><span class="n">col</span><span class="p">,</span> <span class="n">titulo</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">axes</span><span class="p">,</span> <span class="n">vars_plot</span><span class="p">):</span>
+    <span class="n">medias</span> <span class="o">=</span> <span class="p">[</span><span class="n">pre2019</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">post2019</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()]</span>
+    <span class="n">errores</span> <span class="o">=</span> <span class="p">[</span><span class="n">pre2019</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> <span class="n">post2019</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">std</span><span class="p">()]</span>
+    <span class="n">bars</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="s2">&quot;Pre-2019&quot;</span><span class="p">,</span> <span class="s2">&quot;Post-2019&quot;</span><span class="p">],</span> <span class="n">medias</span><span class="p">,</span>
+                  <span class="n">color</span><span class="o">=</span><span class="n">colores_per</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">errorbar</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">medias</span><span class="p">,</span> <span class="n">yerr</span><span class="o">=</span><span class="n">errores</span><span class="p">,</span>
+                <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span> <span class="n">capsize</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">bar</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">bars</span><span class="p">,</span> <span class="n">medias</span><span class="p">):</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">bar</span><span class="o">.</span><span class="n">get_x</span><span class="p">()</span> <span class="o">+</span> <span class="n">bar</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span> <span class="n">bar</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span> <span class="o">+</span> <span class="n">errores</span><span class="p">[</span><span class="n">bars</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">bar</span><span class="p">)]</span> <span class="o">+</span> <span class="mf">0.3</span><span class="p">,</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">val</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;bottom&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tasa de </span><span class="si">{</span><span class="n">titulo</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;%&quot;</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">medias</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1.6</span><span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Comparación Pre-2019 vs Post-2019 — EPH, INDEC&quot;</span><span class="p">,</span>
+             <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;comparacion_periodos.png&quot;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/cb426e6afc0828d6fd8dbf681ed8e32ec7880f86596a77bf2dddb4624e5d49ac.png" src="_images/cb426e6afc0828d6fd8dbf681ed8e32ec7880f86596a77bf2dddb4624e5d49ac.png" />
+</div>
+</div>
+</section>
+<section id="metodologia-de-la-eph-que-mide-y-que-no">
+<h2>7. Metodología de la EPH: qué mide y qué no<a class="headerlink" href="#metodologia-de-la-eph-que-mide-y-que-no" title="Link to this heading">#</a></h2>
+<section id="que-mide-la-eph">
+<h3>¿Qué mide la EPH?<a class="headerlink" href="#que-mide-la-eph" title="Link to this heading">#</a></h3>
+<p>La EPH captura información sobre <strong>condiciones de vida de los hogares urbanos</strong> en 31 aglomerados. Para medir pobreza, compara el <strong>ingreso del hogar</strong> con el valor de la <strong>Canasta Básica Total (CBT)</strong> —que incluye alimentos y no alimentos— y con la <strong>Canasta Básica Alimentaria (CBA)</strong> para la indigencia.</p>
+<p>La CBA y la CBT son actualizadas periódicamente por el INDEC usando variaciones del IPC por rubro. Esto crea una <strong>circularidad metodológica importante</strong>: si el IPC subestima la inflación (como ocurrió durante 2007-2015), la CBT también se subestima, y con ella la pobreza medida.</p>
+</section>
+<section id="limitaciones-estructurales">
+<h3>Limitaciones estructurales<a class="headerlink" href="#limitaciones-estructurales" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Limitación</p></th>
+<th class="head"><p>Descripción</p></th>
+<th class="head"><p>Impacto en el análisis</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Cobertura urbana</strong></p></td>
+<td><p>Solo cubre aglomerados &gt;100.000 hab.</p></td>
+<td><p>Subestima pobreza rural, que históricamente es más alta</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>No capta activos</strong></p></td>
+<td><p>Mide ingresos corrientes, no riqueza</p></td>
+<td><p>Puede subestimar la vulnerabilidad de hogares con activos pero sin ingresos</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Subdeclaración de ingresos</strong></p></td>
+<td><p>Los hogares tienden a subreportar ingresos</p></td>
+<td><p>Puede sobrestimar pobreza entre deciles altos, subestimarla entre informales</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Focalización en ingresos monetarios</strong></p></td>
+<td><p>No incluye autoconsumo, transferencias en especie</p></td>
+<td><p>Subestima bienestar en áreas rurales y hogares con acceso a programas sociales en especie</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Captura 1 semana de referencia</strong></p></td>
+<td><p>El módulo de empleo hace preguntas sobre la semana anterior</p></td>
+<td><p>Subestima desempleo estructural y subempleo</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="el-indice-de-gini-y-la-distribucion-del-ingreso">
+<h3>El índice de Gini y la distribución del ingreso<a class="headerlink" href="#el-indice-de-gini-y-la-distribucion-del-ingreso" title="Link to this heading">#</a></h3>
+<p>La tasa de pobreza es un indicador de umbral (¿cuántos están bajo la línea?) pero no dice nada sobre la <strong>distribución del ingreso</strong>. Dos países con la misma tasa de pobreza pueden tener distribuciones del ingreso muy distintas. El <strong>índice de Gini</strong> (que la EPH también permite calcular) complementa la tasa de pobreza y es fundamental para evaluar políticas redistributivas.</p>
+<blockquote>
+<div><p><strong>Para el análisis de políticas</strong>: la evidencia internacional muestra que las políticas más efectivas para reducir la pobreza combinan crecimiento económico con transferencias focalizadas y mejora del capital humano. En Argentina, la alta rotación de instrumentos de política social (AUH, Progresar, Potenciar Trabajo, etc.) dificulta la evaluación de impacto de largo plazo.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Gráfico de síntesis: las tres variables juntas</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">df_pobreza</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df_pobreza</span><span class="p">[</span><span class="s2">&quot;indigencia&quot;</span><span class="p">],</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#c0392b&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Indigencia&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">df_pobreza</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df_pobreza</span><span class="p">[</span><span class="s2">&quot;indigencia&quot;</span><span class="p">],</span> <span class="n">df_pobreza</span><span class="p">[</span><span class="s2">&quot;pobreza&quot;</span><span class="p">],</span>
+                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#e74c3c&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Pobreza no indigente&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_pobreza</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df_pobreza</span><span class="p">[</span><span class="s2">&quot;pobreza&quot;</span><span class="p">],</span>
+        <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#c0392b&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;_nolegend_&quot;</span><span class="p">)</span>
+
+<span class="c1"># Desempleo sobre eje secundario</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df_desempleo</span><span class="o">.</span><span class="n">index</span><span class="p">,</span> <span class="n">df_desempleo</span><span class="p">[</span><span class="s2">&quot;desempleo&quot;</span><span class="p">],</span>
+         <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#2980b9&quot;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;-.&quot;</span><span class="p">,</span>
+         <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">markersize</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Desempleo&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Tasa de desempleo (%)&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#2980b9&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">labelcolor</span><span class="o">=</span><span class="s2">&quot;#2980b9&quot;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">df_desempleo</span><span class="p">[</span><span class="s2">&quot;desempleo&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">*</span> <span class="mf">1.5</span><span class="p">)</span>
+
+<span class="c1"># Sombrear el shock 2024</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvspan</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s2">&quot;2023-12-01&quot;</span><span class="p">),</span> <span class="n">df_pobreza</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+           <span class="n">alpha</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;purple&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="s2">&quot;2023-12-15&quot;</span><span class="p">),</span>
+        <span class="n">df_pobreza</span><span class="p">[</span><span class="s2">&quot;pobreza&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">*</span> <span class="mf">0.95</span><span class="p">,</span>
+        <span class="s2">&quot;Shock dic-23&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;purple&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;italic&quot;</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Tasa de pobreza / indigencia (%)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Mercado de trabajo y pobreza — Argentina 2003-2024&quot;</span><span class="p">,</span>
+             <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">mdates</span><span class="o">.</span><span class="n">DateFormatter</span><span class="p">(</span><span class="s2">&quot;%Y&quot;</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_locator</span><span class="p">(</span><span class="n">mdates</span><span class="o">.</span><span class="n">YearLocator</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">rotation</span><span class="o">=</span><span class="mi">45</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">)</span>
+
+<span class="n">lines1</span><span class="p">,</span> <span class="n">labels1</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">()</span>
+<span class="n">lines2</span><span class="p">,</span> <span class="n">labels2</span> <span class="o">=</span> <span class="n">ax2</span><span class="o">.</span><span class="n">get_legend_handles_labels</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">lines1</span> <span class="o">+</span> <span class="n">lines2</span><span class="p">,</span> <span class="n">labels1</span> <span class="o">+</span> <span class="n">labels2</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper right&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">&quot;sintesis_mercado_laboral.png&quot;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">&quot;tight&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/8e834cdfa7ff4d4f074a1d00dd95e298148027e7e62dbc6cc30814bfc412a1f2.png" src="_images/8e834cdfa7ff4d4f074a1d00dd95e298148027e7e62dbc6cc30814bfc412a1f2.png" />
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="ejercicios">
+<h2>Ejercicios<a class="headerlink" href="#ejercicios" title="Link to this heading">#</a></h2>
+<section id="ejercicio-1-tasa-de-pobreza-ajustada-por-inflacion">
+<h3>Ejercicio 1 — Tasa de pobreza ajustada por inflación<a class="headerlink" href="#ejercicio-1-tasa-de-pobreza-ajustada-por-inflacion" title="Link to this heading">#</a></h3>
+<p>La tasa de pobreza sube cuando los ingresos no acompañan a la inflación. Descargá los datos de salario real promedio de la economía (o usá el índice de salarios del INDEC si está disponible en la API) y correlacionalo con la tasa de pobreza. ¿En qué períodos creció más la brecha entre salarios e inflación? ¿Coincide con los picos de pobreza que viste en los gráficos?</p>
+<p>Serie sugerida: <code class="docutils literal notranslate"><span class="pre">148.3_ISALNALP_DICI_M_26</span></code> (Índice de Salarios Nominales, Total)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Tu código aquí</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="ejercicio-2-analisis-de-composicion-de-la-pobreza">
+<h3>Ejercicio 2 — Análisis de composición de la pobreza<a class="headerlink" href="#ejercicio-2-analisis-de-composicion-de-la-pobreza" title="Link to this heading">#</a></h3>
+<p>Usando los datos de pobreza e indigencia que ya tenés:</p>
+<ol class="arabic simple">
+<li><p>Calculá la <strong>tasa de indigencia como fracción de la pobreza</strong> (qué proporción de los pobres son indigentes) para cada semestre.</p></li>
+<li><p>Graficá esa proporción en el tiempo.</p></li>
+<li><p>¿Cuándo es más alta la indigencia relativa? ¿Qué dice eso sobre la calidad de los empleos disponibles para los sectores de menores ingresos?</p></li>
+</ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Tu código aquí</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="ejercicio-3-analisis-regional-una-comparacion-hipotetica">
+<h3>Ejercicio 3 — Análisis regional: una comparación hipotética<a class="headerlink" href="#ejercicio-3-analisis-regional-una-comparacion-hipotetica" title="Link to this heading">#</a></h3>
+<p>La EPH publica datos para cada aglomerado por separado. Usando datos que ya conocés o datos de alguna fuente alternativa (por ejemplo, informes del Observatorio de la Deuda Social de la UCA), comparé la tasa de pobreza del Gran Buenos Aires con alguna región del norte (por ejemplo, Formosa, Tucumán o Salta).</p>
+<p>Si no tenés acceso a los datos regionales, respondé conceptualmente: ¿por qué esperarías que la pobreza regional sea más alta que el promedio nacional? ¿Qué variables estructurales (empleo público, informalidad, clima, conectividad) podrían explicarlo?</p>
+<p>Construí una tabla de comparación con al menos 3 indicadores y 3 regiones (podés usar datos estimados si lo justificás).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Tu código aquí</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="M02_C01_Inflacion_Precios.html"
+       title="página anterior">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">anterior</p>
+        <p class="prev-next-title">Módulo 2 — Clase 1: Análisis de inflación con datos reales del INDEC</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="M02_C03_Comparacion_LATAM_WorldBank.html"
+       title="siguiente página">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">siguiente</p>
+        <p class="prev-next-title">Módulo 2 — Clase 3: Comparación regional con la API del Banco Mundial</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos-de-la-clase">Objetivos de la clase</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#la-eph-en-contexto">La EPH en contexto</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#descarga-y-limpieza-de-datos">1. Descarga y limpieza de datos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#alineacion-temporal-de-series-con-distinta-frecuencia">2. Alineación temporal de series con distinta frecuencia</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#grafico-de-doble-eje-desempleo-y-pobreza">3. Gráfico de doble eje: desempleo y pobreza</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#diagrama-de-dispersion-desempleo-vs-pobreza">4. Diagrama de dispersión: desempleo vs. pobreza</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlacion-y-analisis-de-rezagos">5. Correlación y análisis de rezagos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estadisticas-descriptivas-comparando-dos-periodos">6. Estadísticas descriptivas comparando dos períodos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#metodologia-de-la-eph-que-mide-y-que-no">7. Metodología de la EPH: qué mide y qué no</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#que-mide-la-eph">¿Qué mide la EPH?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#limitaciones-estructurales">Limitaciones estructurales</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#el-indice-de-gini-y-la-distribucion-del-ingreso">El índice de Gini y la distribución del ingreso</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicios">Ejercicios</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-1-tasa-de-pobreza-ajustada-por-inflacion">Ejercicio 1 — Tasa de pobreza ajustada por inflación</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-2-analisis-de-composicion-de-la-pobreza">Ejercicio 2 — Análisis de composición de la pobreza</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-3-analisis-regional-una-comparacion-hipotetica">Ejercicio 3 — Análisis regional: una comparación hipotética</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por Daniela Risaro
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

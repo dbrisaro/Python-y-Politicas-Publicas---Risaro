@@ -1,0 +1,1708 @@
+
+<!DOCTYPE html>
+
+
+<html lang="es" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Clase 5 — Pandas II: operaciones sobre DataFrames &#8212; Python y Políticas Públicas</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=78d55cf8"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Haz clic para mostrar';</script>
+    <script>let toggleHintHide = 'Haz clic para ocultar';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script src="_static/translations.js?v=d190bf04"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'M01_C05_Pandas_II';</script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="Clase 6 — Data Cleansing" href="M01_C06_Data_Cleansing.html" />
+    <link rel="prev" title="Clase 4 — Pandas I: lectura y exploración de datos" href="M01_C04_Pandas_I.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Saltar al contenido principal</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Volver arriba</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Advertencia de versión"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Python y Políticas Públicas</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Búsqueda</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Módulo 1 — Fundamentos de Python</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="M01_C01_Introduccion.html">Clase 1 — Introducción a Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C02_Listas_Funciones_Numpy.html">Clase 2 — Listas, funciones y numpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C03_Matplotlib_Visualizacion.html">Clase 3 — Matplotlib y visualización</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C04_Pandas_I.html">Clase 4 — Pandas I: lectura y exploración de datos</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Clase 5 — Pandas II: operaciones sobre DataFrames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C06_Data_Cleansing.html">Clase 6 — Data Cleansing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C07_Pandas_Matplotlib.html">Clase 7 — Pandas + Matplotlib: integración</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C08_Estadistica_Aplicada.html">Clase 8 — Estadística aplicada con Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C09_Datos_Geoespaciales.html">Clase 9 — Datos geoespaciales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C10_APIs_Datos_Abiertos_Proyecto.html">Clase 10 — APIs, datos abiertos y proyecto final</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Módulo 2 — Datos reales para políticas públicas</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="M02_C01_Inflacion_Precios.html">Módulo 2 — Clase 1: Análisis de inflación con datos reales del INDEC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M02_C02_Mercado_Laboral_Pobreza.html">Módulo 2 — Clase 2: Mercado de trabajo y pobreza — datos reales de la EPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M02_C03_Comparacion_LATAM_WorldBank.html">Módulo 2 — Clase 3: Comparación regional con la API del Banco Mundial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M02_C04_Scraping_Datos_Abiertos.html">Módulo 2 — Clase 4: Web scraping y procesamiento de datos no estructurados</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="M02_C05_ML_Targeting_Social.html">Módulo 2 — Clase 5: Machine Learning para targeting de programas sociales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M02_C06_Mapas_Interactivos_Folium.html">Módulo 2 — Clase 6: Mapas interactivos para política pública con Folium</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/dbrisaro/Python-y-Politicas-Publicas---Risaro" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Repositorio de origen"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/M01_C05_Pandas_II.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Tema" data-bs-title="Tema"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Claro"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Oscuro"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="Sistema"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Clase 5 — Pandas II: operaciones sobre DataFrames</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contenidos">Contenidos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#groupby-y-agregaciones">1. GroupBy y agregaciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#merge-y-join">2. Merge y join</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concatenar-dataframes">3. Concatenar DataFrames</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pivot-tables-y-reshaping">4. Pivot tables y reshaping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apply-y-funciones-sobre-columnas">5. Apply y funciones sobre columnas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicios">6. Ejercicios</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-1">Ejercicio 1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-2">Ejercicio 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-3">Ejercicio 3</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="clase-5-pandas-ii-operaciones-sobre-dataframes">
+<h1>Clase 5 — Pandas II: operaciones sobre DataFrames<a class="headerlink" href="#clase-5-pandas-ii-operaciones-sobre-dataframes" title="Link to this heading">#</a></h1>
+<p><strong>Python y Políticas Públicas</strong></p>
+<hr class="docutils" />
+<section id="contenidos">
+<h2>Contenidos<a class="headerlink" href="#contenidos" title="Link to this heading">#</a></h2>
+<ol class="arabic simple">
+<li><p>GroupBy y agregaciones</p></li>
+<li><p>Merge y join</p></li>
+<li><p>Concatenar DataFrames</p></li>
+<li><p>Pivot tables y reshaping</p></li>
+<li><p>Apply y funciones sobre columnas</p></li>
+<li><p>Ejercicios</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.float_format&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{:.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">)</span>
+
+<span class="c1"># Recreamos el dataset de la clase anterior</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">200</span>
+<span class="n">provincias_lista</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;Buenos Aires&quot;</span><span class="p">,</span> <span class="s2">&quot;Córdoba&quot;</span><span class="p">,</span> <span class="s2">&quot;Santa Fe&quot;</span><span class="p">,</span> <span class="s2">&quot;Mendoza&quot;</span><span class="p">,</span> <span class="s2">&quot;Tucumán&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Salta&quot;</span><span class="p">,</span> <span class="s2">&quot;Entre Ríos&quot;</span><span class="p">,</span> <span class="s2">&quot;Chaco&quot;</span><span class="p">,</span> <span class="s2">&quot;Misiones&quot;</span><span class="p">,</span> <span class="s2">&quot;Corrientes&quot;</span>
+<span class="p">]</span>
+<span class="n">programas_lista</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;AUH&quot;</span><span class="p">,</span> <span class="s2">&quot;Progresar&quot;</span><span class="p">,</span> <span class="s2">&quot;Potenciar Trabajo&quot;</span><span class="p">,</span> <span class="s2">&quot;Alimentar&quot;</span><span class="p">,</span> <span class="s2">&quot;Crédito Argenta&quot;</span><span class="p">]</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;id_beneficiario&quot;</span><span class="p">:</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1001</span><span class="p">,</span> <span class="mi">1001</span> <span class="o">+</span> <span class="n">n</span><span class="p">),</span>
+    <span class="s2">&quot;provincia&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">provincias_lista</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span>
+    <span class="s2">&quot;programa&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">programas_lista</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span>
+    <span class="s2">&quot;edad&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">65</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span>
+    <span class="s2">&quot;genero&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="s2">&quot;F&quot;</span><span class="p">,</span> <span class="s2">&quot;M&quot;</span><span class="p">,</span> <span class="s2">&quot;X&quot;</span><span class="p">],</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">0.58</span><span class="p">,</span> <span class="mf">0.40</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">]),</span>
+    <span class="s2">&quot;ingreso_mensual&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">lognormal</span><span class="p">(</span><span class="mf">10.2</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span>
+    <span class="s2">&quot;anios_educacion&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="n">n</span><span class="p">),</span>
+    <span class="s2">&quot;tiene_empleo_formal&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">],</span> <span class="n">n</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="p">[</span><span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.65</span><span class="p">]),</span>
+    <span class="s2">&quot;monto_transferencia&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">([</span><span class="mi">18000</span><span class="p">,</span> <span class="mi">25000</span><span class="p">,</span> <span class="mi">42000</span><span class="p">,</span> <span class="mi">55000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">],</span> <span class="n">n</span><span class="p">),</span>
+<span class="p">})</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dataset: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> filas × </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> columnas&quot;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dataset: 200 filas × 9 columnas
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id_beneficiario</th>
+      <th>provincia</th>
+      <th>programa</th>
+      <th>edad</th>
+      <th>genero</th>
+      <th>ingreso_mensual</th>
+      <th>anios_educacion</th>
+      <th>tiene_empleo_formal</th>
+      <th>monto_transferencia</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>1001</td>
+      <td>Entre Ríos</td>
+      <td>Potenciar Trabajo</td>
+      <td>54</td>
+      <td>M</td>
+      <td>43412.00</td>
+      <td>6</td>
+      <td>True</td>
+      <td>10000</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>1002</td>
+      <td>Mendoza</td>
+      <td>AUH</td>
+      <td>39</td>
+      <td>M</td>
+      <td>29352.00</td>
+      <td>7</td>
+      <td>False</td>
+      <td>55000</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>1003</td>
+      <td>Chaco</td>
+      <td>AUH</td>
+      <td>46</td>
+      <td>F</td>
+      <td>78992.00</td>
+      <td>8</td>
+      <td>True</td>
+      <td>25000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># --- Paleta de identidad del curso ---</span>
+<span class="n">C</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#2A6496&#39;</span><span class="p">,</span> <span class="s1">&#39;#E07B3F&#39;</span><span class="p">,</span> <span class="s1">&#39;#3D9970&#39;</span><span class="p">,</span> <span class="s1">&#39;#8E5EA2&#39;</span><span class="p">,</span> <span class="s1">&#39;#C0A830&#39;</span><span class="p">,</span> <span class="s1">&#39;#637A8A&#39;</span><span class="p">]</span>
+
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+    <span class="s1">&#39;figure.figsize&#39;</span>       <span class="p">:</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+    <span class="s1">&#39;font.size&#39;</span>            <span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
+    <span class="s1">&#39;axes.titlesize&#39;</span>       <span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="s1">&#39;axes.titleweight&#39;</span>     <span class="p">:</span> <span class="s1">&#39;normal&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;axes.spines.top&#39;</span>      <span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;axes.spines.right&#39;</span>    <span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;legend.frameon&#39;</span>       <span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;axes.prop_cycle&#39;</span>      <span class="p">:</span> <span class="n">mpl</span><span class="o">.</span><span class="n">cycler</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">C</span><span class="p">),</span>
+    <span class="s1">&#39;figure.dpi&#39;</span>           <span class="p">:</span> <span class="mi">110</span><span class="p">,</span>
+<span class="p">})</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">tit</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Título sin negrita, alineado a la izquierda.&quot;&quot;&quot;</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="groupby-y-agregaciones">
+<h2>1. GroupBy y agregaciones<a class="headerlink" href="#groupby-y-agregaciones" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">groupby</span></code> es una de las operaciones más poderosas de pandas. Permite dividir los datos en grupos, aplicar una función a cada grupo y combinar los resultados.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Promedio de ingreso y monto por programa</span>
+<span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;programa&#39;</span><span class="p">)[[</span><span class="s1">&#39;ingreso_mensual&#39;</span><span class="p">,</span> <span class="s1">&#39;monto_transferencia&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>ingreso_mensual</th>
+      <th>monto_transferencia</th>
+    </tr>
+    <tr>
+      <th>programa</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>AUH</th>
+      <td>31916.00</td>
+      <td>29044.00</td>
+    </tr>
+    <tr>
+      <th>Alimentar</th>
+      <td>36054.00</td>
+      <td>30614.00</td>
+    </tr>
+    <tr>
+      <th>Crédito Argenta</th>
+      <td>42747.00</td>
+      <td>28676.00</td>
+    </tr>
+    <tr>
+      <th>Potenciar Trabajo</th>
+      <td>35840.00</td>
+      <td>32925.00</td>
+    </tr>
+    <tr>
+      <th>Progresar</th>
+      <td>32448.00</td>
+      <td>33703.00</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Múltiples funciones de agregación</span>
+<span class="n">resumen</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;provincia&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+    <span class="n">cantidad</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;id_beneficiario&quot;</span><span class="p">,</span> <span class="s2">&quot;count&quot;</span><span class="p">),</span>
+    <span class="n">ingreso_promedio</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;ingreso_mensual&quot;</span><span class="p">,</span> <span class="s2">&quot;mean&quot;</span><span class="p">),</span>
+    <span class="n">edad_promedio</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;edad&quot;</span><span class="p">,</span> <span class="s2">&quot;mean&quot;</span><span class="p">),</span>
+    <span class="n">pct_empleo_formal</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;tiene_empleo_formal&quot;</span><span class="p">,</span> <span class="s2">&quot;mean&quot;</span><span class="p">),</span>
+<span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">resumen</span><span class="p">[</span><span class="s1">&#39;pct_empleo_formal&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">resumen</span><span class="p">[</span><span class="s1">&#39;pct_empleo_formal&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">resumen</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;cantidad&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>cantidad</th>
+      <th>ingreso_promedio</th>
+      <th>edad_promedio</th>
+      <th>pct_empleo_formal</th>
+    </tr>
+    <tr>
+      <th>provincia</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Entre Ríos</th>
+      <td>26</td>
+      <td>46482.50</td>
+      <td>43.10</td>
+      <td>40.00</td>
+    </tr>
+    <tr>
+      <th>Buenos Aires</th>
+      <td>23</td>
+      <td>35800.70</td>
+      <td>38.70</td>
+      <td>20.00</td>
+    </tr>
+    <tr>
+      <th>Chaco</th>
+      <td>23</td>
+      <td>34679.80</td>
+      <td>41.30</td>
+      <td>30.00</td>
+    </tr>
+    <tr>
+      <th>Misiones</th>
+      <td>20</td>
+      <td>27960.40</td>
+      <td>38.80</td>
+      <td>30.00</td>
+    </tr>
+    <tr>
+      <th>Tucumán</th>
+      <td>20</td>
+      <td>33069.40</td>
+      <td>38.90</td>
+      <td>40.00</td>
+    </tr>
+    <tr>
+      <th>Corrientes</th>
+      <td>19</td>
+      <td>46704.20</td>
+      <td>41.30</td>
+      <td>30.00</td>
+    </tr>
+    <tr>
+      <th>Santa Fe</th>
+      <td>19</td>
+      <td>34611.70</td>
+      <td>43.50</td>
+      <td>30.00</td>
+    </tr>
+    <tr>
+      <th>Mendoza</th>
+      <td>18</td>
+      <td>30335.40</td>
+      <td>42.90</td>
+      <td>20.00</td>
+    </tr>
+    <tr>
+      <th>Córdoba</th>
+      <td>17</td>
+      <td>32492.40</td>
+      <td>46.10</td>
+      <td>50.00</td>
+    </tr>
+    <tr>
+      <th>Salta</th>
+      <td>15</td>
+      <td>27769.70</td>
+      <td>37.10</td>
+      <td>30.00</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Agrupar por múltiples columnas</span>
+<span class="n">por_programa_genero</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;programa&#39;</span><span class="p">,</span> <span class="s1">&#39;genero&#39;</span><span class="p">])[</span><span class="s1">&#39;ingreso_mensual&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">por_programa_genero</span><span class="o">.</span><span class="n">unstack</span><span class="p">())</span>  <span class="c1"># unstack convierte el último nivel en columnas</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>genero                   F        M        X
+programa                                    
+AUH               33685.00 27967.00 53926.00
+Alimentar         34902.00 38070.00      NaN
+Crédito Argenta   35689.00 54887.00 45284.00
+Potenciar Trabajo 37300.00 32513.00 31558.00
+Progresar         33551.00 30410.00      NaN
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># transform: agrega el resultado al DataFrame original (sin reducir filas)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;ingreso_promedio_provincial&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;provincia&#39;</span><span class="p">)[</span><span class="s1">&#39;ingreso_mensual&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;ingreso_relativo&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;ingreso_mensual&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;ingreso_promedio_provincial&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">df</span><span class="p">[[</span><span class="s1">&#39;provincia&#39;</span><span class="p">,</span> <span class="s1">&#39;ingreso_mensual&#39;</span><span class="p">,</span> <span class="s1">&#39;ingreso_promedio_provincial&#39;</span><span class="p">,</span> <span class="s1">&#39;ingreso_relativo&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>provincia</th>
+      <th>ingreso_mensual</th>
+      <th>ingreso_promedio_provincial</th>
+      <th>ingreso_relativo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Entre Ríos</td>
+      <td>43412.00</td>
+      <td>46482.50</td>
+      <td>0.93</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Mendoza</td>
+      <td>29352.00</td>
+      <td>30335.44</td>
+      <td>0.97</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Chaco</td>
+      <td>78992.00</td>
+      <td>34679.78</td>
+      <td>2.28</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Tucumán</td>
+      <td>25727.00</td>
+      <td>33069.35</td>
+      <td>0.78</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Entre Ríos</td>
+      <td>37790.00</td>
+      <td>46482.50</td>
+      <td>0.81</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Corrientes</td>
+      <td>44316.00</td>
+      <td>46704.21</td>
+      <td>0.95</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Santa Fe</td>
+      <td>9436.00</td>
+      <td>34611.68</td>
+      <td>0.27</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Entre Ríos</td>
+      <td>129317.00</td>
+      <td>46482.50</td>
+      <td>2.78</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="merge-y-join">
+<h2>2. Merge y join<a class="headerlink" href="#merge-y-join" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">merge</span></code> combina dos DataFrames usando una o más columnas clave, como un <code class="docutils literal notranslate"><span class="pre">JOIN</span></code> en SQL.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># DataFrame de indicadores provinciales (tabla de referencia)</span>
+<span class="n">indicadores</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s2">&quot;provincia&quot;</span><span class="p">:</span> <span class="n">provincias_lista</span><span class="p">,</span>
+    <span class="s2">&quot;pobreza_pct&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">42.3</span><span class="p">,</span> <span class="mf">38.1</span><span class="p">,</span> <span class="mf">39.7</span><span class="p">,</span> <span class="mf">34.2</span><span class="p">,</span> <span class="mf">48.6</span><span class="p">,</span> <span class="mf">52.1</span><span class="p">,</span> <span class="mf">37.5</span><span class="p">,</span> <span class="mf">58.3</span><span class="p">,</span> <span class="mf">44.1</span><span class="p">,</span> <span class="mf">46.8</span><span class="p">],</span>
+    <span class="s2">&quot;region&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Pampeana&quot;</span><span class="p">,</span> <span class="s2">&quot;Pampeana&quot;</span><span class="p">,</span> <span class="s2">&quot;Pampeana&quot;</span><span class="p">,</span> <span class="s2">&quot;Cuyo&quot;</span><span class="p">,</span> <span class="s2">&quot;NOA&quot;</span><span class="p">,</span>
+               <span class="s2">&quot;NOA&quot;</span><span class="p">,</span> <span class="s2">&quot;Pampeana&quot;</span><span class="p">,</span> <span class="s2">&quot;NEA&quot;</span><span class="p">,</span> <span class="s2">&quot;NEA&quot;</span><span class="p">,</span> <span class="s2">&quot;NEA&quot;</span><span class="p">],</span>
+    <span class="s2">&quot;pbi_pc_miles&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">9.2</span><span class="p">,</span> <span class="mf">10.1</span><span class="p">,</span> <span class="mf">9.8</span><span class="p">,</span> <span class="mf">8.5</span><span class="p">,</span> <span class="mf">6.8</span><span class="p">,</span> <span class="mf">6.1</span><span class="p">,</span> <span class="mf">7.9</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="mf">5.8</span><span class="p">,</span> <span class="mf">5.9</span><span class="p">],</span>
+<span class="p">})</span>
+<span class="n">indicadores</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>provincia</th>
+      <th>pobreza_pct</th>
+      <th>region</th>
+      <th>pbi_pc_miles</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Buenos Aires</td>
+      <td>42.30</td>
+      <td>Pampeana</td>
+      <td>9.20</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Córdoba</td>
+      <td>38.10</td>
+      <td>Pampeana</td>
+      <td>10.10</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Santa Fe</td>
+      <td>39.70</td>
+      <td>Pampeana</td>
+      <td>9.80</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Mendoza</td>
+      <td>34.20</td>
+      <td>Cuyo</td>
+      <td>8.50</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Tucumán</td>
+      <td>48.60</td>
+      <td>NOA</td>
+      <td>6.80</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Salta</td>
+      <td>52.10</td>
+      <td>NOA</td>
+      <td>6.10</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Entre Ríos</td>
+      <td>37.50</td>
+      <td>Pampeana</td>
+      <td>7.90</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Chaco</td>
+      <td>58.30</td>
+      <td>NEA</td>
+      <td>5.50</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Misiones</td>
+      <td>44.10</td>
+      <td>NEA</td>
+      <td>5.80</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Corrientes</td>
+      <td>46.80</td>
+      <td>NEA</td>
+      <td>5.90</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Inner join: solo filas con clave en ambas tablas</span>
+<span class="n">df_enriquecido</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">indicadores</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;provincia&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Filas antes del merge: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Filas después del merge: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">df_enriquecido</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="n">df_enriquecido</span><span class="p">[[</span><span class="s1">&#39;provincia&#39;</span><span class="p">,</span> <span class="s1">&#39;programa&#39;</span><span class="p">,</span> <span class="s1">&#39;ingreso_mensual&#39;</span><span class="p">,</span> <span class="s1">&#39;pobreza_pct&#39;</span><span class="p">,</span> <span class="s1">&#39;region&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Filas antes del merge: 200
+Filas después del merge: 200
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>provincia</th>
+      <th>programa</th>
+      <th>ingreso_mensual</th>
+      <th>pobreza_pct</th>
+      <th>region</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Entre Ríos</td>
+      <td>Potenciar Trabajo</td>
+      <td>43412.00</td>
+      <td>37.50</td>
+      <td>Pampeana</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Mendoza</td>
+      <td>AUH</td>
+      <td>29352.00</td>
+      <td>34.20</td>
+      <td>Cuyo</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Chaco</td>
+      <td>AUH</td>
+      <td>78992.00</td>
+      <td>58.30</td>
+      <td>NEA</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Tucumán</td>
+      <td>Alimentar</td>
+      <td>25727.00</td>
+      <td>48.60</td>
+      <td>NOA</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Entre Ríos</td>
+      <td>Potenciar Trabajo</td>
+      <td>37790.00</td>
+      <td>37.50</td>
+      <td>Pampeana</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Tipos de merge</span>
+<span class="c1"># how=&#39;inner&#39;  → solo filas con coincidencia en ambas tablas (por defecto)</span>
+<span class="c1"># how=&#39;left&#39;   → todas las filas de la izquierda, NaN donde no hay match a la derecha</span>
+<span class="c1"># how=&#39;right&#39;  → todas las filas de la derecha</span>
+<span class="c1"># how=&#39;outer&#39;  → todas las filas de ambas tablas</span>
+
+<span class="c1"># Merge con nombres de columna distintos</span>
+<span class="n">df_alt</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;prov&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Buenos Aires&#39;</span><span class="p">,</span> <span class="s1">&#39;Córdoba&#39;</span><span class="p">],</span> <span class="s1">&#39;codigo&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]})</span>
+<span class="c1"># df.merge(df_alt, left_on=&#39;provincia&#39;, right_on=&#39;prov&#39;)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ver comentarios en el código para los tipos de merge&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ver comentarios en el código para los tipos de merge
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="concatenar-dataframes">
+<h2>3. Concatenar DataFrames<a class="headerlink" href="#concatenar-dataframes" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Datos de tres trimestres (mismo formato, distintos períodos)</span>
+<span class="n">q1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;trimestre&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Q1&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;provincia&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;BA&#39;</span><span class="p">,</span> <span class="s1">&#39;Cba&#39;</span><span class="p">,</span> <span class="s1">&#39;SF&#39;</span><span class="p">],</span> <span class="s1">&#39;valor&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">102</span><span class="p">]})</span>
+<span class="n">q2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;trimestre&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Q2&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;provincia&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;BA&#39;</span><span class="p">,</span> <span class="s1">&#39;Cba&#39;</span><span class="p">,</span> <span class="s1">&#39;SF&#39;</span><span class="p">],</span> <span class="s1">&#39;valor&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">105</span><span class="p">,</span> <span class="mi">98</span><span class="p">,</span> <span class="mi">108</span><span class="p">]})</span>
+<span class="n">q3</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;trimestre&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Q3&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;provincia&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;BA&#39;</span><span class="p">,</span> <span class="s1">&#39;Cba&#39;</span><span class="p">,</span> <span class="s1">&#39;SF&#39;</span><span class="p">],</span> <span class="s1">&#39;valor&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">110</span><span class="p">,</span> <span class="mi">103</span><span class="p">,</span> <span class="mi">112</span><span class="p">]})</span>
+
+<span class="c1"># Concatenar verticalmente (apilar)</span>
+<span class="n">todos</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">,</span> <span class="n">q3</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Concatenación vertical:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">todos</span><span class="p">)</span>
+
+<span class="c1"># Uso típico: cargar múltiples archivos y apilarlos</span>
+<span class="c1"># archivos = [&#39;datos_2021.csv&#39;, &#39;datos_2022.csv&#39;, &#39;datos_2023.csv&#39;]</span>
+<span class="c1"># df_total = pd.concat([pd.read_csv(f) for f in archivos], ignore_index=True)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Concatenación vertical:
+  trimestre provincia  valor
+0        Q1        BA    100
+1        Q1       Cba     95
+2        Q1        SF    102
+3        Q2        BA    105
+4        Q2       Cba     98
+5        Q2        SF    108
+6        Q3        BA    110
+7        Q3       Cba    103
+8        Q3        SF    112
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="pivot-tables-y-reshaping">
+<h2>4. Pivot tables y reshaping<a class="headerlink" href="#pivot-tables-y-reshaping" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Pivot table: resumen cruzado (como tabla dinámica de Excel)</span>
+<span class="n">pivot</span> <span class="o">=</span> <span class="n">df_enriquecido</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
+    <span class="n">values</span><span class="o">=</span><span class="s1">&#39;monto_transferencia&#39;</span><span class="p">,</span>
+    <span class="n">index</span><span class="o">=</span><span class="s1">&#39;region&#39;</span><span class="p">,</span>
+    <span class="n">columns</span><span class="o">=</span><span class="s1">&#39;genero&#39;</span><span class="p">,</span>
+    <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">,</span>
+    <span class="n">margins</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># fila/columna de totales</span>
+    <span class="n">margins_name</span><span class="o">=</span><span class="s1">&#39;Total&#39;</span>
+<span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">pivot</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>genero</th>
+      <th>F</th>
+      <th>M</th>
+      <th>X</th>
+      <th>Total</th>
+    </tr>
+    <tr>
+      <th>region</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Cuyo</th>
+      <td>32100.00</td>
+      <td>34750.00</td>
+      <td>NaN</td>
+      <td>33278.00</td>
+    </tr>
+    <tr>
+      <th>NEA</th>
+      <td>29878.00</td>
+      <td>27900.00</td>
+      <td>25000.00</td>
+      <td>29161.00</td>
+    </tr>
+    <tr>
+      <th>NOA</th>
+      <td>34048.00</td>
+      <td>28429.00</td>
+      <td>NaN</td>
+      <td>31800.00</td>
+    </tr>
+    <tr>
+      <th>Pampeana</th>
+      <td>34078.00</td>
+      <td>28161.00</td>
+      <td>20667.00</td>
+      <td>31447.00</td>
+    </tr>
+    <tr>
+      <th>Total</th>
+      <td>32512.00</td>
+      <td>28863.00</td>
+      <td>21750.00</td>
+      <td>30965.00</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Tabla de conteos: beneficiarios por provincia y programa</span>
+<span class="n">tabla_cruzada</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">crosstab</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;provincia&#39;</span><span class="p">],</span>
+    <span class="n">df</span><span class="p">[</span><span class="s1">&#39;programa&#39;</span><span class="p">],</span>
+    <span class="n">margins</span><span class="o">=</span><span class="kc">True</span>
+<span class="p">)</span>
+<span class="n">tabla_cruzada</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>programa</th>
+      <th>AUH</th>
+      <th>Alimentar</th>
+      <th>Crédito Argenta</th>
+      <th>Potenciar Trabajo</th>
+      <th>Progresar</th>
+      <th>All</th>
+    </tr>
+    <tr>
+      <th>provincia</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Buenos Aires</th>
+      <td>5</td>
+      <td>4</td>
+      <td>4</td>
+      <td>5</td>
+      <td>5</td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <th>Chaco</th>
+      <td>5</td>
+      <td>7</td>
+      <td>5</td>
+      <td>4</td>
+      <td>2</td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <th>Corrientes</th>
+      <td>2</td>
+      <td>5</td>
+      <td>4</td>
+      <td>3</td>
+      <td>5</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <th>Córdoba</th>
+      <td>5</td>
+      <td>2</td>
+      <td>4</td>
+      <td>0</td>
+      <td>6</td>
+      <td>17</td>
+    </tr>
+    <tr>
+      <th>Entre Ríos</th>
+      <td>4</td>
+      <td>4</td>
+      <td>7</td>
+      <td>7</td>
+      <td>4</td>
+      <td>26</td>
+    </tr>
+    <tr>
+      <th>Mendoza</th>
+      <td>4</td>
+      <td>5</td>
+      <td>3</td>
+      <td>4</td>
+      <td>2</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <th>Misiones</th>
+      <td>6</td>
+      <td>3</td>
+      <td>1</td>
+      <td>6</td>
+      <td>4</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>Salta</th>
+      <td>2</td>
+      <td>4</td>
+      <td>3</td>
+      <td>2</td>
+      <td>4</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <th>Santa Fe</th>
+      <td>6</td>
+      <td>4</td>
+      <td>2</td>
+      <td>4</td>
+      <td>3</td>
+      <td>19</td>
+    </tr>
+    <tr>
+      <th>Tucumán</th>
+      <td>6</td>
+      <td>6</td>
+      <td>1</td>
+      <td>5</td>
+      <td>2</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <th>All</th>
+      <td>45</td>
+      <td>44</td>
+      <td>34</td>
+      <td>40</td>
+      <td>37</td>
+      <td>200</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># melt: pasar de formato wide a long (útil para graficar series temporales)</span>
+<span class="n">wide</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;provincia&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;Buenos Aires&#39;</span><span class="p">,</span> <span class="s1">&#39;Córdoba&#39;</span><span class="p">,</span> <span class="s1">&#39;Santa Fe&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;pobreza_2021&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">40.1</span><span class="p">,</span> <span class="mf">36.2</span><span class="p">,</span> <span class="mf">38.0</span><span class="p">],</span>
+    <span class="s1">&#39;pobreza_2022&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">42.3</span><span class="p">,</span> <span class="mf">38.1</span><span class="p">,</span> <span class="mf">39.7</span><span class="p">],</span>
+    <span class="s1">&#39;pobreza_2023&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">40.9</span><span class="p">,</span> <span class="mf">37.4</span><span class="p">,</span> <span class="mf">38.5</span><span class="p">],</span>
+<span class="p">})</span>
+
+<span class="n">long</span> <span class="o">=</span> <span class="n">wide</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span>
+    <span class="n">id_vars</span><span class="o">=</span><span class="s1">&#39;provincia&#39;</span><span class="p">,</span>
+    <span class="n">value_vars</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;pobreza_2021&#39;</span><span class="p">,</span> <span class="s1">&#39;pobreza_2022&#39;</span><span class="p">,</span> <span class="s1">&#39;pobreza_2023&#39;</span><span class="p">],</span>
+    <span class="n">var_name</span><span class="o">=</span><span class="s1">&#39;anio&#39;</span><span class="p">,</span>
+    <span class="n">value_name</span><span class="o">=</span><span class="s1">&#39;pobreza_pct&#39;</span>
+<span class="p">)</span>
+<span class="n">long</span><span class="p">[</span><span class="s1">&#39;anio&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">long</span><span class="p">[</span><span class="s1">&#39;anio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;pobreza_&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Formato long (ideal para gráficos de series temporales):&quot;</span><span class="p">)</span>
+<span class="n">long</span><span class="o">.</span><span class="n">sort_values</span><span class="p">([</span><span class="s1">&#39;provincia&#39;</span><span class="p">,</span> <span class="s1">&#39;anio&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Formato long (ideal para gráficos de series temporales):
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>provincia</th>
+      <th>anio</th>
+      <th>pobreza_pct</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Buenos Aires</td>
+      <td>2021</td>
+      <td>40.10</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Buenos Aires</td>
+      <td>2022</td>
+      <td>42.30</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Buenos Aires</td>
+      <td>2023</td>
+      <td>40.90</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Córdoba</td>
+      <td>2021</td>
+      <td>36.20</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Córdoba</td>
+      <td>2022</td>
+      <td>38.10</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Córdoba</td>
+      <td>2023</td>
+      <td>37.40</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Santa Fe</td>
+      <td>2021</td>
+      <td>38.00</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Santa Fe</td>
+      <td>2022</td>
+      <td>39.70</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Santa Fe</td>
+      <td>2023</td>
+      <td>38.50</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="apply-y-funciones-sobre-columnas">
+<h2>5. Apply y funciones sobre columnas<a class="headerlink" href="#apply-y-funciones-sobre-columnas" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># apply: aplicar una función a cada fila o columna</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">clasificar_ingreso</span><span class="p">(</span><span class="n">ingreso</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">isna</span><span class="p">(</span><span class="n">ingreso</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;Sin dato&quot;</span>
+    <span class="k">elif</span> <span class="n">ingreso</span> <span class="o">&lt;</span> <span class="mi">50_000</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;Bajo&quot;</span>
+    <span class="k">elif</span> <span class="n">ingreso</span> <span class="o">&lt;</span> <span class="mi">150_000</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;Medio&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;Alto&quot;</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;nivel_ingreso&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;ingreso_mensual&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">clasificar_ingreso</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;nivel_ingreso&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>nivel_ingreso
+Bajo     166
+Medio     33
+Alto       1
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># map: reemplazar valores usando un diccionario</span>
+<span class="n">mapa_regiones</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Buenos Aires&quot;</span><span class="p">:</span> <span class="s2">&quot;Pampeana&quot;</span><span class="p">,</span> <span class="s2">&quot;Córdoba&quot;</span><span class="p">:</span> <span class="s2">&quot;Pampeana&quot;</span><span class="p">,</span> <span class="s2">&quot;Santa Fe&quot;</span><span class="p">:</span> <span class="s2">&quot;Pampeana&quot;</span><span class="p">,</span> <span class="s2">&quot;Entre Ríos&quot;</span><span class="p">:</span> <span class="s2">&quot;Pampeana&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Mendoza&quot;</span><span class="p">:</span> <span class="s2">&quot;Cuyo&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Tucumán&quot;</span><span class="p">:</span> <span class="s2">&quot;NOA&quot;</span><span class="p">,</span> <span class="s2">&quot;Salta&quot;</span><span class="p">:</span> <span class="s2">&quot;NOA&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Chaco&quot;</span><span class="p">:</span> <span class="s2">&quot;NEA&quot;</span><span class="p">,</span> <span class="s2">&quot;Misiones&quot;</span><span class="p">:</span> <span class="s2">&quot;NEA&quot;</span><span class="p">,</span> <span class="s2">&quot;Corrientes&quot;</span><span class="p">:</span> <span class="s2">&quot;NEA&quot;</span>
+<span class="p">}</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;region&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;provincia&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">mapa_regiones</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;region&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>region
+Pampeana    85
+NEA         62
+NOA         35
+Cuyo        18
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># apply sobre filas (axis=1): combinar múltiples columnas</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">score_vulnerabilidad</span><span class="p">(</span><span class="n">row</span><span class="p">):</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;tiene_empleo_formal&#39;</span><span class="p">]:</span>
+        <span class="n">score</span> <span class="o">+=</span> <span class="mi">2</span>
+    <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;ingreso_mensual&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">50_000</span><span class="p">:</span>
+        <span class="n">score</span> <span class="o">+=</span> <span class="mi">2</span>
+    <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;anios_educacion&#39;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">:</span>
+        <span class="n">score</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">score</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s1">&#39;score_vulnerabilidad&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">score_vulnerabilidad</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Distribución del score de vulnerabilidad:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;score_vulnerabilidad&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">sort_index</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Distribución del score de vulnerabilidad:
+score_vulnerabilidad
+0    10
+1     2
+2    52
+3    22
+4    77
+5    37
+Name: count, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="ejercicios">
+<h2>6. Ejercicios<a class="headerlink" href="#ejercicios" title="Link to this heading">#</a></h2>
+<section id="ejercicio-1">
+<h3>Ejercicio 1<a class="headerlink" href="#ejercicio-1" title="Link to this heading">#</a></h3>
+<p>Calculá el monto total de transferencias por región (usá la columna <code class="docutils literal notranslate"><span class="pre">region</span></code> creada con <code class="docutils literal notranslate"><span class="pre">map</span></code>). ¿Qué región concentra más recursos?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Tu solución aquí</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicio-2">
+<h3>Ejercicio 2<a class="headerlink" href="#ejercicio-2" title="Link to this heading">#</a></h3>
+<p>Creá una pivot table que muestre el <strong>ingreso mensual promedio</strong> por <code class="docutils literal notranslate"><span class="pre">region</span></code> (filas) y <code class="docutils literal notranslate"><span class="pre">nivel_ingreso</span></code> (columnas). Incluí márgenes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Tu solución aquí</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicio-3">
+<h3>Ejercicio 3<a class="headerlink" href="#ejercicio-3" title="Link to this heading">#</a></h3>
+<p>Creá un DataFrame <code class="docutils literal notranslate"><span class="pre">metas</span></code> con las siguientes metas de cobertura por programa, y hacé un merge con un resumen del <code class="docutils literal notranslate"><span class="pre">df</span></code> que contenga la cantidad real de beneficiarios por programa. Calculá qué porcentaje de la meta se alcanzó.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">metas</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+    <span class="s1">&#39;programa&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;AUH&#39;</span><span class="p">,</span> <span class="s1">&#39;Progresar&#39;</span><span class="p">,</span> <span class="s1">&#39;Potenciar Trabajo&#39;</span><span class="p">,</span> <span class="s1">&#39;Alimentar&#39;</span><span class="p">,</span> <span class="s1">&#39;Crédito Argenta&#39;</span><span class="p">],</span>
+    <span class="s1">&#39;meta_beneficiarios&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span>  <span class="c1"># metas en el dataset simulado</span>
+<span class="p">})</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Tu solución aquí</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="M01_C04_Pandas_I.html"
+       title="página anterior">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">anterior</p>
+        <p class="prev-next-title">Clase 4 — Pandas I: lectura y exploración de datos</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="M01_C06_Data_Cleansing.html"
+       title="siguiente página">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">siguiente</p>
+        <p class="prev-next-title">Clase 6 — Data Cleansing</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#contenidos">Contenidos</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#groupby-y-agregaciones">1. GroupBy y agregaciones</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#merge-y-join">2. Merge y join</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#concatenar-dataframes">3. Concatenar DataFrames</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pivot-tables-y-reshaping">4. Pivot tables y reshaping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#apply-y-funciones-sobre-columnas">5. Apply y funciones sobre columnas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicios">6. Ejercicios</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-1">Ejercicio 1</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-2">Ejercicio 2</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-3">Ejercicio 3</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por Daniela Risaro
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

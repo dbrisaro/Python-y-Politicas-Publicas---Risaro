@@ -1,0 +1,1973 @@
+
+<!DOCTYPE html>
+
+
+<html lang="es" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Módulo 2 — Clase 4: Web scraping y procesamiento de datos no estructurados &#8212; Python y Políticas Públicas</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="_static/documentation_options.js?v=78d55cf8"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Haz clic para mostrar';</script>
+    <script>let toggleHintHide = 'Haz clic para ocultar';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=b8b12719"></script>
+    <script src="_static/translations.js?v=d190bf04"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'M02_C04_Scraping_Datos_Abiertos';</script>
+    <link rel="index" title="Índice" href="genindex.html" />
+    <link rel="search" title="Búsqueda" href="search.html" />
+    <link rel="next" title="Módulo 2 — Clase 5: Machine Learning para targeting de programas sociales" href="M02_C05_ML_Targeting_Social.html" />
+    <link rel="prev" title="Módulo 2 — Clase 3: Comparación regional con la API del Banco Mundial" href="M02_C03_Comparacion_LATAM_WorldBank.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="es"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Saltar al contenido principal</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Volver arriba</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Advertencia de versión"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Python y Políticas Públicas</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Búsqueda</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Módulo 1 — Fundamentos de Python</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="M01_C01_Introduccion.html">Clase 1 — Introducción a Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C02_Listas_Funciones_Numpy.html">Clase 2 — Listas, funciones y numpy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C03_Matplotlib_Visualizacion.html">Clase 3 — Matplotlib y visualización</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C04_Pandas_I.html">Clase 4 — Pandas I: lectura y exploración de datos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C05_Pandas_II.html">Clase 5 — Pandas II: operaciones sobre DataFrames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C06_Data_Cleansing.html">Clase 6 — Data Cleansing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C07_Pandas_Matplotlib.html">Clase 7 — Pandas + Matplotlib: integración</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C08_Estadistica_Aplicada.html">Clase 8 — Estadística aplicada con Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C09_Datos_Geoespaciales.html">Clase 9 — Datos geoespaciales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M01_C10_APIs_Datos_Abiertos_Proyecto.html">Clase 10 — APIs, datos abiertos y proyecto final</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Módulo 2 — Datos reales para políticas públicas</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="M02_C01_Inflacion_Precios.html">Módulo 2 — Clase 1: Análisis de inflación con datos reales del INDEC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M02_C02_Mercado_Laboral_Pobreza.html">Módulo 2 — Clase 2: Mercado de trabajo y pobreza — datos reales de la EPH</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M02_C03_Comparacion_LATAM_WorldBank.html">Módulo 2 — Clase 3: Comparación regional con la API del Banco Mundial</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Módulo 2 — Clase 4: Web scraping y procesamiento de datos no estructurados</a></li>
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="M02_C05_ML_Targeting_Social.html">Módulo 2 — Clase 5: Machine Learning para targeting de programas sociales</a></li>
+<li class="toctree-l1"><a class="reference internal" href="M02_C06_Mapas_Interactivos_Folium.html">Módulo 2 — Clase 6: Mapas interactivos para política pública con Folium</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+<a href="https://github.com/dbrisaro/Python-y-Politicas-Publicas---Risaro" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Repositorio de origen"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Descarga esta pagina">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/M02_C04_Scraping_Datos_Abiertos.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Descargar archivo fuente"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Imprimir en PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Modo de pantalla completa"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Tema" data-bs-title="Tema"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Claro"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Oscuro"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="Sistema"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Búsqueda" aria-label="Búsqueda" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Módulo 2 — Clase 4: Web scraping y procesamiento de datos no estructurados</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contenido </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Módulo 2 — Clase 4: Web scraping y procesamiento de datos no estructurados</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos-de-la-clase">Objetivos de la clase</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-scraping-y-datos-no-estructurados">¿Por qué scraping y datos no estructurados?</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#parte-1-web-scraping-con-beautifulsoup">Parte 1: Web scraping con BeautifulSoup</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-flujo-basico-del-scraping">El flujo básico del scraping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conceptos-clave-de-beautifulsoup">1.1 Conceptos clave de BeautifulSoup</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#parte-2-datos-del-portal-datos-gob-ar">Parte 2: Datos del Portal datos.gob.ar</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-portal-de-datos-abiertos-del-gobierno-argentino">El portal de datos abiertos del gobierno argentino</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#parte-3-extraccion-de-datos-desde-pdf-con-pdfplumber">Parte 3: Extracción de datos desde PDF con pdfplumber</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-pdfs-en-politica-publica">¿Por qué PDFs en política pública?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#la-biblioteca-pdfplumber">La biblioteca <code class="docutils literal notranslate"><span class="pre">pdfplumber</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estructura-basica-de-uso">3.1 Estructura básica de uso</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-de-uso-real-presupuesto-del-mefp">3.2 Caso de uso real: presupuesto del MEFP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flujo-de-trabajo-de-pdf-a-analisis">3.3 Flujo de trabajo: de PDF a análisis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#consideraciones-tecnicas-para-pdfs-reales">3.4 Consideraciones técnicas para PDFs reales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen-que-tecnica-usar-segun-la-fuente">Resumen: ¿Qué técnica usar según la fuente?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicios">Ejercicios</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-1-ampliar-el-scraping-a-otras-tablas-de-wikipedia">Ejercicio 1 — Ampliar el scraping a otras tablas de Wikipedia</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-2-analisis-del-ipc-por-categorias">Ejercicio 2 — Análisis del IPC por categorías</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-3-automatizacion-del-pipeline-de-datos">Ejercicio 3 — Automatización del pipeline de datos</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="modulo-2-clase-4-web-scraping-y-procesamiento-de-datos-no-estructurados">
+<h1>Módulo 2 — Clase 4: Web scraping y procesamiento de datos no estructurados<a class="headerlink" href="#modulo-2-clase-4-web-scraping-y-procesamiento-de-datos-no-estructurados" title="Link to this heading">#</a></h1>
+<p><strong>Curso:</strong> Python y Políticas Públicas<br />
+<strong>Nivel:</strong> Avanzado<br />
+<strong>Duración estimada:</strong> 90 minutos</p>
+<hr class="docutils" />
+<section id="objetivos-de-la-clase">
+<h2>Objetivos de la clase<a class="headerlink" href="#objetivos-de-la-clase" title="Link to this heading">#</a></h2>
+<p>Al finalizar esta clase podrás:</p>
+<ul class="simple">
+<li><p>Extraer tablas y datos de páginas web usando <code class="docutils literal notranslate"><span class="pre">requests</span></code> y <code class="docutils literal notranslate"><span class="pre">BeautifulSoup</span></code></p></li>
+<li><p>Descargar y procesar datos abiertos del gobierno argentino directamente desde URLs</p></li>
+<li><p>Extraer texto y tablas de archivos PDF con <code class="docutils literal notranslate"><span class="pre">pdfplumber</span></code></p></li>
+<li><p>Aplicar estas técnicas a fuentes de datos reales de política pública</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="por-que-scraping-y-datos-no-estructurados">
+<h2>¿Por qué scraping y datos no estructurados?<a class="headerlink" href="#por-que-scraping-y-datos-no-estructurados" title="Link to this heading">#</a></h2>
+<p>En el trabajo real de análisis de políticas públicas, los datos rara vez vienen en formato tabular limpio. Los analistas frecuentemente necesitan extraer información de:</p>
+<ul class="simple">
+<li><p><strong>Páginas web</strong> con tablas HTML (presupuestos, estadísticas oficiales, Wikipedia)</p></li>
+<li><p><strong>PDFs</strong> (proyectos de ley, informes del Ministerio de Economía, memorias de gestión)</p></li>
+<li><p><strong>Portales de datos abiertos</strong> (<a class="reference external" href="http://datos.gob.ar">datos.gob.ar</a>, INDEC, Banco Central)</p></li>
+</ul>
+<p>Este notebook cubre las tres fuentes más comunes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Instalación de dependencias (ejecutar solo si es necesario)</span>
+<span class="c1"># !pip install requests beautifulsoup4 pandas matplotlib pdfplumber</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mpl</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+
+<span class="c1"># --- Paleta de identidad del curso ---</span>
+<span class="n">C</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;#2A6496&#39;</span><span class="p">,</span> <span class="s1">&#39;#E07B3F&#39;</span><span class="p">,</span> <span class="s1">&#39;#3D9970&#39;</span><span class="p">,</span> <span class="s1">&#39;#8E5EA2&#39;</span><span class="p">,</span> <span class="s1">&#39;#C0A830&#39;</span><span class="p">,</span> <span class="s1">&#39;#637A8A&#39;</span><span class="p">]</span>
+
+<span class="n">mpl</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+    <span class="s1">&#39;figure.figsize&#39;</span>       <span class="p">:</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>
+    <span class="s1">&#39;font.size&#39;</span>            <span class="p">:</span> <span class="mi">11</span><span class="p">,</span>
+    <span class="s1">&#39;axes.titlesize&#39;</span>       <span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+    <span class="s1">&#39;axes.titleweight&#39;</span>     <span class="p">:</span> <span class="s1">&#39;normal&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;axes.spines.top&#39;</span>      <span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;axes.spines.right&#39;</span>    <span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;legend.frameon&#39;</span>       <span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="s1">&#39;axes.prop_cycle&#39;</span>      <span class="p">:</span> <span class="n">mpl</span><span class="o">.</span><span class="n">cycler</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">C</span><span class="p">),</span>
+    <span class="s1">&#39;figure.dpi&#39;</span>           <span class="p">:</span> <span class="mi">110</span><span class="p">,</span>
+<span class="p">})</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">tit</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Título sin negrita, alineado a la izquierda.&quot;&quot;&quot;</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="n">fontweight</span><span class="o">=</span><span class="s1">&#39;normal&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">bs4</span><span class="w"> </span><span class="kn">import</span> <span class="n">BeautifulSoup</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.ticker</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">mticker</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">)</span>
+
+<span class="c1"># Configuración general de gráficos</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;figure.figsize&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;font.size&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">11</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;axes.spines.top&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;axes.spines.right&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Bibliotecas importadas correctamente.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Bibliotecas importadas correctamente.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="parte-1-web-scraping-con-beautifulsoup">
+<h1>Parte 1: Web scraping con BeautifulSoup<a class="headerlink" href="#parte-1-web-scraping-con-beautifulsoup" title="Link to this heading">#</a></h1>
+<section id="el-flujo-basico-del-scraping">
+<h2>El flujo básico del scraping<a class="headerlink" href="#el-flujo-basico-del-scraping" title="Link to this heading">#</a></h2>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>URL  →  requests.get()  →  HTML  →  BeautifulSoup  →  datos estructurados
+</pre></div>
+</div>
+<p><strong>Por qué Wikipedia es una buena fuente para practicar:</strong></p>
+<ul class="simple">
+<li><p>Sus tablas HTML tienen estructura consistente (<code class="docutils literal notranslate"><span class="pre">class=&quot;wikitable&quot;</span></code>)</p></li>
+<li><p>Es un sitio estable, raramente cambia su estructura</p></li>
+<li><p>Tiene datos sobre Argentina bien mantenidos</p></li>
+<li><p>No tiene anti-scraping agresivo</p></li>
+</ul>
+<p><strong>Fuente:</strong> Usaremos la tabla de producto bruto geográfico por provincia argentina de Wikipedia.</p>
+</section>
+<section id="conceptos-clave-de-beautifulsoup">
+<h2>1.1 Conceptos clave de BeautifulSoup<a class="headerlink" href="#conceptos-clave-de-beautifulsoup" title="Link to this heading">#</a></h2>
+<p>BeautifulSoup convierte el HTML (texto plano) en un árbol de objetos Python que podemos navegar:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;tag&quot;</span><span class="p">)</span>           <span class="c1"># Primer elemento que coincide</span>
+<span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">&quot;tag&quot;</span><span class="p">)</span>       <span class="c1"># Todos los elementos que coinciden</span>
+<span class="n">soup</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;tag&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;nombre&quot;</span><span class="p">})</span>  <span class="c1"># Filtrar por clase CSS</span>
+<span class="n">elemento</span><span class="o">.</span><span class="n">text</span>              <span class="c1"># Texto visible (sin etiquetas HTML)</span>
+<span class="n">elemento</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;href&quot;</span><span class="p">)</span>       <span class="c1"># Atributo de la etiqueta</span>
+</pre></div>
+</div>
+<p>Las tablas en HTML tienen esta estructura:</p>
+<div class="highlight-html notranslate"><div class="highlight"><pre><span></span><span class="p">&lt;</span><span class="nt">table</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">thead</span><span class="p">&gt;&lt;</span><span class="nt">tr</span><span class="p">&gt;&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Columna 1<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;&lt;</span><span class="nt">th</span><span class="p">&gt;</span>Columna 2<span class="p">&lt;/</span><span class="nt">th</span><span class="p">&gt;&lt;/</span><span class="nt">tr</span><span class="p">&gt;&lt;/</span><span class="nt">thead</span><span class="p">&gt;</span>
+  <span class="p">&lt;</span><span class="nt">tbody</span><span class="p">&gt;</span>
+    <span class="p">&lt;</span><span class="nt">tr</span><span class="p">&gt;&lt;</span><span class="nt">td</span><span class="p">&gt;</span>valor 1<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;&lt;</span><span class="nt">td</span><span class="p">&gt;</span>valor 2<span class="p">&lt;/</span><span class="nt">td</span><span class="p">&gt;&lt;/</span><span class="nt">tr</span><span class="p">&gt;</span>
+    ...
+  <span class="p">&lt;/</span><span class="nt">tbody</span><span class="p">&gt;</span>
+<span class="p">&lt;/</span><span class="nt">table</span><span class="p">&gt;</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># URL de la tabla de PBG provincial en Wikipedia</span>
+<span class="n">URL_WIKI</span> <span class="o">=</span> <span class="s2">&quot;https://es.wikipedia.org/wiki/Anexo:Provincias_de_Argentina_por_producto_bruto_geogr%C3%A1fico&quot;</span>
+
+<span class="c1"># Headers para simular un navegador web real</span>
+<span class="c1"># Sin esto, algunos servidores bloquean las solicitudes automatizadas</span>
+<span class="n">HEADERS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;User-Agent&quot;</span><span class="p">:</span> <span class="s2">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) &quot;</span>
+                  <span class="s2">&quot;AppleWebKit/537.36 (KHTML, like Gecko) &quot;</span>
+                  <span class="s2">&quot;Chrome/120.0.0.0 Safari/537.36&quot;</span>
+<span class="p">}</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Conectando a: </span><span class="si">{</span><span class="n">URL_WIKI</span><span class="p">[:</span><span class="mi">60</span><span class="p">]</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">URL_WIKI</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">HEADERS</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+    <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Respuesta HTTP: </span><span class="si">{</span><span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="si">}</span><span class="s2"> OK&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tamaño del HTML descargado: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> caracteres&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">ConnectionError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: No se pudo conectar con Wikipedia. Verificar conexión a internet.&quot;</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">HTTPError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error HTTP: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">exceptions</span><span class="o">.</span><span class="n">Timeout</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: Tiempo de espera agotado.&quot;</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Conectando a: https://es.wikipedia.org/wiki/Anexo:Provincias_de_Argentina_...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Error HTTP: 404 Client Error: Not Found for url: https://es.wikipedia.org/wiki/Anexo:Provincias_de_Argentina_por_producto_bruto_geogr%C3%A1fico
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Parsear el HTML con BeautifulSoup</span>
+<span class="k">if</span> <span class="n">response</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">soup</span> <span class="o">=</span> <span class="n">BeautifulSoup</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">,</span> <span class="s2">&quot;html.parser&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Buscar todas las wikitables en la página</span>
+    <span class="n">tablas</span> <span class="o">=</span> <span class="n">soup</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">&quot;table&quot;</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;wikitable&quot;</span><span class="p">})</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tablas encontradas en la página: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">tablas</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="c1"># Ver los encabezados de cada tabla para identificar la correcta</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">tabla</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tablas</span><span class="p">):</span>
+        <span class="n">headers</span> <span class="o">=</span> <span class="p">[</span><span class="n">th</span><span class="o">.</span><span class="n">get_text</span><span class="p">(</span><span class="n">strip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">th</span> <span class="ow">in</span> <span class="n">tabla</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">&quot;th&quot;</span><span class="p">)[:</span><span class="mi">5</span><span class="p">]]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Tabla </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">headers</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No hay respuesta disponible.&quot;</span><span class="p">)</span>
+    <span class="n">tablas</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>No hay respuesta disponible.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">limpiar_numero</span><span class="p">(</span><span class="n">texto</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Limpia un string con formato de número (con $, puntos, comas, espacios)</span>
+<span class="sd">    y lo convierte a float. Retorna None si no se puede convertir.</span>
+<span class="sd">    </span>
+<span class="sd">    Ejemplos:</span>
+<span class="sd">        &#39;$1.234.567&#39; → 1234567.0</span>
+<span class="sd">        &#39;12,5%&#39;      → 12.5</span>
+<span class="sd">        &#39;n.d.&#39;       → None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">texto</span> <span class="ow">or</span> <span class="n">texto</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;—&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;n.d.&quot;</span><span class="p">,</span> <span class="s2">&quot;N/D&quot;</span><span class="p">,</span> <span class="s2">&quot;s/d&quot;</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="c1"># Remover símbolos no numéricos excepto punto y coma</span>
+    <span class="n">limpio</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[^\d,\.]&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">texto</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">limpio</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># Detectar si el punto es separador de miles o decimal</span>
+        <span class="k">if</span> <span class="s2">&quot;,&quot;</span> <span class="ow">in</span> <span class="n">limpio</span> <span class="ow">and</span> <span class="s2">&quot;.&quot;</span> <span class="ow">in</span> <span class="n">limpio</span><span class="p">:</span>
+            <span class="c1"># Formato: 1.234.567,89 → quitar puntos, cambiar coma por punto</span>
+            <span class="n">limpio</span> <span class="o">=</span> <span class="n">limpio</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="s2">&quot;,&quot;</span> <span class="ow">in</span> <span class="n">limpio</span><span class="p">:</span>
+            <span class="c1"># Coma como decimal: 12,5 → 12.5</span>
+            <span class="n">limpio</span> <span class="o">=</span> <span class="n">limpio</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">limpio</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># Múltiples puntos = separadores de miles: 1.234.567</span>
+            <span class="n">limpio</span> <span class="o">=</span> <span class="n">limpio</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">limpio</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="kc">None</span>
+
+
+<span class="c1"># Prueba de la función</span>
+<span class="n">test_cases</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;$1.234.567&quot;</span><span class="p">,</span> <span class="s2">&quot;12,5&quot;</span><span class="p">,</span> <span class="s2">&quot;1.234.567,89&quot;</span><span class="p">,</span> <span class="s2">&quot;100.000&quot;</span><span class="p">,</span> <span class="s2">&quot;n.d.&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">]</span>
+<span class="k">for</span> <span class="n">tc</span> <span class="ow">in</span> <span class="n">test_cases</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  &#39;</span><span class="si">{</span><span class="n">tc</span><span class="si">}</span><span class="s2">&#39; → </span><span class="si">{</span><span class="n">limpiar_numero</span><span class="p">(</span><span class="n">tc</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  &#39;$1.234.567&#39; → 1234567.0
+  &#39;12,5&#39; → 12.5
+  &#39;1.234.567,89&#39; → 1234567.89
+  &#39;100.000&#39; → 100.0
+  &#39;n.d.&#39; → None
+  &#39;&#39; → None
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">extraer_tabla_wikipedia</span><span class="p">(</span><span class="n">tablas</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">indice</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extrae una wikitable de Wikipedia y la convierte en DataFrame.</span>
+<span class="sd">    </span>
+<span class="sd">    Parámetros</span>
+<span class="sd">    ----------</span>
+<span class="sd">    tablas : list</span>
+<span class="sd">        Lista de elementos &lt;table&gt; encontrados por BeautifulSoup</span>
+<span class="sd">    indice : int</span>
+<span class="sd">        Índice de la tabla a extraer (0 = primera)</span>
+<span class="sd">    </span>
+<span class="sd">    Retorna</span>
+<span class="sd">    -------</span>
+<span class="sd">    pd.DataFrame con los datos de la tabla</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">tablas</span> <span class="ow">or</span> <span class="n">indice</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">tablas</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: no existe la tabla índice </span><span class="si">{</span><span class="n">indice</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    
+    <span class="n">tabla</span> <span class="o">=</span> <span class="n">tablas</span><span class="p">[</span><span class="n">indice</span><span class="p">]</span>
+    
+    <span class="c1"># Extraer encabezados</span>
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">header_row</span> <span class="o">=</span> <span class="n">tabla</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;tr&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">header_row</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">celda</span> <span class="ow">in</span> <span class="n">header_row</span><span class="o">.</span><span class="n">find_all</span><span class="p">([</span><span class="s2">&quot;th&quot;</span><span class="p">,</span> <span class="s2">&quot;td&quot;</span><span class="p">]):</span>
+            <span class="n">texto</span> <span class="o">=</span> <span class="n">celda</span><span class="o">.</span><span class="n">get_text</span><span class="p">(</span><span class="n">separator</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">strip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="c1"># Limpiar caracteres especiales de Wikipedia</span>
+            <span class="n">texto</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\[\d+\]&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">texto</span><span class="p">)</span>  <span class="c1"># Quitar referencias [1], [2]</span>
+            <span class="n">headers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">texto</span><span class="p">)</span>
+    
+    <span class="c1"># Extraer filas de datos</span>
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">fila</span> <span class="ow">in</span> <span class="n">tabla</span><span class="o">.</span><span class="n">find_all</span><span class="p">(</span><span class="s2">&quot;tr&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]:</span>  <span class="c1"># Saltar la primera fila (encabezado)</span>
+        <span class="n">celdas</span> <span class="o">=</span> <span class="n">fila</span><span class="o">.</span><span class="n">find_all</span><span class="p">([</span><span class="s2">&quot;td&quot;</span><span class="p">,</span> <span class="s2">&quot;th&quot;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">celdas</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">fila_datos</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">celda</span> <span class="ow">in</span> <span class="n">celdas</span><span class="p">:</span>
+            <span class="n">texto</span> <span class="o">=</span> <span class="n">celda</span><span class="o">.</span><span class="n">get_text</span><span class="p">(</span><span class="n">separator</span><span class="o">=</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">strip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">texto</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\[\d+\]&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">texto</span><span class="p">)</span>  <span class="c1"># Quitar referencias</span>
+            <span class="n">fila_datos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">texto</span><span class="p">)</span>
+        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fila_datos</span><span class="p">)</span>
+    
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">rows</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: no se encontraron filas de datos.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
+    
+    <span class="c1"># Crear DataFrame, manejar diferencias en número de columnas</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">headers</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">headers</span><span class="p">)</span> <span class="o">==</span> <span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">headers</span>
+    
+    <span class="k">return</span> <span class="n">df</span>
+
+
+<span class="c1"># Extraer la tabla principal de PBG</span>
+<span class="k">if</span> <span class="n">tablas</span><span class="p">:</span>
+    <span class="n">df_pbg_raw</span> <span class="o">=</span> <span class="n">extraer_tabla_wikipedia</span><span class="p">(</span><span class="n">tablas</span><span class="p">,</span> <span class="n">indice</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dimensiones del DataFrame crudo: </span><span class="si">{</span><span class="n">df_pbg_raw</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Primeras 5 filas:&quot;</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">df_pbg_raw</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Nombres de columnas detectados:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df_pbg_raw</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No hay tablas disponibles. Usando datos de ejemplo.&quot;</span><span class="p">)</span>
+    <span class="c1"># Datos de respaldo para que el notebook funcione sin conexión</span>
+    <span class="n">df_pbg_raw</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s2">&quot;Provincia&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;Buenos Aires&quot;</span><span class="p">,</span> <span class="s2">&quot;Ciudad de Buenos Aires&quot;</span><span class="p">,</span> <span class="s2">&quot;Córdoba&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;Santa Fe&quot;</span><span class="p">,</span> <span class="s2">&quot;Mendoza&quot;</span><span class="p">,</span> <span class="s2">&quot;Tucumán&quot;</span><span class="p">,</span> <span class="s2">&quot;Entre Ríos&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;Chubut&quot;</span><span class="p">,</span> <span class="s2">&quot;Neuquén&quot;</span><span class="p">,</span> <span class="s2">&quot;Río Negro&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;PBG (mill. $)&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;14.234.567&quot;</span><span class="p">,</span> <span class="s2">&quot;8.123.456&quot;</span><span class="p">,</span> <span class="s2">&quot;4.567.890&quot;</span><span class="p">,</span>
+                          <span class="s2">&quot;3.987.654&quot;</span><span class="p">,</span> <span class="s2">&quot;2.345.678&quot;</span><span class="p">,</span> <span class="s2">&quot;1.234.567&quot;</span><span class="p">,</span>
+                          <span class="s2">&quot;987.654&quot;</span><span class="p">,</span> <span class="s2">&quot;1.345.678&quot;</span><span class="p">,</span> <span class="s2">&quot;1.567.890&quot;</span><span class="p">,</span> <span class="s2">&quot;876.543&quot;</span><span class="p">],</span>
+        <span class="s2">&quot;</span><span class="si">% d</span><span class="s2">el PBI&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;38,5&quot;</span><span class="p">,</span> <span class="s2">&quot;22,0&quot;</span><span class="p">,</span> <span class="s2">&quot;12,4&quot;</span><span class="p">,</span> <span class="s2">&quot;10,8&quot;</span><span class="p">,</span> <span class="s2">&quot;6,3&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;3,3&quot;</span><span class="p">,</span> <span class="s2">&quot;2,7&quot;</span><span class="p">,</span> <span class="s2">&quot;3,6&quot;</span><span class="p">,</span> <span class="s2">&quot;4,2&quot;</span><span class="p">,</span> <span class="s2">&quot;2,4&quot;</span><span class="p">]</span>
+    <span class="p">})</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>No hay tablas disponibles. Usando datos de ejemplo.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Limpieza del DataFrame</span>
+<span class="c1"># Identificar columnas numéricas y convertirlas</span>
+<span class="n">df_pbg</span> <span class="o">=</span> <span class="n">df_pbg_raw</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Renombrar columnas de forma más robusta</span>
+<span class="n">columnas_originales</span> <span class="o">=</span> <span class="n">df_pbg</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Columnas originales:&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">columnas_originales</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  [</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">] &#39;</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+<span class="c1"># Detectar y convertir columnas que parecen numéricas</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df_pbg</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="c1"># Intentar convertir muestras de la columna</span>
+    <span class="n">muestra</span> <span class="o">=</span> <span class="n">df_pbg</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">valores_convertidos</span> <span class="o">=</span> <span class="p">[</span><span class="n">limpiar_numero</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">v</span><span class="p">))</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">muestra</span><span class="p">]</span>
+    
+    <span class="c1"># Si más del 60% de la muestra es convertible, es columna numérica</span>
+    <span class="n">convertibles</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="mi">1</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">valores_convertidos</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">muestra</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">convertibles</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">muestra</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">0.6</span><span class="p">:</span>
+        <span class="n">df_pbg</span><span class="p">[</span><span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_pbg</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">limpiar_numero</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="k">if</span> <span class="n">pd</span><span class="o">.</span><span class="n">notna</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Columna &#39;</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&#39; convertida a numérica.&quot;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">DataFrame limpio: </span><span class="si">{</span><span class="n">df_pbg</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> filas, </span><span class="si">{</span><span class="n">df_pbg</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> columnas&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_pbg</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">8</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Columnas originales:
+  [0] &#39;Provincia&#39;
+  [1] &#39;PBG (mill. $)&#39;
+  [2] &#39;% del PBI&#39;
+Columna &#39;PBG (mill. $)&#39; convertida a numérica.
+Columna &#39;% del PBI&#39; convertida a numérica.
+
+DataFrame limpio: 10 filas, 3 columnas
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Provincia</th>
+      <th>PBG (mill. $)</th>
+      <th>% del PBI</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Buenos Aires</td>
+      <td>1.423457e+07</td>
+      <td>38.5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Ciudad de Buenos Aires</td>
+      <td>8.123456e+06</td>
+      <td>22.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Córdoba</td>
+      <td>4.567890e+06</td>
+      <td>12.4</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Santa Fe</td>
+      <td>3.987654e+06</td>
+      <td>10.8</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Mendoza</td>
+      <td>2.345678e+06</td>
+      <td>6.3</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Tucumán</td>
+      <td>1.234567e+06</td>
+      <td>3.3</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Entre Ríos</td>
+      <td>9.876540e+02</td>
+      <td>2.7</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Chubut</td>
+      <td>1.345678e+06</td>
+      <td>3.6</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualización: identificar columnas de provincia y PBG</span>
+<span class="c1"># (adaptamos según lo que encontró el scraper)</span>
+<span class="n">col_provincia</span> <span class="o">=</span> <span class="n">df_pbg</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Primera columna = provincias</span>
+
+<span class="c1"># Buscar la columna numérica principal (PBG o % del PIB)</span>
+<span class="n">cols_numericas</span> <span class="o">=</span> <span class="n">df_pbg</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">])</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Columnas numéricas encontradas: </span><span class="si">{</span><span class="n">cols_numericas</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">cols_numericas</span><span class="p">:</span>
+    <span class="n">col_valor</span> <span class="o">=</span> <span class="n">cols_numericas</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Primera columna numérica</span>
+    
+    <span class="c1"># Filtrar filas con datos válidos y ordenar</span>
+    <span class="n">df_plot</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">df_pbg</span><span class="p">[[</span><span class="n">col_provincia</span><span class="p">,</span> <span class="n">col_valor</span><span class="p">]]</span>
+        <span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+        <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">col_valor</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">tail</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>  <span class="c1"># Top 15 provincias</span>
+    <span class="p">)</span>
+    
+    <span class="c1"># Gráfico de barras horizontales</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+    
+    <span class="n">colores</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;#1a6baf&quot;</span> <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">prov</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;buenos aires&quot;</span><span class="p">,</span> <span class="s2">&quot;ciudad de buenos aires&quot;</span><span class="p">]</span>
+               <span class="k">else</span> <span class="s2">&quot;#6baed6&quot;</span>
+               <span class="k">for</span> <span class="n">prov</span> <span class="ow">in</span> <span class="n">df_plot</span><span class="p">[</span><span class="n">col_provincia</span><span class="p">]]</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">df_plot</span><span class="p">[</span><span class="n">col_provincia</span><span class="p">],</span> <span class="n">df_plot</span><span class="p">[</span><span class="n">col_valor</span><span class="p">],</span>
+            <span class="n">color</span><span class="o">=</span><span class="n">colores</span><span class="p">,</span> <span class="n">edgecolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+    
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">col_valor</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Producto Bruto Geográfico por Provincia — Argentina</span><span class="se">\n</span><span class="s2">&quot;</span>
+                 <span class="s2">&quot;(Fuente: Wikipedia, loc=&#39;left&#39;)&quot;</span><span class="p">,</span>
+                 <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+    
+    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No se encontraron columnas numéricas válidas en la tabla scrapada.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Esto puede ocurrir si la estructura de la tabla Wikipedia cambió.&quot;</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">df_pbg</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Columnas numéricas encontradas: [&#39;PBG (mill. $)&#39;, &#39;% del PBI&#39;]
+</pre></div>
+</div>
+<img alt="_images/29727c21b43719068989e218ac58863fad1e947bee98c19778789a9172a5c5c2.png" src="_images/29727c21b43719068989e218ac58863fad1e947bee98c19778789a9172a5c5c2.png" />
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="parte-2-datos-del-portal-datos-gob-ar">
+<h1>Parte 2: Datos del Portal <a class="reference external" href="http://datos.gob.ar">datos.gob.ar</a><a class="headerlink" href="#parte-2-datos-del-portal-datos-gob-ar" title="Link to this heading">#</a></h1>
+<section id="el-portal-de-datos-abiertos-del-gobierno-argentino">
+<h2>El portal de datos abiertos del gobierno argentino<a class="headerlink" href="#el-portal-de-datos-abiertos-del-gobierno-argentino" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://datos.gob.ar">datos.gob.ar</a> es el portal oficial del Estado Nacional argentino para datos abiertos. Muchos datasets están disponibles como CSVs descargables directamente por URL, lo que facilita la integración con Python.</p>
+<p><strong>Ventajas sobre el scraping:</strong></p>
+<ul class="simple">
+<li><p>Datos estructurados (CSV/Excel) sin necesidad de parsear HTML</p></li>
+<li><p>URLs estables y documentadas</p></li>
+<li><p>Datos oficiales del gobierno</p></li>
+</ul>
+<p><strong>Vamos a usar:</strong> el índice de precios al consumidor (IPC) por categorías, base diciembre 2016.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># URL directa al CSV de IPC por categorías</span>
+<span class="n">URL_IPC</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;https://infra.datos.gob.ar/catalog/sspm/dataset/145/distribution/145.9/&quot;</span>
+    <span class="s2">&quot;download/indice-precios-al-consumidor-apertura-por-categorias-base-diciembre-2016-mensual.csv&quot;</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Descargando IPC desde datos.gob.ar...&quot;</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">df_ipc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">URL_IPC</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Datos descargados exitosamente: </span><span class="si">{</span><span class="n">df_ipc</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2"> filas x </span><span class="si">{</span><span class="n">df_ipc</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="si">}</span><span class="s2"> columnas&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Primeras filas:&quot;</span><span class="p">)</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">df_ipc</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Columnas disponibles:&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">df_ipc</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Período: </span><span class="si">{</span><span class="n">df_ipc</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> → </span><span class="si">{</span><span class="n">df_ipc</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error al descargar el CSV: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Usando datos de ejemplo para continuar con la clase...&quot;</span><span class="p">)</span>
+    <span class="c1"># Datos sintéticos de respaldo para uso offline</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">datetime</span>
+    <span class="n">fechas</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">date_range</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="s2">&quot;2017-01-01&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s2">&quot;2023-12-01&quot;</span><span class="p">,</span> <span class="n">freq</span><span class="o">=</span><span class="s2">&quot;MS&quot;</span><span class="p">)</span>
+    <span class="n">np_rand</span> <span class="o">=</span> <span class="nb">__import__</span><span class="p">(</span><span class="s1">&#39;numpy&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">random</span>
+    <span class="n">np_rand</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+    <span class="n">base</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">indices</span> <span class="o">=</span> <span class="p">[</span><span class="n">base</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fechas</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">base</span> <span class="o">*=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np_rand</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">))</span>
+        <span class="n">indices</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="n">base</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">df_ipc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span>
+        <span class="s2">&quot;indice_tiempo&quot;</span><span class="p">:</span> <span class="n">fechas</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">),</span>
+        <span class="s2">&quot;nivel_general&quot;</span><span class="p">:</span> <span class="n">indices</span><span class="p">,</span>
+        <span class="s2">&quot;alimentos_y_bebidas_no_alcoholicas&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">v</span> <span class="o">*</span> <span class="n">np_rand</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">],</span>
+        <span class="s2">&quot;indumentaria&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">v</span> <span class="o">*</span> <span class="n">np_rand</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.90</span><span class="p">,</span> <span class="mf">1.10</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">],</span>
+        <span class="s2">&quot;vivienda_agua_electricidad_gas&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">v</span> <span class="o">*</span> <span class="n">np_rand</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.92</span><span class="p">,</span> <span class="mf">1.08</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">],</span>
+        <span class="s2">&quot;transporte&quot;</span><span class="p">:</span> <span class="p">[</span><span class="n">v</span> <span class="o">*</span> <span class="n">np_rand</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.88</span><span class="p">,</span> <span class="mf">1.12</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">]</span>
+    <span class="p">})</span>
+    <span class="n">display</span><span class="p">(</span><span class="n">df_ipc</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Descargando IPC desde datos.gob.ar...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Error al descargar el CSV: HTTP Error 403: Forbidden
+
+Usando datos de ejemplo para continuar con la clase...
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>indice_tiempo</th>
+      <th>nivel_general</th>
+      <th>alimentos_y_bebidas_no_alcoholicas</th>
+      <th>indumentaria</th>
+      <th>vivienda_agua_electricidad_gas</th>
+      <th>transporte</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2017-01-01</td>
+      <td>100.00</td>
+      <td>95.635584</td>
+      <td>93.730370</td>
+      <td>98.161564</td>
+      <td>88.977491</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2017-02-01</td>
+      <td>104.25</td>
+      <td>102.279491</td>
+      <td>94.675162</td>
+      <td>110.106960</td>
+      <td>113.143624</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2017-03-01</td>
+      <td>112.28</td>
+      <td>110.317158</td>
+      <td>114.321092</td>
+      <td>108.991040</td>
+      <td>117.768009</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2017-04-01</td>
+      <td>119.46</td>
+      <td>122.202875</td>
+      <td>123.702368</td>
+      <td>113.142817</td>
+      <td>118.719553</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2017-05-01</td>
+      <td>126.14</td>
+      <td>127.875150</td>
+      <td>113.944478</td>
+      <td>127.286386</td>
+      <td>113.964992</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Exploración del DataFrame del IPC</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== Estructura del dataset IPC ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Forma: </span><span class="si">{</span><span class="n">df_ipc</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Tipos de datos:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df_ipc</span><span class="o">.</span><span class="n">dtypes</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Estadísticas descriptivas (primeras 5 columnas numéricas):&quot;</span><span class="p">)</span>
+<span class="n">cols_num</span> <span class="o">=</span> <span class="n">df_ipc</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">&#39;number&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_ipc</span><span class="p">[</span><span class="n">cols_num</span><span class="p">]</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Estructura del dataset IPC ===
+Forma: (84, 6)
+
+Tipos de datos:
+indice_tiempo                          object
+nivel_general                         float64
+alimentos_y_bebidas_no_alcoholicas    float64
+indumentaria                          float64
+vivienda_agua_electricidad_gas        float64
+transporte                            float64
+dtype: object
+
+Estadísticas descriptivas (primeras 5 columnas numéricas):
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>nivel_general</th>
+      <th>alimentos_y_bebidas_no_alcoholicas</th>
+      <th>indumentaria</th>
+      <th>vivienda_agua_electricidad_gas</th>
+      <th>transporte</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>84.00</td>
+      <td>84.00</td>
+      <td>84.00</td>
+      <td>84.00</td>
+      <td>84.00</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>1240.37</td>
+      <td>1238.88</td>
+      <td>1255.96</td>
+      <td>1229.22</td>
+      <td>1253.96</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>1292.07</td>
+      <td>1292.44</td>
+      <td>1330.72</td>
+      <td>1265.24</td>
+      <td>1311.74</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>100.00</td>
+      <td>95.64</td>
+      <td>93.73</td>
+      <td>98.16</td>
+      <td>88.98</td>
+    </tr>
+    <tr>
+      <th>25%</th>
+      <td>262.78</td>
+      <td>263.34</td>
+      <td>259.41</td>
+      <td>277.63</td>
+      <td>254.52</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>666.88</td>
+      <td>655.54</td>
+      <td>645.42</td>
+      <td>662.13</td>
+      <td>655.23</td>
+    </tr>
+    <tr>
+      <th>75%</th>
+      <td>1821.44</td>
+      <td>1764.50</td>
+      <td>1896.10</td>
+      <td>1946.56</td>
+      <td>1872.20</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>4936.64</td>
+      <td>4906.62</td>
+      <td>5082.62</td>
+      <td>4578.04</td>
+      <td>5141.04</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Preprocesamiento: convertir la columna de fecha y seleccionar categorías clave</span>
+<span class="n">df_ipc_proc</span> <span class="o">=</span> <span class="n">df_ipc</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+<span class="c1"># Identificar la columna de fecha (generalmente la primera)</span>
+<span class="n">col_fecha</span> <span class="o">=</span> <span class="n">df_ipc_proc</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">df_ipc_proc</span><span class="p">[</span><span class="n">col_fecha</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df_ipc_proc</span><span class="p">[</span><span class="n">col_fecha</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span>
+<span class="n">df_ipc_proc</span> <span class="o">=</span> <span class="n">df_ipc_proc</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">subset</span><span class="o">=</span><span class="p">[</span><span class="n">col_fecha</span><span class="p">])</span>
+<span class="n">df_ipc_proc</span> <span class="o">=</span> <span class="n">df_ipc_proc</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">col_fecha</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Rango temporal: </span><span class="si">{</span><span class="n">df_ipc_proc</span><span class="p">[</span><span class="n">col_fecha</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%b %Y&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2"> → &quot;</span>
+      <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">df_ipc_proc</span><span class="p">[</span><span class="n">col_fecha</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%b %Y&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Seleccionar columnas de interés (nivel general + algunas categorías)</span>
+<span class="c1"># Buscar columnas que contengan palabras clave</span>
+<span class="n">cols_disponibles</span> <span class="o">=</span> <span class="n">df_ipc_proc</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s1">&#39;number&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Columnas numéricas disponibles (</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">cols_disponibles</span><span class="p">)</span><span class="si">}</span><span class="s2">):&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols_disponibles</span><span class="p">[:</span><span class="mi">10</span><span class="p">]:</span>  <span class="c1"># Mostrar solo las primeras 10</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  - </span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="c1"># Seleccionar hasta 5 columnas para graficar</span>
+<span class="n">cols_grafico</span> <span class="o">=</span> <span class="n">cols_disponibles</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Columnas seleccionadas para visualización: </span><span class="si">{</span><span class="n">cols_grafico</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Rango temporal: Jan 2017 → Dec 2023
+
+Columnas numéricas disponibles (5):
+  - nivel_general
+  - alimentos_y_bebidas_no_alcoholicas
+  - indumentaria
+  - vivienda_agua_electricidad_gas
+  - transporte
+
+Columnas seleccionadas para visualización: [&#39;nivel_general&#39;, &#39;alimentos_y_bebidas_no_alcoholicas&#39;, &#39;indumentaria&#39;, &#39;vivienda_agua_electricidad_gas&#39;, &#39;transporte&#39;]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Visualización: evolución del IPC por categorías</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.cm</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">cm</span>
+
+<span class="n">colores_lineas</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;#1a6baf&quot;</span><span class="p">,</span> <span class="s2">&quot;#e84040&quot;</span><span class="p">,</span> <span class="s2">&quot;#40a840&quot;</span><span class="p">,</span> <span class="s2">&quot;#e8a020&quot;</span><span class="p">,</span> <span class="s2">&quot;#a040a8&quot;</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">14</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cols_grafico</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df_ipc_proc</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">serie</span> <span class="o">=</span> <span class="n">df_ipc_proc</span><span class="p">[[</span><span class="n">col_fecha</span><span class="p">,</span> <span class="n">col</span><span class="p">]]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="n">col</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()[:</span><span class="mi">40</span><span class="p">]</span>
+        <span class="n">lw</span> <span class="o">=</span> <span class="mf">2.5</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="mf">1.5</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">serie</span><span class="p">[</span><span class="n">col_fecha</span><span class="p">],</span> <span class="n">serie</span><span class="p">[</span><span class="n">col</span><span class="p">],</span>
+                <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colores_lineas</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                <span class="n">linewidth</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.85</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Fecha&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Índice (base Dic-2016 = 100)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Índice de Precios al Consumidor por Categorías — Argentina</span><span class="se">\n</span><span class="s2">&quot;</span>
+             <span class="s2">&quot;(Base diciembre 2016 = 100 | Fuente: SSPM / datos.gob.ar, loc=&#39;left&#39;)&quot;</span><span class="p">,</span>
+             <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">pad</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.02</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s2">&quot;upper left&quot;</span><span class="p">,</span> <span class="n">frameon</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">9</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">rotation</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Calcular variación acumulada</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">=== Variación acumulada desde inicio del período ===&quot;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">cols_grafico</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df_ipc_proc</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+        <span class="n">serie_val</span> <span class="o">=</span> <span class="n">df_ipc_proc</span><span class="p">[</span><span class="n">col</span><span class="p">]</span><span class="o">.</span><span class="n">dropna</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">serie_val</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">var_acum</span> <span class="o">=</span> <span class="p">(</span><span class="n">serie_val</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">serie_val</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">col</span><span class="p">[:</span><span class="mi">50</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">var_acum</span><span class="si">:</span><span class="s2">+,.0f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/94233481d1c367992ab7e67a866be09ebc4a08ced9da8478afd28b83c21f22eb.png" src="_images/94233481d1c367992ab7e67a866be09ebc4a08ced9da8478afd28b83c21f22eb.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Variación acumulada desde inicio del período ===
+  nivel_general: +4,837%
+  alimentos_y_bebidas_no_alcoholicas: +4,969%
+  indumentaria: +4,950%
+  vivienda_agua_electricidad_gas: +4,564%
+  transporte: +5,678%
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section class="tex2jax_ignore mathjax_ignore" id="parte-3-extraccion-de-datos-desde-pdf-con-pdfplumber">
+<h1>Parte 3: Extracción de datos desde PDF con pdfplumber<a class="headerlink" href="#parte-3-extraccion-de-datos-desde-pdf-con-pdfplumber" title="Link to this heading">#</a></h1>
+<section id="por-que-pdfs-en-politica-publica">
+<h2>¿Por qué PDFs en política pública?<a class="headerlink" href="#por-que-pdfs-en-politica-publica" title="Link to this heading">#</a></h2>
+<p>Una enorme cantidad de información oficial en Argentina llega en formato PDF:</p>
+<ul class="simple">
+<li><p>Proyectos de Ley de Presupuesto (MEFP)</p></li>
+<li><p>Informes de gestión de organismos públicos</p></li>
+<li><p>Memorias anuales del BCRA, INDEC, etc.</p></li>
+<li><p>Resoluciones ministeriales y decretos</p></li>
+</ul>
+<p>Para automatizar el procesamiento de esta información, <code class="docutils literal notranslate"><span class="pre">pdfplumber</span></code> es la biblioteca más conveniente en Python.</p>
+</section>
+<section id="la-biblioteca-pdfplumber">
+<h2>La biblioteca <code class="docutils literal notranslate"><span class="pre">pdfplumber</span></code><a class="headerlink" href="#la-biblioteca-pdfplumber" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">pdfplumber</span></code> se especializa en extraer texto <strong>con información de posición</strong> y <strong>tablas</strong> de PDFs. Es más poderosa que <code class="docutils literal notranslate"><span class="pre">PyPDF2</span></code> para PDFs con tablas numéricas.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">pdfplumber</span>
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Verificar si pdfplumber está instalado</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">pdfplumber</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;pdfplumber instalado — versión: </span><span class="si">{</span><span class="n">pdfplumber</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">PDFPLUMBER_DISPONIBLE</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;pdfplumber no está instalado.&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Para instalarlo: pip install pdfplumber&quot;</span><span class="p">)</span>
+    <span class="n">PDFPLUMBER_DISPONIBLE</span> <span class="o">=</span> <span class="kc">False</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>pdfplumber instalado — versión: 0.11.9
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="estructura-basica-de-uso">
+<h2>3.1 Estructura básica de uso<a class="headerlink" href="#estructura-basica-de-uso" title="Link to this heading">#</a></h2>
+<p>La API de <code class="docutils literal notranslate"><span class="pre">pdfplumber</span></code> sigue un patrón de context manager:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Patrón básico de uso de pdfplumber</span>
+<span class="c1"># (este bloque es demostrativo — necesita un archivo .pdf real)</span>
+
+<span class="n">CODIGO_BASICO</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">import pdfplumber</span>
+
+<span class="s1"># Abrir el PDF</span>
+<span class="s1">with pdfplumber.open(&quot;presupuesto.pdf&quot;) as pdf:</span>
+
+<span class="s1">    # Información general del documento</span>
+<span class="s1">    print(f&quot;Páginas: {len(pdf.pages)}&quot;)</span>
+<span class="s1">    print(f&quot;Metadatos: </span><span class="si">{pdf.metadata}</span><span class="s1">&quot;)</span>
+
+<span class="s1">    # Extraer texto de la primera página</span>
+<span class="s1">    page = pdf.pages[0]</span>
+<span class="s1">    text = page.extract_text()</span>
+<span class="s1">    print(text[:500])  # Primeros 500 caracteres</span>
+
+<span class="s1">    # Extraer tablas de la primera página</span>
+<span class="s1">    tables = page.extract_tables()</span>
+<span class="s1">    print(f&quot;Tablas encontradas: {len(tables)}&quot;)</span>
+
+<span class="s1">    if tables:</span>
+<span class="s1">        # La primera tabla como DataFrame</span>
+<span class="s1">        df = pd.DataFrame(tables[0][1:], columns=tables[0][0])</span>
+<span class="s1">        print(df.head())</span>
+<span class="s1">&#39;&#39;&#39;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Código básico de pdfplumber:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=&quot;</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">CODIGO_BASICO</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Código básico de pdfplumber:
+============================================================
+
+import pdfplumber
+
+# Abrir el PDF
+with pdfplumber.open(&quot;presupuesto.pdf&quot;) as pdf:
+
+    # Información general del documento
+    print(f&quot;Páginas: {len(pdf.pages)}&quot;)
+    print(f&quot;Metadatos: {pdf.metadata}&quot;)
+
+    # Extraer texto de la primera página
+    page = pdf.pages[0]
+    text = page.extract_text()
+    print(text[:500])  # Primeros 500 caracteres
+
+    # Extraer tablas de la primera página
+    tables = page.extract_tables()
+    print(f&quot;Tablas encontradas: {len(tables)}&quot;)
+
+    if tables:
+        # La primera tabla como DataFrame
+        df = pd.DataFrame(tables[0][1:], columns=tables[0][0])
+        print(df.head())
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="caso-de-uso-real-presupuesto-del-mefp">
+<h2>3.2 Caso de uso real: presupuesto del MEFP<a class="headerlink" href="#caso-de-uso-real-presupuesto-del-mefp" title="Link to this heading">#</a></h2>
+<p>El Ministerio de Economía publica anualmente el proyecto de Ley de Presupuesto en PDF. Usualmente contiene tablas con créditos por jurisdicción, objeto del gasto y fuente de financiamiento.</p>
+<p>El flujo de trabajo típico es:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>PDF del MEFP → pdfplumber → lista de tablas → DataFrame → análisis
+</pre></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Función para extraer todas las tablas de un PDF a DataFrames</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">extraer_tablas_pdf</span><span class="p">(</span><span class="n">ruta_pdf</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">paginas</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extrae todas las tablas de un PDF y las devuelve como lista de DataFrames.</span>
+<span class="sd">    </span>
+<span class="sd">    Parámetros</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ruta_pdf : str</span>
+<span class="sd">        Ruta al archivo PDF</span>
+<span class="sd">    paginas : list, opcional</span>
+<span class="sd">        Lista de índices de páginas a procesar (0-indexado).</span>
+<span class="sd">        Si es None, procesa todas las páginas.</span>
+<span class="sd">    </span>
+<span class="sd">    Retorna</span>
+<span class="sd">    -------</span>
+<span class="sd">    list of pd.DataFrame</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">PDFPLUMBER_DISPONIBLE</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Error: pdfplumber no está instalado.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">pdfplumber</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">[]</span>
+    
+    <span class="n">resultados</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">pdfplumber</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">ruta_pdf</span><span class="p">)</span> <span class="k">as</span> <span class="n">pdf</span><span class="p">:</span>
+            <span class="n">total_paginas</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pdf</span><span class="o">.</span><span class="n">pages</span><span class="p">)</span>
+            <span class="n">indices</span> <span class="o">=</span> <span class="n">paginas</span> <span class="k">if</span> <span class="n">paginas</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">range</span><span class="p">(</span><span class="n">total_paginas</span><span class="p">)</span>
+            
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;PDF: </span><span class="si">{</span><span class="n">ruta_pdf</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total de páginas: </span><span class="si">{</span><span class="n">total_paginas</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="n">total_paginas</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">page</span> <span class="o">=</span> <span class="n">pdf</span><span class="o">.</span><span class="n">pages</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">tables</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">extract_tables</span><span class="p">()</span>
+                
+                <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">table</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">tables</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">table</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">table</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                        <span class="k">continue</span>
+                    <span class="c1"># Primera fila como encabezado</span>
+                    <span class="n">headers</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">h</span><span class="p">)</span> <span class="k">if</span> <span class="n">h</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;col_</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s2">&quot;</span>
+                               <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">h</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="mi">0</span><span class="p">])]</span>
+                    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">table</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">columns</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+                    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;_pagina&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+                    <span class="n">df</span><span class="p">[</span><span class="s2">&quot;_tabla&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">j</span> <span class="o">+</span> <span class="mi">1</span>
+                    <span class="n">resultados</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Página </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">, Tabla </span><span class="si">{</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> filas × </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">2</span><span class="si">}</span><span class="s2"> columnas&quot;</span><span class="p">)</span>
+    
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: No se encontró el archivo &#39;</span><span class="si">{</span><span class="n">ruta_pdf</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error al procesar el PDF: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">resultados</span>
+
+
+<span class="c1"># Función para extraer texto de un PDF</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">extraer_texto_pdf</span><span class="p">(</span><span class="n">ruta_pdf</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">paginas</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extrae todo el texto de un PDF (útil para búsqueda de palabras clave).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">PDFPLUMBER_DISPONIBLE</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">import</span><span class="w"> </span><span class="nn">pdfplumber</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+    
+    <span class="n">texto_total</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">pdfplumber</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">ruta_pdf</span><span class="p">)</span> <span class="k">as</span> <span class="n">pdf</span><span class="p">:</span>
+            <span class="n">indices</span> <span class="o">=</span> <span class="n">paginas</span> <span class="k">if</span> <span class="n">paginas</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">pdf</span><span class="o">.</span><span class="n">pages</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pdf</span><span class="o">.</span><span class="n">pages</span><span class="p">):</span>
+                    <span class="k">continue</span>
+                <span class="n">texto</span> <span class="o">=</span> <span class="n">pdf</span><span class="o">.</span><span class="n">pages</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">extract_text</span><span class="p">()</span>
+                <span class="k">if</span> <span class="n">texto</span><span class="p">:</span>
+                    <span class="n">texto_total</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;--- Página </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2"> ---</span><span class="se">\n</span><span class="si">{</span><span class="n">texto</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="s2">&quot;</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">texto_total</span><span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Funciones de extracción PDF definidas.&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Ejemplo de uso:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  tablas = extraer_tablas_pdf(&#39;presupuesto_2024.pdf&#39;, paginas=[0, 1, 2])&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  texto  = extraer_texto_pdf(&#39;informe_mefp.pdf&#39;, paginas=[0])&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Funciones de extracción PDF definidas.
+
+Ejemplo de uso:
+  tablas = extraer_tablas_pdf(&#39;presupuesto_2024.pdf&#39;, paginas=[0, 1, 2])
+  texto  = extraer_texto_pdf(&#39;informe_mefp.pdf&#39;, paginas=[0])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="flujo-de-trabajo-de-pdf-a-analisis">
+<h2>3.3 Flujo de trabajo: de PDF a análisis<a class="headerlink" href="#flujo-de-trabajo-de-pdf-a-analisis" title="Link to this heading">#</a></h2>
+<p>Cuando recibís un PDF con datos presupuestarios, el flujo completo es:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Demostración del flujo completo (con datos sintéticos que simulan</span>
+<span class="c1"># lo que obtendríamos de un PDF de presupuesto del MEFP)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;=== Simulación: datos extraídos de un PDF de presupuesto ===&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">()</span>
+
+<span class="c1"># Estos datos simulan la Tabla 5 del Proyecto de Ley de Presupuesto</span>
+<span class="c1"># (Crédito por Jurisdicción - Administración Central)</span>
+<span class="n">datos_presupuesto_simulado</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;Jurisdicción&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;Presidencia de la Nación&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Jefatura de Gabinete&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Ministerio de Economía&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Ministerio de Salud&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Ministerio de Educación&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Ministerio de Defensa&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Ministerio de Seguridad&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Ministerio de Justicia&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Ministerio de Obras Públicas&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Ministerio de Desarrollo Social&quot;</span>
+    <span class="p">],</span>
+    <span class="s2">&quot;Crédito_Vigente_MM&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">45230</span><span class="p">,</span> <span class="mi">128450</span><span class="p">,</span> <span class="mi">2345670</span><span class="p">,</span> <span class="mi">567890</span><span class="p">,</span> <span class="mi">980234</span><span class="p">,</span>
+                            <span class="mi">234560</span><span class="p">,</span> <span class="mi">456780</span><span class="p">,</span> <span class="mi">123450</span><span class="p">,</span> <span class="mi">789012</span><span class="p">,</span> <span class="mi">678901</span><span class="p">],</span>
+    <span class="s2">&quot;Devengado_MM&quot;</span><span class="p">:</span>       <span class="p">[</span><span class="mi">44120</span><span class="p">,</span> <span class="mi">125340</span><span class="p">,</span> <span class="mi">2290450</span><span class="p">,</span> <span class="mi">556780</span><span class="p">,</span> <span class="mi">971230</span><span class="p">,</span>
+                            <span class="mi">229870</span><span class="p">,</span> <span class="mi">448920</span><span class="p">,</span> <span class="mi">120340</span><span class="p">,</span> <span class="mi">756780</span><span class="p">,</span> <span class="mi">665430</span><span class="p">],</span>
+    <span class="s2">&quot;Pagado_MM&quot;</span><span class="p">:</span>          <span class="p">[</span><span class="mi">43890</span><span class="p">,</span> <span class="mi">124560</span><span class="p">,</span> <span class="mi">2280340</span><span class="p">,</span> <span class="mi">548920</span><span class="p">,</span> <span class="mi">965670</span><span class="p">,</span>
+                            <span class="mi">226780</span><span class="p">,</span> <span class="mi">445670</span><span class="p">,</span> <span class="mi">119230</span><span class="p">,</span> <span class="mi">745670</span><span class="p">,</span> <span class="mi">659870</span><span class="p">]</span>
+<span class="p">}</span>
+
+<span class="n">df_presupuesto</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">datos_presupuesto_simulado</span><span class="p">)</span>
+
+<span class="c1"># Calcular % de ejecución</span>
+<span class="n">df_presupuesto</span><span class="p">[</span><span class="s2">&quot;Ejecucion_pct&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">df_presupuesto</span><span class="p">[</span><span class="s2">&quot;Devengado_MM&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="n">df_presupuesto</span><span class="p">[</span><span class="s2">&quot;Crédito_Vigente_MM&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span>
+<span class="p">)</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">df_presupuesto</span> <span class="o">=</span> <span class="n">df_presupuesto</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;Crédito_Vigente_MM&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Tabla de presupuesto procesada:&quot;</span><span class="p">)</span>
+<span class="n">display</span><span class="p">(</span><span class="n">df_presupuesto</span><span class="p">)</span>
+
+<span class="c1"># Visualización</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+
+<span class="c1"># Panel izquierdo: crédito vigente</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">df_plot</span> <span class="o">=</span> <span class="n">df_presupuesto</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;Crédito_Vigente_MM&quot;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">df_plot</span><span class="p">[</span><span class="s2">&quot;Jurisdicción&quot;</span><span class="p">],</span> <span class="n">df_plot</span><span class="p">[</span><span class="s2">&quot;Crédito_Vigente_MM&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="mi">1000</span><span class="p">,</span>
+         <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#1a6baf&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;Miles de millones de $&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Crédito Vigente por Jurisdicción&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+
+<span class="c1"># Panel derecho: % de ejecución</span>
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">df_plot2</span> <span class="o">=</span> <span class="n">df_presupuesto</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;Ejecucion_pct&quot;</span><span class="p">)</span>
+<span class="n">colores_ejec</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;#1a6baf&quot;</span> <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;=</span> <span class="mi">95</span> <span class="k">else</span> <span class="s2">&quot;#e8a020&quot;</span> <span class="k">if</span> <span class="n">v</span> <span class="o">&gt;=</span> <span class="mi">90</span> <span class="k">else</span> <span class="s2">&quot;#e84040&quot;</span>
+                <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">df_plot2</span><span class="p">[</span><span class="s2">&quot;Ejecucion_pct&quot;</span><span class="p">]]</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">barh</span><span class="p">(</span><span class="n">df_plot2</span><span class="p">[</span><span class="s2">&quot;Jurisdicción&quot;</span><span class="p">],</span> <span class="n">df_plot2</span><span class="p">[</span><span class="s2">&quot;Ejecucion_pct&quot;</span><span class="p">],</span>
+         <span class="n">color</span><span class="o">=</span><span class="n">colores_ejec</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.85</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">95</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;#1a6baf&quot;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">% E</span><span class="s2">jecución (Devengado/Crédito)&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">11</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">% d</span><span class="s2">e Ejecución Presupuestaria&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">105</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">suptitle</span><span class="p">(</span><span class="s2">&quot;Análisis Presupuestario — Administración Central</span><span class="se">\n</span><span class="s2">&quot;</span>
+             <span class="s2">&quot;(Datos simulados con estructura del MEFP)&quot;</span><span class="p">,</span>
+             <span class="n">fontsize</span><span class="o">=</span><span class="mi">13</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">1.02</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Nota: azul = ejecución ≥ 95% | naranja = 90–95% | rojo = &lt; 90%&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>=== Simulación: datos extraídos de un PDF de presupuesto ===
+
+Tabla de presupuesto procesada:
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Jurisdicción</th>
+      <th>Crédito_Vigente_MM</th>
+      <th>Devengado_MM</th>
+      <th>Pagado_MM</th>
+      <th>Ejecucion_pct</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2</th>
+      <td>Ministerio de Economía</td>
+      <td>2345670</td>
+      <td>2290450</td>
+      <td>2280340</td>
+      <td>97.6</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Ministerio de Educación</td>
+      <td>980234</td>
+      <td>971230</td>
+      <td>965670</td>
+      <td>99.1</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>Ministerio de Obras Públicas</td>
+      <td>789012</td>
+      <td>756780</td>
+      <td>745670</td>
+      <td>95.9</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>Ministerio de Desarrollo Social</td>
+      <td>678901</td>
+      <td>665430</td>
+      <td>659870</td>
+      <td>98.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Ministerio de Salud</td>
+      <td>567890</td>
+      <td>556780</td>
+      <td>548920</td>
+      <td>98.0</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>Ministerio de Seguridad</td>
+      <td>456780</td>
+      <td>448920</td>
+      <td>445670</td>
+      <td>98.3</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Ministerio de Defensa</td>
+      <td>234560</td>
+      <td>229870</td>
+      <td>226780</td>
+      <td>98.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Jefatura de Gabinete</td>
+      <td>128450</td>
+      <td>125340</td>
+      <td>124560</td>
+      <td>97.6</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>Ministerio de Justicia</td>
+      <td>123450</td>
+      <td>120340</td>
+      <td>119230</td>
+      <td>97.5</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>Presidencia de la Nación</td>
+      <td>45230</td>
+      <td>44120</td>
+      <td>43890</td>
+      <td>97.5</td>
+    </tr>
+  </tbody>
+</table>
+</div></div><img alt="_images/220a8c25ac223cd771e6da72df4dcb9197f362a9693a9f1e6d5755122857498a.png" src="_images/220a8c25ac223cd771e6da72df4dcb9197f362a9693a9f1e6d5755122857498a.png" />
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Nota: azul = ejecución ≥ 95% | naranja = 90–95% | rojo = &lt; 90%
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="consideraciones-tecnicas-para-pdfs-reales">
+<h2>3.4 Consideraciones técnicas para PDFs reales<a class="headerlink" href="#consideraciones-tecnicas-para-pdfs-reales" title="Link to this heading">#</a></h2>
+<p>Al trabajar con PDFs del sector público argentino, tener en cuenta:</p>
+<p><strong>PDFs nativos (texto seleccionable):</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">pdfplumber</span></code> funciona directamente</p></li>
+<li><p>La extracción de tablas es automática pero puede requerir ajustes de <code class="docutils literal notranslate"><span class="pre">table_settings</span></code></p></li>
+</ul>
+<p><strong>PDFs escaneados (imágenes):</strong></p>
+<ul class="simple">
+<li><p>Requieren OCR (Optical Character Recognition)</p></li>
+<li><p>Biblioteca recomendada: <code class="docutils literal notranslate"><span class="pre">pytesseract</span></code> + <code class="docutils literal notranslate"><span class="pre">pdf2image</span></code></p></li>
+<li><p>Instalación: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">pytesseract</span> <span class="pre">pdf2image</span></code> + instalar Tesseract OCR</p></li>
+</ul>
+<p><strong>Ejemplo con OCR:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pytesseract</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pdf2image</span><span class="w"> </span><span class="kn">import</span> <span class="n">convert_from_path</span>
+
+<span class="c1"># Convertir PDF a imágenes</span>
+<span class="n">images</span> <span class="o">=</span> <span class="n">convert_from_path</span><span class="p">(</span><span class="s2">&quot;resolución_escaneada.pdf&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+
+<span class="c1"># Aplicar OCR a cada imagen</span>
+<span class="n">texto_completo</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">img</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">images</span><span class="p">):</span>
+    <span class="n">texto</span> <span class="o">=</span> <span class="n">pytesseract</span><span class="o">.</span><span class="n">image_to_string</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">lang</span><span class="o">=</span><span class="s2">&quot;spa&quot;</span><span class="p">)</span>
+    <span class="n">texto_completo</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">texto</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Página </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">texto</span><span class="p">)</span><span class="si">}</span><span class="s2"> caracteres extraídos&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Parámetros avanzados de extracción de tablas en pdfplumber:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">table_settings</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;vertical_strategy&quot;</span><span class="p">:</span> <span class="s2">&quot;lines&quot;</span><span class="p">,</span>    <span class="c1"># o &#39;text&#39;, &#39;explicit&#39;</span>
+    <span class="s2">&quot;horizontal_strategy&quot;</span><span class="p">:</span> <span class="s2">&quot;lines&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;snap_tolerance&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>             <span class="c1"># Tolerancia para alinear líneas</span>
+    <span class="s2">&quot;join_tolerance&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+    <span class="s2">&quot;edge_min_length&quot;</span><span class="p">:</span> <span class="mi">3</span>
+<span class="p">}</span>
+<span class="n">tables</span> <span class="o">=</span> <span class="n">page</span><span class="o">.</span><span class="n">extract_tables</span><span class="p">(</span><span class="n">table_settings</span><span class="o">=</span><span class="n">table_settings</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="resumen-que-tecnica-usar-segun-la-fuente">
+<h2>Resumen: ¿Qué técnica usar según la fuente?<a class="headerlink" href="#resumen-que-tecnica-usar-segun-la-fuente" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head"><p>Fuente de datos</p></th>
+<th class="head"><p>Técnica recomendada</p></th>
+<th class="head"><p>Biblioteca</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>API REST con JSON</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">requests</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">requests</span></code>, <code class="docutils literal notranslate"><span class="pre">pandas</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>CSV/Excel en URL pública</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pd.read_csv(url)</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pandas</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>Tabla HTML en web</p></td>
+<td><p>Scraping con parser HTML</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">requests</span></code>, <code class="docutils literal notranslate"><span class="pre">BeautifulSoup</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>PDF nativo (texto seleccionable)</p></td>
+<td><p>Extracción directa</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pdfplumber</span></code></p></td>
+</tr>
+<tr class="row-even"><td><p>PDF escaneado (imagen)</p></td>
+<td><p>OCR</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">pytesseract</span></code>, <code class="docutils literal notranslate"><span class="pre">pdf2image</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<div><p><strong>Principio general:</strong> siempre preferir la fuente más estructurada disponible. Si hay una API, usarla. Si hay un CSV, descargarlo directamente. El scraping de HTML y el procesamiento de PDFs son el último recurso.</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="ejercicios">
+<h2>Ejercicios<a class="headerlink" href="#ejercicios" title="Link to this heading">#</a></h2>
+<section id="ejercicio-1-ampliar-el-scraping-a-otras-tablas-de-wikipedia">
+<h3>Ejercicio 1 — Ampliar el scraping a otras tablas de Wikipedia<a class="headerlink" href="#ejercicio-1-ampliar-el-scraping-a-otras-tablas-de-wikipedia" title="Link to this heading">#</a></h3>
+<p>La página de Wikipedia sobre <a class="reference external" href="https://es.wikipedia.org/wiki/Provincias_de_Argentina">Provincias de Argentina</a> contiene una tabla con información de todas las provincias (superficie, población, capital, etc.).</p>
+<p>a) Scrapea esa tabla usando el mismo enfoque de la Parte 1<br />
+b) Convertí las columnas de superficie y población a numéricas<br />
+c) Calculá la <strong>densidad poblacional</strong> (habitantes/km²) para cada provincia<br />
+d) Graficá un scatter de superficie vs. densidad poblacional, con etiquetas para las 5 provincias más densas</p>
+<p><strong>Pista:</strong> La URL es <code class="docutils literal notranslate"><span class="pre">https://es.wikipedia.org/wiki/Provincias_de_Argentina</span></code></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Tu código aquí</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicio-2-analisis-del-ipc-por-categorias">
+<h3>Ejercicio 2 — Análisis del IPC por categorías<a class="headerlink" href="#ejercicio-2-analisis-del-ipc-por-categorias" title="Link to this heading">#</a></h3>
+<p>Con los datos del IPC de <a class="reference external" href="http://datos.gob.ar">datos.gob.ar</a> ya descargados:</p>
+<p>a) Calculá la <strong>variación interanual</strong> (YoY) para todas las categorías disponibles<br />
+b) Identificá los <strong>3 meses con mayor inflación</strong> en el período y las categorías que más contribuyeron<br />
+c) Graficá la variación interanual del nivel general y de alimentos (si está disponible) en el mismo gráfico<br />
+d) ¿En qué períodos la inflación de alimentos superó al nivel general? ¿Qué implicancias de bienestar tiene esto?</p>
+<p><strong>Pista:</strong> La variación interanual es <code class="docutils literal notranslate"><span class="pre">(valor_mes_t</span> <span class="pre">/</span> <span class="pre">valor_mes_t-12</span> <span class="pre">-</span> <span class="pre">1)</span> <span class="pre">*</span> <span class="pre">100</span></code>. Usá <code class="docutils literal notranslate"><span class="pre">.pct_change(12)</span> <span class="pre">*</span> <span class="pre">100</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Tu código aquí</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="ejercicio-3-automatizacion-del-pipeline-de-datos">
+<h3>Ejercicio 3 — Automatización del pipeline de datos<a class="headerlink" href="#ejercicio-3-automatizacion-del-pipeline-de-datos" title="Link to this heading">#</a></h3>
+<p>Construí una función <code class="docutils literal notranslate"><span class="pre">obtener_datos_provincia(provincia:</span> <span class="pre">str)</span> <span class="pre">-&gt;</span> <span class="pre">dict</span></code> que:</p>
+<p>a) Use los datos de la Parte 1 (PBG provincial de Wikipedia) para buscar la provincia<br />
+b) Use la API del Banco Mundial (de la Clase 3) para obtener el PIB per cápita nacional de Argentina para el mismo año<br />
+c) Retorne un diccionario con:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">nombre</span></code>: nombre de la provincia</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pbg_valor</span></code>: valor del PBG provincial (si está disponible)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pbg_pct_pib</span></code>: porcentaje del PBI nacional (si está disponible)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fuente_scraping</span></code>: URL usada para el scraping</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">fuente_api</span></code>: URL de la API del Banco Mundial usada</p></li>
+</ul>
+<p>d) Probá la función con al menos 3 provincias<br />
+e) Reflexioná: ¿Qué desafíos encontraste para combinar datos de distintas fuentes?</p>
+<p><strong>Pista:</strong> Prestá atención a la consistencia de los nombres («Buenos Aires» vs. «Province of Buenos Aires») cuando combinás fuentes.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Tu código aquí</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="M02_C03_Comparacion_LATAM_WorldBank.html"
+       title="página anterior">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">anterior</p>
+        <p class="prev-next-title">Módulo 2 — Clase 3: Comparación regional con la API del Banco Mundial</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="M02_C05_ML_Targeting_Social.html"
+       title="siguiente página">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">siguiente</p>
+        <p class="prev-next-title">Módulo 2 — Clase 5: Machine Learning para targeting de programas sociales</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contenido
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Módulo 2 — Clase 4: Web scraping y procesamiento de datos no estructurados</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#objetivos-de-la-clase">Objetivos de la clase</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-scraping-y-datos-no-estructurados">¿Por qué scraping y datos no estructurados?</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#parte-1-web-scraping-con-beautifulsoup">Parte 1: Web scraping con BeautifulSoup</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-flujo-basico-del-scraping">El flujo básico del scraping</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conceptos-clave-de-beautifulsoup">1.1 Conceptos clave de BeautifulSoup</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#parte-2-datos-del-portal-datos-gob-ar">Parte 2: Datos del Portal datos.gob.ar</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#el-portal-de-datos-abiertos-del-gobierno-argentino">El portal de datos abiertos del gobierno argentino</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#parte-3-extraccion-de-datos-desde-pdf-con-pdfplumber">Parte 3: Extracción de datos desde PDF con pdfplumber</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#por-que-pdfs-en-politica-publica">¿Por qué PDFs en política pública?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#la-biblioteca-pdfplumber">La biblioteca <code class="docutils literal notranslate"><span class="pre">pdfplumber</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#estructura-basica-de-uso">3.1 Estructura básica de uso</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#caso-de-uso-real-presupuesto-del-mefp">3.2 Caso de uso real: presupuesto del MEFP</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#flujo-de-trabajo-de-pdf-a-analisis">3.3 Flujo de trabajo: de PDF a análisis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#consideraciones-tecnicas-para-pdfs-reales">3.4 Consideraciones técnicas para PDFs reales</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#resumen-que-tecnica-usar-segun-la-fuente">Resumen: ¿Qué técnica usar según la fuente?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicios">Ejercicios</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-1-ampliar-el-scraping-a-otras-tablas-de-wikipedia">Ejercicio 1 — Ampliar el scraping a otras tablas de Wikipedia</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-2-analisis-del-ipc-por-categorias">Ejercicio 2 — Análisis del IPC por categorías</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#ejercicio-3-automatizacion-del-pipeline-de-datos">Ejercicio 3 — Automatización del pipeline de datos</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+Por Daniela Risaro
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2025.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
