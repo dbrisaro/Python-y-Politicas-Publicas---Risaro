@@ -1,0 +1,20 @@
+title: Python y Políticas Públicas
+author: Daniela Risaro
+copyright: "2025"
+
+execute:
+  execute_notebooks: "off"
+
+html:
+  use_issues_button: false
+  use_repository_button: true
+  home_page_in_navbar: false
+
+repository:
+  url: https://github.com/dbrisaro/Python-y-Politicas-Publicas---Risaro
+  branch: master
+
+sphinx:
+  config:
+    language: es
+    html_show_copyright: true
