@@ -1,0 +1,23 @@
+format: jb-book
+root: intro
+parts:
+  - caption: Módulo 1 — Fundamentos de Python
+    chapters:
+      - file: M01_C01_Introduccion
+      - file: M01_C02_Listas_Funciones_Numpy
+      - file: M01_C03_Matplotlib_Visualizacion
+      - file: M01_C04_Pandas_I
+      - file: M01_C05_Pandas_II
+      - file: M01_C06_Data_Cleansing
+      - file: M01_C07_Pandas_Matplotlib
+      - file: M01_C08_Estadistica_Aplicada
+      - file: M01_C09_Datos_Geoespaciales
+      - file: M01_C10_APIs_Datos_Abiertos_Proyecto
+  - caption: Módulo 2 — Datos reales para políticas públicas
+    chapters:
+      - file: M02_C01_Inflacion_Precios
+      - file: M02_C02_Mercado_Laboral_Pobreza
+      - file: M02_C03_Comparacion_LATAM_WorldBank
+      - file: M02_C04_Scraping_Datos_Abiertos
+      - file: M02_C05_ML_Targeting_Social
+      - file: M02_C06_Mapas_Interactivos_Folium
